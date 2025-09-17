@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://btjsp0rgdfor6"]
+
+[ext_resource type="Script" uid="uid://bncuc2imx11h1" path="res://Player/PlayerMovement.gd" id="1_mncer"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cguwc"]
+
+[node name="World" type="Node3D"]
+
+[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera_3d", "player_meshes")]
+script = ExtResource("1_mncer")
+camera_3d = NodePath("CameraMountOrbit/CameraMountPitch/Camera3D")
+player_meshes = NodePath("CSGCylinder3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CylinderShape3D_cguwc")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Player"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Player/CSGCylinder3D"]
+transform = Transform3D(0.325575, 0, 0, 0, 0.325575, 0, 0, 0, 0.325575, 0, 0, 1.84151)
+
+[node name="CameraMountOrbit" type="Node3D" parent="Player"]
+
+[node name="CameraMountPitch" type="Node3D" parent="Player/CameraMountOrbit"]
+
+[node name="Camera3D" type="Camera3D" parent="Player/CameraMountOrbit/CameraMountPitch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.3399)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, -0.00635052, -2.40234, 0.0220003)
+size = Vector3(1, 0.0949707, 1)
