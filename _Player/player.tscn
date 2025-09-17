@@ -1,19 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://cqp6c8u06cem0"]
+[gd_scene load_steps=3 format=3 uid="uid://bpgjkra8k7buf"]
 
-[ext_resource type="Script" uid="uid://bncuc2imx11h1" path="res://Player/PlayerMovement.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://bncuc2imx11h1" path="res://_Player/PlayerMovement.gd" id="1_4flbx"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_cguwc"]
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera_3d", "player_meshes")]
-axis_lock_angular_x = true
-axis_lock_angular_z = true
 script = ExtResource("1_4flbx")
 gravityMultiplyer = 3.0
 camera_3d = NodePath("CameraMountOrbit/CameraMountPitch/Camera3D")
 player_meshes = NodePath("CollisionShape3D/CSGCylinder3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0.000608315, -0.000799389, -0.000606397, 0.999997, 0.00241784, 0.000800845, -0.00241736, 0.999997, 0, 0, 0)
 shape = SubResource("CylinderShape3D_cguwc")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="CollisionShape3D"]
@@ -26,4 +23,5 @@ transform = Transform3D(0.325575, 0, 0, 0, 0.325575, 0, 0, 0, 0.325575, 0, 0, 1.
 [node name="CameraMountPitch" type="Node3D" parent="CameraMountOrbit"]
 
 [node name="Camera3D" type="Camera3D" parent="CameraMountOrbit/CameraMountPitch"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.3399)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.43346, 4.3399)
+fov = 90.0
