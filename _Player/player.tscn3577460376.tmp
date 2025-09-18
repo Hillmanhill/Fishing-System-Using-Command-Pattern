@@ -33,19 +33,19 @@ shape = SubResource("CylinderShape3D_cguwc")
 transform = Transform3D(0.325575, 0, 0, 0, 0.325575, 0, 0, 0, 0.325575, 0, 0, 1.18881)
 size = Vector3(1, 1, 1.91504)
 
-[node name="CastObject" type="RigidBody3D" parent="CollisionShape3D/Player Mesh"]
+[node name="Cast Object" type="RigidBody3D" parent="CollisionShape3D/Player Mesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.416584, 1.84151)
 freeze = true
 
-[node name="Area3D" type="Area3D" parent="CollisionShape3D/Player Mesh/CastObject"]
+[node name="Area3D" type="Area3D" parent="CollisionShape3D/Player Mesh/Cast Object"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionShape3D/Player Mesh/CastObject/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionShape3D/Player Mesh/Cast Object/Area3D"]
 shape = SubResource("BoxShape3D_6s7pk")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionShape3D/Player Mesh/CastObject"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionShape3D/Player Mesh/Cast Object"]
 shape = SubResource("CapsuleShape3D_lf471")
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="CollisionShape3D/Player Mesh/CastObject"]
+[node name="CSGSphere3D" type="CSGSphere3D" parent="CollisionShape3D/Player Mesh/Cast Object"]
 radius = 0.0866725
 material = SubResource("StandardMaterial3D_3i7y5")
 
@@ -61,7 +61,7 @@ fov = 90.0
 script = ExtResource("2_t8t7b")
 commandHandler = NodePath("Command Handler")
 Player = NodePath("..")
-CastObject = NodePath("../CollisionShape3D/Player Mesh/CastObject")
+CastObject = NodePath("../CollisionShape3D/Player Mesh/Cast Object")
 
 [node name="Inputs" type="Node" parent="Cast Reel Input Controller & Handler"]
 

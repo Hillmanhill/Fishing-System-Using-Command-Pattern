@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://btjsp0rgdfor6"]
+[gd_scene load_steps=8 format=3 uid="uid://btjsp0rgdfor6"]
 
 [ext_resource type="PackedScene" uid="uid://bpgjkra8k7buf" path="res://_Player/player.tscn" id="1_mncer"]
+[ext_resource type="Script" uid="uid://c3wwupjndh0my" path="res://Enemy Structure/_GenericFish.gd" id="2_cguwc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mncer"]
 
@@ -10,6 +11,11 @@ sky_material = SubResource("ProceduralSkyMaterial_mncer")
 [sub_resource type="Environment" id="Environment_wicfy"]
 background_mode = 2
 sky = SubResource("Sky_cguwc")
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_mncer"]
+bounce = 0.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_mncer"]
 
 [node name="World" type="Node3D"]
 
@@ -21,8 +27,24 @@ transform = Transform3D(1, 0, 0, 0, 0.380732, 0.924686, 0, -0.924686, 0.380732, 
 shadow_enabled = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, -0.00635052, -2.40234, 0.0220003)
+transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, -0.224943, -2.40234, 6.97011)
 use_collision = true
-size = Vector3(1, 0.0949707, 1)
+size = Vector3(1.98608, 0.0949707, 1.70618)
 
 [node name="Player" parent="." instance=ExtResource("1_mncer")]
+
+[node name="Fish" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.04906, -7.92347)
+mass = 0.1
+physics_material_override = SubResource("PhysicsMaterial_mncer")
+script = ExtResource("2_cguwc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Fish"]
+shape = SubResource("SphereShape3D_mncer")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Fish"]
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.771225, -0.636563, 0, 0.636563, 0.771225, 0, 0, -6.29526)
+use_collision = true
+size = Vector3(1, 1, 6.15527)
