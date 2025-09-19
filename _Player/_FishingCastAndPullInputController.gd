@@ -9,11 +9,19 @@ extends Node
 
 var isHooked : bool = false
 
-var castObjectLocation: Vector3
+@export var castObjectLocation: Node3D
+@export var player_mesh: Node3D
 
 func _ready() -> void: 
-	castObjectLocation  = CastObject.position
+	CastObject.position = castObjectLocation.global_position 
 
+func _physics_process(delta: float) -> void:
+	if isHooked:
+		pass
+	else:
+		print("Player Mesh: ", player_mesh.rotation)
+		CastObject.position = castObjectLocation.global_position
+	
 #casting system which throws an object 
 
 #collided cobject will be parented with bobber 

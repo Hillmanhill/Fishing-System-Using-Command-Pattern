@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://btjsp0rgdfor6"]
+[gd_scene load_steps=11 format=3 uid="uid://btjsp0rgdfor6"]
 
 [ext_resource type="PackedScene" uid="uid://bpgjkra8k7buf" path="res://_Player/player.tscn" id="1_mncer"]
 [ext_resource type="Script" uid="uid://c3wwupjndh0my" path="res://Enemy Structure/_GenericFish.gd" id="2_cguwc"]
@@ -11,6 +11,16 @@ sky_material = SubResource("ProceduralSkyMaterial_mncer")
 [sub_resource type="Environment" id="Environment_wicfy"]
 background_mode = 2
 sky = SubResource("Sky_cguwc")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7tcvf"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_exllb"]
+radius = 0.083904
+height = 0.327496
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lc3a7"]
+albedo_color = Color(0.660678, 0, 0.137327, 1)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_mncer"]
 bounce = 0.5
@@ -31,12 +41,27 @@ transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, -0.224943, 
 use_collision = true
 size = Vector3(1.98608, 0.0949707, 1.70618)
 
-[node name="Player" parent="." instance=ExtResource("1_mncer")]
+[node name="CastObject" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.416584, 1.84151)
+freeze = true
+
+[node name="Area3D" type="Area3D" parent="CastObject"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CastObject/Area3D"]
+shape = SubResource("BoxShape3D_7tcvf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CastObject"]
+shape = SubResource("CapsuleShape3D_exllb")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="CastObject"]
+radius = 0.0866725
+material = SubResource("StandardMaterial3D_lc3a7")
 
 [node name="Fish" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.04906, -7.92347)
 mass = 0.1
 physics_material_override = SubResource("PhysicsMaterial_mncer")
+angular_velocity = Vector3(0, 0.872665, 0)
 script = ExtResource("2_cguwc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Fish"]
@@ -48,3 +73,11 @@ shape = SubResource("SphereShape3D_mncer")
 transform = Transform3D(1, 0, 0, 0, 0.771225, -0.636563, 0, 0.636563, 0.771225, 0, 0, -6.29526)
 use_collision = true
 size = Vector3(1, 1, 6.15527)
+
+[node name="Player" parent="." instance=ExtResource("1_mncer")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00969911, -0.202249, 0.0482721)
+
+[node name="Cast Reel Input Controller & Handler" parent="Player" index="2" node_paths=PackedStringArray("CastObject")]
+CastObject = NodePath("../../CastObject")
+
+[editable path="Player"]
