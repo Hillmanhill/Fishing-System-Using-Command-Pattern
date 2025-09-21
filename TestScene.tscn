@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://btjsp0rgdfor6"]
+[gd_scene load_steps=12 format=3 uid="uid://btjsp0rgdfor6"]
 
 [ext_resource type="PackedScene" uid="uid://bpgjkra8k7buf" path="res://_Player/player.tscn" id="1_mncer"]
+[ext_resource type="Script" uid="uid://5n5io3d7goai" path="res://bobber.gd" id="1_wicfy"]
 [ext_resource type="Script" uid="uid://c3wwupjndh0my" path="res://Enemy Structure/_GenericFish.gd" id="2_cguwc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mncer"]
@@ -21,11 +22,13 @@ height = 0.327496
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lc3a7"]
 albedo_color = Color(0.660678, 0, 0.137327, 1)
+emission_enabled = true
+emission = Color(0.995996, 0.521206, 0.455814, 1)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_mncer"]
-bounce = 0.5
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_mncer"]
+radius = 1.32063
 
 [node name="World" type="Node3D"]
 
@@ -37,13 +40,58 @@ transform = Transform3D(1, 0, 0, 0, 0.380732, 0.924686, 0, -0.924686, 0.380732, 
 shadow_enabled = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, -0.224943, -2.40234, 6.97011)
+transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, -0.224943, -4.23155, -0.47345)
 use_collision = true
-size = Vector3(1.98608, 0.0949707, 1.70618)
+size = Vector3(1.98608, 0.280884, 0.949648)
 
-[node name="CastObject" type="RigidBody3D" parent="."]
+[node name="CSGBox3D9" type="CSGBox3D" parent="."]
+transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, 19.5863, -0.98369, 12.9272)
+use_collision = true
+size = Vector3(0.0477275, 0.469391, 2.31163)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="."]
+transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, -20.0388, -1.56016, 12.9272)
+use_collision = true
+size = Vector3(0.0477275, 0.349915, 2.31163)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="."]
+transform = Transform3D(-8.60157e-07, 0, -19.6781, 0, 19.6781, 0, 19.6781, 0, -8.60157e-07, -3.41901, -1.56016, -10.2254)
+use_collision = true
+size = Vector3(0.0477275, 0.349915, 2.31163)
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="."]
+transform = Transform3D(-8.60157e-07, 0, -19.6781, 0, 19.6781, 0, 19.6781, 0, -8.60157e-07, -3.41901, -0.657262, 36.11)
+use_collision = true
+size = Vector3(0.0477275, 0.441681, 2.31163)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, -0.224943, -6.22488, 22.2978)
+use_collision = true
+size = Vector3(1.98608, 0.0949707, 1.37021)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, -15.2177, -4.13546, 22.2374)
+use_collision = true
+size = Vector3(0.462278, 0.271118, 1.37814)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="."]
+transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, -3.48823, 2.7211, -14.6766)
+use_collision = true
+size = Vector3(2.31775, 0.0769653, 0.784516)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="."]
+transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, -21.8254, 2.59619, 17.6822)
+use_collision = true
+size = Vector3(0.462278, 0.0896606, 1.84112)
+
+[node name="CastObject" type="RigidBody3D" parent="." node_paths=PackedStringArray("castPullController")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.416584, 1.84151)
+mass = 5.0
 freeze = true
+contact_monitor = true
+max_contacts_reported = 2
+script = ExtResource("1_wicfy")
+castPullController = NodePath("../Player/Cast Reel Input Controller & Handler")
 
 [node name="Area3D" type="Area3D" parent="CastObject"]
 
@@ -58,26 +106,38 @@ radius = 0.0866725
 material = SubResource("StandardMaterial3D_lc3a7")
 
 [node name="Fish" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.04906, -7.92347)
-mass = 0.1
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 13.1665, 3.04906, 3.09037)
 physics_material_override = SubResource("PhysicsMaterial_mncer")
-angular_velocity = Vector3(0, 0.872665, 0)
 script = ExtResource("2_cguwc")
+metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Fish"]
 shape = SubResource("SphereShape3D_mncer")
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="Fish"]
+radius = 1.33171
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.771225, -0.636563, 0, 0.636563, 0.771225, 0, 0, -6.29526)
+transform = Transform3D(-4.37114e-08, -0.636563, -0.771225, 0, 0.771225, -0.636563, 1, -2.78251e-08, -3.37113e-08, 14.95, 0, 18.7542)
 use_collision = true
 size = Vector3(1, 1, 6.15527)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.771225, -0.636563, 0, 0.636563, 0.771225, 4.23656, -4.78855, 10.1227)
+use_collision = true
+size = Vector3(29.942, 3.52979, 6.15527)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0.636563, 0.771225, 0, 0.771225, -0.636563, -1, -2.78251e-08, -3.37113e-08, -9.90986, -5.40914, 6.9254)
+use_collision = true
+size = Vector3(19.1378, 5.13916, 6.15527)
 
 [node name="Player" parent="." instance=ExtResource("1_mncer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00969911, -0.202249, 0.0482721)
 
 [node name="Cast Reel Input Controller & Handler" parent="Player" index="2" node_paths=PackedStringArray("CastObject")]
 CastObject = NodePath("../../CastObject")
+
+[connection signal="body_shape_entered" from="CastObject" to="CastObject" method="_on_body_shape_entered"]
 
 [editable path="Player"]

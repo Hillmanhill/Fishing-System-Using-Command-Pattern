@@ -7,7 +7,7 @@ extends Node
 @export var HokkedEnemy : Node3D
 @export var CastObject : RigidBody3D
 
-var isHooked : bool = false
+var isCast : bool = false
 
 @export var castObjectLocation: Node3D
 @export var player_mesh: Node3D
@@ -16,10 +16,10 @@ func _ready() -> void:
 	CastObject.position = castObjectLocation.global_position 
 
 func _physics_process(delta: float) -> void:
-	if isHooked:
+	if isCast:
 		pass
 	else:
-		print("Player Mesh: ", player_mesh.rotation)
+		#print("Player Mesh: ", player_mesh.rotation)
 		CastObject.position = castObjectLocation.global_position
 	
 #casting system which throws an object 

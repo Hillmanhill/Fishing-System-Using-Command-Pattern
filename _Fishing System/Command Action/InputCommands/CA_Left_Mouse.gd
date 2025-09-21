@@ -11,16 +11,16 @@ func _init(cmd: String, target: String) -> void:
 	pass
 
 func execute(Target: String, Player: Node3D, castPullController: CastPullSystem)-> void:
-	if castPullController.isHooked:
-		print("Cast is hooked to fish")
-		castPullController.isHooked = false
+	if castPullController.isCast:
+		print("is NOT Cast")
+		castPullController.isCast = false
 		castPullController.CastObject.freeze = true
 	else:
-		print("Cast is NOT hooked to fish")
-		print("Cast Object: ", castPullController.CastObject)
+		print("IS Cast")
+		#print("Cast Object: ", castPullController.CastObject)
 		castPullController.CastObject.freeze = false
 		castPullController.CastObject.global_rotation = castPullController.player_mesh.global_rotation
 		var direction = castPullController.player_mesh.transform.basis.z
 		direction.y = 1
-		castPullController.CastObject.linear_velocity = direction * 5
-		castPullController.isHooked = true
+		castPullController.CastObject.linear_velocity = direction * 15
+		castPullController.isCast = true
