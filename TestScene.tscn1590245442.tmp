@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://btjsp0rgdfor6"]
+[gd_scene load_steps=11 format=3 uid="uid://btjsp0rgdfor6"]
 
 [ext_resource type="PackedScene" uid="uid://bpgjkra8k7buf" path="res://_Player/player.tscn" id="1_mncer"]
 [ext_resource type="Script" uid="uid://5n5io3d7goai" path="res://bobber.gd" id="1_wicfy"]
@@ -13,8 +13,12 @@ sky_material = SubResource("ProceduralSkyMaterial_mncer")
 background_mode = 2
 sky = SubResource("Sky_cguwc")
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_wicfy"]
-radius = 0.152161
+[sub_resource type="BoxShape3D" id="BoxShape3D_7tcvf"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_exllb"]
+radius = 0.083904
+height = 0.327496
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lc3a7"]
 albedo_color = Color(0.660678, 0, 0.137327, 1)
@@ -80,15 +84,19 @@ size = Vector3(0.462278, 0.0896606, 1.84112)
 
 [node name="CastObject" type="RigidBody3D" parent="." node_paths=PackedStringArray("castPullController")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.416584, 1.84151)
-mass = 0.1
 freeze = true
 contact_monitor = true
 max_contacts_reported = 2
 script = ExtResource("1_wicfy")
 castPullController = NodePath("../Player/Cast Reel Input Controller & Handler")
 
+[node name="Area3D" type="Area3D" parent="CastObject"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CastObject/Area3D"]
+shape = SubResource("BoxShape3D_7tcvf")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CastObject"]
-shape = SubResource("SphereShape3D_wicfy")
+shape = SubResource("CapsuleShape3D_exllb")
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="CastObject"]
 radius = 0.0866725
@@ -96,10 +104,8 @@ material = SubResource("StandardMaterial3D_lc3a7")
 
 [node name="Fish" type="RigidBody3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 13.1665, 3.04906, 3.09037)
-axis_lock_angular_x = true
-axis_lock_angular_z = true
+disable_mode = 2
 center_of_mass_mode = 1
-angular_damp = 10.0
 script = ExtResource("2_cguwc")
 metadata/_edit_group_ = true
 
@@ -111,10 +117,7 @@ radius = 1.33171
 
 [node name="Fish2" type="RigidBody3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.10547, 3.04906, 21.6402)
-axis_lock_angular_x = true
-axis_lock_angular_z = true
 mass = 5.0
-angular_damp = 10.0
 script = ExtResource("2_cguwc")
 metadata/_edit_group_ = true
 
@@ -126,11 +129,8 @@ radius = 1.33171
 
 [node name="Fish3" type="RigidBody3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -12.5507, 3.04906, 12.6645)
-axis_lock_angular_x = true
-axis_lock_angular_z = true
+disable_mode = 2
 mass = 2.5
-angular_velocity = Vector3(0, 0.174533, 0)
-angular_damp = 10.0
 script = ExtResource("2_cguwc")
 metadata/_edit_group_ = true
 

@@ -15,6 +15,7 @@ var RELETIVESPEED: float
 
 func _ready() -> void:
 	RELETIVESPEED = SPEED
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _input(event: InputEvent):
 	if event is InputEventMouseMotion:

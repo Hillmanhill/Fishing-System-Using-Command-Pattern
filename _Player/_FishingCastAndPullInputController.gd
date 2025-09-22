@@ -6,6 +6,7 @@ extends Node
 @export var Player : CharacterBody3D
 @export var HokkedEnemy : Node3D
 @export var CastObject : RigidBody3D
+var hookedFish: RigidBody3D
 
 var isCast : bool = false
 
@@ -16,19 +17,9 @@ func _ready() -> void:
 	CastObject.position = castObjectLocation.global_position 
 
 func _physics_process(delta: float) -> void:
-	if isCast:
-		pass
-	else:
-		#print("Player Mesh: ", player_mesh.rotation)
-		CastObject.position = castObjectLocation.global_position
-	
-#casting system which throws an object 
-
-#collided cobject will be parented with bobber 
-
-# child object will be pulled closer to player on input
-
-# if statement to allow pull when true
+	if !isCast:
+		CastObject.global_position = castObjectLocation.global_position
+		hookedFish = null
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
