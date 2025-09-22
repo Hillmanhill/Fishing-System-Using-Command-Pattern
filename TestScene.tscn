@@ -96,8 +96,6 @@ material = SubResource("StandardMaterial3D_lc3a7")
 
 [node name="Fish" type="RigidBody3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 13.1665, 3.04906, 3.09037)
-axis_lock_angular_x = true
-axis_lock_angular_z = true
 center_of_mass_mode = 1
 angular_damp = 10.0
 script = ExtResource("2_cguwc")
@@ -111,8 +109,6 @@ radius = 1.33171
 
 [node name="Fish2" type="RigidBody3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.10547, 3.04906, 21.6402)
-axis_lock_angular_x = true
-axis_lock_angular_z = true
 mass = 5.0
 angular_damp = 10.0
 script = ExtResource("2_cguwc")
@@ -126,8 +122,6 @@ radius = 1.33171
 
 [node name="Fish3" type="RigidBody3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -12.5507, 3.04906, 12.6645)
-axis_lock_angular_x = true
-axis_lock_angular_z = true
 mass = 2.5
 angular_velocity = Vector3(0, 0.174533, 0)
 angular_damp = 10.0

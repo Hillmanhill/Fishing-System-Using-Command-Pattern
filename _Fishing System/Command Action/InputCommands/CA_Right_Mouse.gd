@@ -21,11 +21,12 @@ func execute(Target: String, Player: Node3D, castPullController: CastPullSystem)
 		else: 
 			if castPullController.hookedFish and castPullController.hookedFish.get_script() == enemyFish:
 				var direction = (CASTORIGIN - CASTPOS).normalized()
-				var reelSpeed = 20
+				var reelSpeed = 10
 				direction.y = max(direction.y, 0.0)
 				var force = direction * reelSpeed
 				castPullController.hookedFish.linear_velocity = force
-				CASTOBJECT.apply_central_force(force * 1.5)
+				CASTOBJECT.linear_velocity = force
+				#CASTOBJECT.apply_central_force(force * 3)
 				print("fish reeled ")
 			else:
 				var direction = (CASTORIGIN - CASTPOS).normalized()
