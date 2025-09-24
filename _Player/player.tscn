@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bncuc2imx11h1" path="res://_Player/PlayerMovement.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://ddewqodfuca1e" path="res://_Player/_FishingCastAndPullInputController.gd" id="2_t8t7b"]
-[ext_resource type="Script" uid="uid://bldkomf1fir2v" path="res://_Fishing System/Command Action/InputCommands/CA_Left_Mouse.gd" id="3_lf471"]
-[ext_resource type="Script" uid="uid://6qero8umtmg2" path="res://_Fishing System/Command Action/InputCommands/CA_Right_Mouse.gd" id="4_3i7y5"]
+[ext_resource type="Script" uid="uid://bldkomf1fir2v" path="res://_Fishing System/Command Action/Input Commands/CA_Left_Mouse.gd" id="3_lf471"]
+[ext_resource type="Script" uid="uid://6qero8umtmg2" path="res://_Fishing System/Command Action/Input Commands/CA_Right_Mouse.gd" id="4_3i7y5"]
 [ext_resource type="Script" uid="uid://c3kae4gnl4pun" path="res://_Fishing System/Command Action/_CommandHandler.gd" id="5_lf471"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lf471"]
@@ -11,11 +11,12 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lf471"]
 albedo_color = Color(0.551325, 0.525274, 3.85046e-07, 1)
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera_3d", "player_meshes")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera_3d", "player_meshes", "castPullController")]
 script = ExtResource("1_4flbx")
 gravityMultiplyer = 3.0
 camera_3d = NodePath("CameraMountOrbit/CameraMountPitch/Camera3D")
 player_meshes = NodePath("CollisionShape3D/Player Mesh")
+castPullController = NodePath("Cast Reel Input Controller & Handler")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_lf471")

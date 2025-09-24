@@ -13,6 +13,8 @@ var RELETIVESPEED: float
 
 @export var player_meshes: Node3D
 
+@export var castPullController : CastPullSystem
+
 func _ready() -> void:
 	RELETIVESPEED = SPEED
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -26,8 +28,10 @@ func _input(event: InputEvent):
 func _physics_process(delta: float):
 	if not is_on_floor():
 		velocity += get_gravity() * delta * gravityMultiplyer
+		castPullController.inAir = true
 	else: 
 		velocity += get_gravity() * delta * gravityMultiplyer
+		castPullController.inAir = false
 	
 	PlayerMover()
 	move_and_slide()

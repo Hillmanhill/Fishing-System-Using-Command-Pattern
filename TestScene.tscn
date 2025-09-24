@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://btjsp0rgdfor6"]
+[gd_scene load_steps=11 format=3 uid="uid://btjsp0rgdfor6"]
 
 [ext_resource type="PackedScene" uid="uid://bpgjkra8k7buf" path="res://_Player/player.tscn" id="1_mncer"]
 [ext_resource type="Script" uid="uid://5n5io3d7goai" path="res://bobber.gd" id="1_wicfy"]
 [ext_resource type="Script" uid="uid://c3wwupjndh0my" path="res://Enemy Structure/_GenericFish.gd" id="2_cguwc"]
+[ext_resource type="PackedScene" uid="uid://byqjje8y85jg5" path="res://Enemy Structure/FishEnemyTest.blend" id="4_go42g"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mncer"]
 
@@ -22,7 +23,7 @@ emission_enabled = true
 emission = Color(0.995996, 0.521206, 0.455814, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_mncer"]
-radius = 1.32063
+radius = 1.30868
 
 [node name="World" type="Node3D"]
 
@@ -96,9 +97,10 @@ material = SubResource("StandardMaterial3D_lc3a7")
 
 [node name="Fish" type="RigidBody3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 13.1665, 3.04906, 3.09037)
-center_of_mass_mode = 1
+can_sleep = false
 angular_damp = 10.0
 script = ExtResource("2_cguwc")
+metadata/_custom_type_script = "uid://c3wwupjndh0my"
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Fish"]
@@ -107,11 +109,21 @@ shape = SubResource("SphereShape3D_mncer")
 [node name="CSGSphere3D" type="CSGSphere3D" parent="Fish"]
 radius = 1.33171
 
+[node name="Bod" type="Node3D" parent="Fish"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.324025)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Fish/Bod"]
+transform = Transform3D(0.435779, 0, 0, 0, 0.435779, 0, 0, 0, 0.435779, -7.15256e-07, 0, -1.6405)
+use_collision = true
+radius = 1.33171
+
 [node name="Fish2" type="RigidBody3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.10547, 3.04906, 21.6402)
 mass = 5.0
 angular_damp = 10.0
 script = ExtResource("2_cguwc")
+weight = 5.0
+metadata/_custom_type_script = "uid://c3wwupjndh0my"
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Fish2"]
@@ -126,6 +138,8 @@ mass = 2.5
 angular_velocity = Vector3(0, 0.174533, 0)
 angular_damp = 10.0
 script = ExtResource("2_cguwc")
+weight = 2.5
+metadata/_custom_type_script = "uid://c3wwupjndh0my"
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Fish3"]
@@ -154,6 +168,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00969911, -0.202249, 0.0482
 
 [node name="Cast Reel Input Controller & Handler" parent="Player" index="2" node_paths=PackedStringArray("CastObject")]
 CastObject = NodePath("../../CastObject")
+
+[node name="FishEnemyTest" parent="." instance=ExtResource("4_go42g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6278, -1.42278, -2.08841)
 
 [connection signal="body_shape_entered" from="CastObject" to="CastObject" method="_on_body_shape_entered"]
 
