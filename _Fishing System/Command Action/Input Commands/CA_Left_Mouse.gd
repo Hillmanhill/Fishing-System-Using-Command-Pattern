@@ -14,17 +14,16 @@ func _init(cmd: String, target: String) -> void:
 
 func execute(Target: String, Player: Node3D, castPullController: CastPullSystem)-> void:
 	if castPullController.isCast:
-		print("is NOT Cast")
 		castPullController.isCast = false
 		castPullController.CastObject.freeze = true
 		castPullController.ropeVisualizer.destroy_rope()
 	else:
-		print("IS Cast")
 		castPullController.CastObject.freeze = false
 		#castPullController.CastObject.global_rotation = castPullController.player_mesh.global_rotation
 		var direction = castPullController.player_mesh.transform.basis.z
-		direction.y += .5
-		castPullController.CastObject.linear_velocity = direction * 10
+		direction.y += .3
+		castPullController.CastObject.linear_velocity = direction * 15
 		castPullController.isCast = true
 		#await get_tree().create_timer(.1).timeout
 		castPullController.ropeVisualizer.create_rope(castPullController.CastObject, castPullController.castObjectLocation, 8)
+	print("is cast: ", castPullController.isCast)

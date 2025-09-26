@@ -1,14 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://ctd03kdufsj6d"]
+[gd_scene load_steps=3 format=3 uid="uid://ctd03kdufsj6d"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_2rmvf"]
-size = Vector3(0.2, 0.2, 0.2)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2rmvf"]
+albedo_color = Color(0.610827, 0.454268, 3.85046e-07, 1)
+emission_enabled = true
+emission = Color(0.594081, 0.371565, 0, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2rmvf"]
+radius = 0.146197
 
 [node name="RopeSegment" type="RigidBody3D"]
+collision_priority = 3.0
 mass = 0.001
-linear_damp = 3.0
+can_sleep = false
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 size = Vector3(0.1, 0.1, 0.1)
+material = SubResource("StandardMaterial3D_2rmvf")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_2rmvf")
+shape = SubResource("SphereShape3D_2rmvf")

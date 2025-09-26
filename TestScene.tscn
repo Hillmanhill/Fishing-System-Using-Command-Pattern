@@ -41,6 +41,8 @@ shadow_enabled = true
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, -0.224943, -4.23155, -0.47345)
 use_collision = true
+collision_layer = 3
+collision_mask = 3
 size = Vector3(1.98608, 0.280884, 0.949648)
 
 [node name="CSGBox3D9" type="CSGBox3D" parent="."]
@@ -86,6 +88,9 @@ size = Vector3(0.462278, 0.0896606, 1.84112)
 
 [node name="CastObject" type="RigidBody3D" parent="." node_paths=PackedStringArray("castPullController")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.416584, 1.84151)
+collision_layer = 2
+collision_mask = 2
+collision_priority = 4.0
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
@@ -174,8 +179,8 @@ size = Vector3(19.1378, 5.13916, 6.15527)
 [node name="Player" parent="." instance=ExtResource("1_mncer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00969911, -0.202249, 0.0482721)
 
-[node name="Cast Object POS" parent="Player/CollisionShape3D/Player Mesh" index="1" node_paths=PackedStringArray("target")]
-target = NodePath("../../../../CastObject")
+[node name="Cast Object POS" parent="Player/CollisionShape3D/Player Mesh" index="1" node_paths=PackedStringArray("castObject")]
+castObject = NodePath("../../../../CastObject")
 
 [node name="Cast Reel Input Controller & Handler" parent="Player" index="2" node_paths=PackedStringArray("CastObject", "castObjectLocation", "ropeVisualizer")]
 CastObject = NodePath("../../CastObject")
