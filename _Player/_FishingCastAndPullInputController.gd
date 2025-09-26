@@ -12,8 +12,10 @@ var isCast : bool = false
 
 var inAir : bool = false
 
-@export var castObjectLocation: Node3D
+@export var castObjectLocation: StaticBody3D
 @export var player_mesh: Node3D
+
+@export var ropeVisualizer: ropeVisual
 
 func _ready() -> void: 
 	CastObject.position = castObjectLocation.global_position 
@@ -22,6 +24,10 @@ func _physics_process(delta: float) -> void:
 	if !isCast:
 		CastObject.global_position = castObjectLocation.global_position
 		hookedFish = null
+	#else: 
+	#	if CastObject.global_position.distance_to(Player.global_position) > 10:
+	#		await get_tree().create_timer(.5).timeout
+	#		ropeVisualizer.reel_in( delta * 0.5)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed():

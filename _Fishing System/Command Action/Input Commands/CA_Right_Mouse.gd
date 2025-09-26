@@ -26,11 +26,13 @@ func execute(Target: String, Player: Node3D, castPullController: CastPullSystem)
 				var force = direction * reelSpeed
 				castPullController.hookedFish.linear_velocity = force
 				CASTOBJECT.linear_velocity = force
-				#CASTOBJECT.apply_central_force(force * 3)
+				CASTOBJECT.apply_central_force(force * 3)
+				
 				print("fish reeled ")
 			else:
 				var direction = (CASTORIGIN - CASTPOS).normalized()
 				var reelSpeed = 15
 				CASTOBJECT.linear_velocity = direction * reelSpeed
+				#castPullController.ropeVisualizer.reel_in(0.1)
 	else:
 		print("NO Valid reel attempt")

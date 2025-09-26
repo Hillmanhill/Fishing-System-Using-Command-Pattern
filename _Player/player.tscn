@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bpgjkra8k7buf"]
+[gd_scene load_steps=10 format=3 uid="uid://bpgjkra8k7buf"]
 
 [ext_resource type="Script" uid="uid://bncuc2imx11h1" path="res://_Player/PlayerMovement.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://bbj1o80v4hhn2" path="res://_Fishing System/FishingLine.gd" id="2_3i7y5"]
 [ext_resource type="Script" uid="uid://ddewqodfuca1e" path="res://_Player/_FishingCastAndPullInputController.gd" id="2_t8t7b"]
 [ext_resource type="Script" uid="uid://bldkomf1fir2v" path="res://_Fishing System/Command Action/Input Commands/CA_Left_Mouse.gd" id="3_lf471"]
 [ext_resource type="Script" uid="uid://6qero8umtmg2" path="res://_Fishing System/Command Action/Input Commands/CA_Right_Mouse.gd" id="4_3i7y5"]
@@ -8,8 +9,11 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lf471"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lf471"]
-albedo_color = Color(0.551325, 0.525274, 3.85046e-07, 1)
+[sub_resource type="BoxShape3D" id="BoxShape3D_3i7y5"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_v07bw"]
+size = Vector3(0.1, 0.1, 0.1)
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera_3d", "player_meshes", "castPullController")]
 script = ExtResource("1_4flbx")
@@ -27,10 +31,15 @@ shape = SubResource("CapsuleShape3D_lf471")
 transform = Transform3D(0.325575, 0, 0, 0, 0.325575, 0, 0, 0, 0.325575, 0, 0, 1.18881)
 size = Vector3(1, 1, 1.91504)
 
-[node name="Cast Object POS" type="CSGBox3D" parent="CollisionShape3D/Player Mesh"]
+[node name="Cast Object POS" type="StaticBody3D" parent="CollisionShape3D/Player Mesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19962, 1.74725)
-size = Vector3(0.04, 0.365, 0.035)
-material = SubResource("StandardMaterial3D_lf471")
+script = ExtResource("2_3i7y5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionShape3D/Player Mesh/Cast Object POS"]
+shape = SubResource("BoxShape3D_3i7y5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D/Player Mesh/Cast Object POS"]
+mesh = SubResource("PrismMesh_v07bw")
 
 [node name="CameraMountOrbit" type="Node3D" parent="."]
 
@@ -44,7 +53,7 @@ fov = 90.0
 script = ExtResource("2_t8t7b")
 commandHandler = NodePath("Command Handler")
 Player = NodePath("..")
-castObjectLocation = NodePath("../CollisionShape3D/Player Mesh/Cast Object POS")
+castObjectLocation = NodePath("")
 player_mesh = NodePath("../CollisionShape3D/Player Mesh")
 
 [node name="Inputs" type="Node" parent="Cast Reel Input Controller & Handler"]
