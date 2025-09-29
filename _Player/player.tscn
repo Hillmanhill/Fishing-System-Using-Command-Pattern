@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bpgjkra8k7buf"]
+[gd_scene load_steps=11 format=3 uid="uid://bpgjkra8k7buf"]
 
 [ext_resource type="Script" uid="uid://bncuc2imx11h1" path="res://_Player/PlayerMovement.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://bbj1o80v4hhn2" path="res://_Fishing System/FishingLine.gd" id="2_3i7y5"]
@@ -8,6 +8,9 @@
 [ext_resource type="Script" uid="uid://c3kae4gnl4pun" path="res://_Fishing System/Command Action/_CommandHandler.gd" id="5_lf471"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lf471"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3i7y5"]
+albedo_color = Color(0.285995, 0.466865, 0.664922, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3i7y5"]
 size = Vector3(0.1, 0.1, 0.1)
@@ -27,15 +30,17 @@ shape = SubResource("CapsuleShape3D_lf471")
 
 [node name="Player Mesh" type="CSGCylinder3D" parent="CollisionShape3D"]
 
-[node name="Direction Indicator" type="CSGBox3D" parent="CollisionShape3D/Player Mesh"]
-transform = Transform3D(0.325575, 0, 0, 0, 0.325575, 0, 0, 0, 0.325575, 0, 0, 1.18881)
-size = Vector3(1, 1, 1.91504)
+[node name="ReelToolPOS" type="CSGBox3D" parent="CollisionShape3D/Player Mesh"]
+transform = Transform3D(0.325575, 0, 0, 0, 0.325575, 0, 0, 0, 0.325575, 0, -0.0917516, 0.568988)
+size = Vector3(1, 1, 1.04358)
+material = SubResource("StandardMaterial3D_3i7y5")
 
-[node name="Cast Object POS" type="StaticBody3D" parent="CollisionShape3D/Player Mesh"]
+[node name="Cast Object POS" type="StaticBody3D" parent="CollisionShape3D/Player Mesh" node_paths=PackedStringArray("reelPoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19962, 1.74725)
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("2_3i7y5")
+reelPoint = NodePath("../ReelToolPOS")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionShape3D/Player Mesh/Cast Object POS"]
 shape = SubResource("BoxShape3D_3i7y5")
@@ -59,8 +64,9 @@ player_mesh = NodePath("../CollisionShape3D/Player Mesh")
 
 [node name="Inputs" type="Node" parent="Cast Reel Input Controller & Handler"]
 
-[node name="CA_Left_Mouse" type="Node" parent="Cast Reel Input Controller & Handler/Inputs"]
+[node name="CA_Left_Mouse" type="Node" parent="Cast Reel Input Controller & Handler/Inputs" node_paths=PackedStringArray("ropeVisualizer")]
 script = ExtResource("3_lf471")
+ropeVisualizer = NodePath("../../../CollisionShape3D/Player Mesh/Cast Object POS")
 
 [node name="CA_Right_Mouse" type="Node" parent="Cast Reel Input Controller & Handler/Inputs"]
 script = ExtResource("4_3i7y5")

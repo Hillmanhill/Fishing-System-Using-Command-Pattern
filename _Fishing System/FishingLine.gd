@@ -4,6 +4,7 @@ extends Node3D
 var castObject : Node3D
 @export var maxLength : float = 15
 @export var slackLength : float = 5
+@export var reelPoint: Node3D
 
 var segmentLengthDivide: int = 8
 var springStiffnessWeight: int = 0
@@ -64,13 +65,17 @@ func create_rope(Bobber: Node3D, castPoint: Node3D, segmentCount: int):
 			joint.set_flag_y(axis, true)
 			joint.set_flag_z(axis, true)
 		
-		var limit = lengthPerSegment * .1
+		var limit = lengthPerSegment * .5
 		
 		for axis in  [Generic6DOFJoint3D.PARAM_LINEAR_LOWER_LIMIT, Generic6DOFJoint3D.PARAM_LINEAR_UPPER_LIMIT]:
 			joint.set_param_x(axis, -lengthPerSegment if axis == Generic6DOFJoint3D.PARAM_LINEAR_LOWER_LIMIT else lengthPerSegment)
 			joint.set_param_y(axis, -lengthPerSegment if axis == Generic6DOFJoint3D.PARAM_LINEAR_LOWER_LIMIT else lengthPerSegment)
 			joint.set_param_z(axis, -lengthPerSegment if axis == Generic6DOFJoint3D.PARAM_LINEAR_LOWER_LIMIT else lengthPerSegment)#
-			
+		
+		joint.set_param_x(Generic6DOFJoint3D.PARAM_ANGULAR_SPRING_DAMPING, 2)
+		joint.set_param_y(Generic6DOFJoint3D.PARAM_ANGULAR_SPRING_DAMPING, 2)
+		joint.set_param_z(Generic6DOFJoint3D.PARAM_ANGULAR_SPRING_DAMPING, 2)
+		
 		joint.set_param_x(Generic6DOFJoint3D.PARAM_LINEAR_SPRING_STIFFNESS, springStiffnessWeight)
 		joint.set_param_y(Generic6DOFJoint3D.PARAM_LINEAR_SPRING_STIFFNESS, springStiffnessWeight)
 		joint.set_param_z(Generic6DOFJoint3D.PARAM_LINEAR_SPRING_STIFFNESS, springStiffnessWeight)
@@ -91,13 +96,13 @@ func reel_in(amount: float):
 	var segmentCount: int = ropeSegments.size()
 	if segmentCount == 0:return
 	
-	var Bobber_pos = global_position
-	var end_pos = castObject.global_position
+	var reelPOS = reelPoint.global_position
+	var bobberPOS = castObject.global_position
 	var effective_length = slackLength
 	
 	for i in range(segmentCount):
 		var t = float(i) / float(segmentCount)
-		var segment_pos = end_pos.lerp(Bobber_pos, t + (effective_length / maxLength))
+		var segment_pos = bobberPOS.lerp(reelPOS, t + (effective_length / maxLength))
 		var segment = ropeSegments[i]
 		if is_instance_valid(segment):
 			segment.global_position = segment_pos

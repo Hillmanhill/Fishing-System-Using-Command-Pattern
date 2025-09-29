@@ -39,9 +39,6 @@ CastObject = NodePath("../../CastObject")
 castObjectLocation = NodePath("../CollisionShape3D/Player Mesh/Cast Object POS")
 ropeVisualizer = NodePath("../CollisionShape3D/Player Mesh/Cast Object POS")
 
-[node name="CA_Left_Mouse" parent="Player/Cast Reel Input Controller & Handler/Inputs" index="0" node_paths=PackedStringArray("ropeVisualizer")]
-ropeVisualizer = NodePath("../../../CollisionShape3D/Player Mesh/Cast Object POS")
-
 [node name="CastObject" type="RigidBody3D" parent="." node_paths=PackedStringArray("castPullController")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.416584, 1.84151)
 collision_layer = 2
