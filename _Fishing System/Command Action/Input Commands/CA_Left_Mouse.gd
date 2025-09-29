@@ -1,6 +1,6 @@
 class_name LeftMouseAction
 extends CommandAction
-
+#
 @export var ropeVisualizer: ropeVisual
 @onready var cast_object_pos: ropeVisual = $"Player/CollisionShape3D/Player Mesh/Cast Object POS"
 
@@ -25,5 +25,5 @@ func execute(Target: String, Player: Node3D, castPullController: CastPullSystem)
 		castPullController.CastObject.linear_velocity = direction * 15
 		castPullController.isCast = true
 		#await get_tree().create_timer(.1).timeout
-		castPullController.ropeVisualizer.create_rope(castPullController.CastObject, castPullController.castObjectLocation, 8)
+		castPullController.ropeVisualizer.create_rope(castPullController.CastObject, castPullController.castObjectLocation, 12)
 	print("is cast: ", castPullController.isCast)

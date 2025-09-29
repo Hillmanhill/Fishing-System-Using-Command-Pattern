@@ -32,7 +32,7 @@ radius = 1.30868
 [node name="World" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("1_mncer")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.4244, -0.202245, 41.0793)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.20772, -0.202245, 4.5242)
 
 [node name="Cast Reel Input Controller & Handler" parent="Player" index="2" node_paths=PackedStringArray("CastObject", "castObjectLocation", "ropeVisualizer")]
 CastObject = NodePath("../../CastObject")
