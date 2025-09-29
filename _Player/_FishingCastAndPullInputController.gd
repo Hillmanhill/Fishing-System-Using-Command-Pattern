@@ -24,10 +24,10 @@ func _physics_process(delta: float) -> void:
 	if !isCast:
 		CastObject.global_position = castObjectLocation.global_position
 		hookedFish = null
-	#else: 
-	#	if CastObject.global_position.distance_to(Player.global_position) > 10:
-	#		await get_tree().create_timer(.5).timeout
-	#		ropeVisualizer.reel_in( delta * 0.5)
+	else: 
+		if hookedFish:
+			#await get_tree().create_timer(.5).timeout
+			ropeVisualizer.reel_in(1)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
@@ -73,3 +73,10 @@ func _input(event: InputEvent) -> void:
 									commandHandler.add_command(Right, "$Player")
 								_:
 									pass
+	if Input.is_action_just_pressed("PlayerDown") and inAir:
+		var down = AIRPlayerDownAction.new("AIRPlayerDownAction", "$Player")
+		commandHandler.add_command(down, "$Player")
+	elif Input.is_action_just_pressed("PlayerDown") and !inAir:
+		var down = PlayerDownAction.new("PlayerDownAction", "$Player")
+		commandHandler.add_command(down, "$Player")
+	

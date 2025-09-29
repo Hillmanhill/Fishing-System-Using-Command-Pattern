@@ -9,6 +9,9 @@ func get_id()-> Dictionary:
 func _init(cmd: String, target: String) -> void:
 	pass
 
+#func execute(Target: String, Player: Node3D, castPullController: CastPullSystem)-> void:
+#	castPullController.ropeVisualizer.reel_in(.01)
+
 func execute(Target: String, Player: Node3D, castPullController: CastPullSystem)-> void:
 	if castPullController.isCast:
 		print("Valid reel attempt")
@@ -17,6 +20,7 @@ func execute(Target: String, Player: Node3D, castPullController: CastPullSystem)
 		var CASTPOS = CASTOBJECT.global_transform.origin
 		if CASTPOS.distance_to(CASTORIGIN) < 3:
 			CASTOBJECT.linear_velocity = Vector3.ZERO
+			castPullController.ropeVisualizer.destroy_rope()
 			castPullController.isCast = false
 		else: 
 			if castPullController.hookedFish and castPullController.hookedFish.get_script() == enemyFish:
@@ -27,12 +31,12 @@ func execute(Target: String, Player: Node3D, castPullController: CastPullSystem)
 				castPullController.hookedFish.linear_velocity = force
 				CASTOBJECT.linear_velocity = force
 				CASTOBJECT.apply_central_force(force * 3)
-				
+				castPullController.ropeVisualizer.reel_in(.01)
 				print("fish reeled ")
 			else:
 				var direction = (CASTORIGIN - CASTPOS).normalized()
 				var reelSpeed = 15
 				CASTOBJECT.linear_velocity = direction * reelSpeed
-				#castPullController.ropeVisualizer.reel_in(0.1)
+				castPullController.ropeVisualizer.reel_in(0.01)
 	else:
 		print("NO Valid reel attempt")

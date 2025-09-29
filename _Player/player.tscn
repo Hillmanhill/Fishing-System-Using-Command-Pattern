@@ -49,11 +49,10 @@ mesh = SubResource("PrismMesh_v07bw")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.43346, 5.48762)
 fov = 90.0
 
-[node name="Cast Reel Input Controller & Handler" type="Node" parent="." node_paths=PackedStringArray("commandHandler", "Player", "castObjectLocation", "player_mesh")]
+[node name="Cast Reel Input Controller & Handler" type="Node" parent="." node_paths=PackedStringArray("commandHandler", "Player", "player_mesh")]
 script = ExtResource("2_t8t7b")
 commandHandler = NodePath("Command Handler")
 Player = NodePath("..")
-castObjectLocation = NodePath("")
 player_mesh = NodePath("../CollisionShape3D/Player Mesh")
 
 [node name="Inputs" type="Node" parent="Cast Reel Input Controller & Handler"]
