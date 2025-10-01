@@ -2,8 +2,8 @@ class_name PlayerForwardAction
 extends CommandAction
 
 func get_id()-> Dictionary:
-	attackTimeElapse = .1
-	avalibleAttackSubWindow = .05
+	attackTimeElapse = 1
+	avalibleAttackSubWindow = .5
 	
 	return {"ACID": "PlayerForward", "attackTime": attackTimeElapse, "avalibleTime": avalibleAttackSubWindow}
 

@@ -38,7 +38,7 @@ func add_command(cmd: CommandAction, target: String)-> void:
 	comboBuffer.append(id_data["ACID"])
 	_Update_attack_timer(id_data)
 	
-	if comboReady and pendingCombo != null and cmd.get_id() == pendingCombo.get_id():
+	if comboReady and pendingCombo != null and cmd.get_id()["ACID"] == pendingCombo.get_id()["ACID"]:
 		commandQueue.append({"cmd": pendingCombo, "target": target})
 		comboReady = false
 		pendingCombo = null
@@ -58,7 +58,7 @@ func add_command(cmd: CommandAction, target: String)-> void:
 					var nextComboAction = lastCmd.nextComboBranch[sequence].new()
 					pendingCombo = nextComboAction
 					comboReady = true
-					#print("Matched continuation branch:", sequence)
+					print("Matched continuation branch:", sequence)
 					break
 	
 	commandQueue.append({"cmd": cmd, "target": target})
@@ -91,7 +91,7 @@ func execute_next() -> void:
 				var nextComboAction = cmd.nextComboBranch[sequence].new()
 				pendingCombo = nextComboAction
 				comboReady = true
-				#print("Matched continuation branch:", sequence)
+				print("Matched continuation branch:", sequence)
 				break
 		comboBuffer.clear()
 		restart_combo_timer()
@@ -123,8 +123,6 @@ func restart_combo_timer():
 func _on_combo_timeout() -> void:
 	canAttackBetweenTime = false
 	comboBuffer.clear()
-
-
 
 func _on_temp_ececute_handler_timeout() -> void:
 	execute_next()

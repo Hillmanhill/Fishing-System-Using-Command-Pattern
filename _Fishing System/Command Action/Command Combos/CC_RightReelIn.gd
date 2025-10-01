@@ -1,0 +1,18 @@
+class_name RightReelInAction
+extends CommandAction
+
+@export var commandHandler: CommandActionHandler
+
+func get_id() -> Dictionary:
+	attackTimeElapse = 3
+	avalibleAttackSubWindow = 0
+	return {"ACID": "RightMouse", "attackTime": attackTimeElapse, "avalibleTime": avalibleAttackSubWindow}
+
+func _ready() -> void:
+	commandHandler.register_combo(["PlayerRight"], self)
+	#nextComboBranch = {}
+
+func execute(Target: String, Player: Node3D, castPullController: CastPullSystem) -> void:
+	var direction = (castPullController.hookedFish.global_position - Player.global_position).cross(Vector3.UP).normalized() * 20
+	castPullController.hookedFish.apply_impulse(direction)
+	print("!!!! right reel combo 01 !!!! @: ")

@@ -8,7 +8,7 @@ func get_id()-> Dictionary:
 	return {"ACID": "PlayerLeft", "attackTime": attackTimeElapse, "avalibleTime": avalibleAttackSubWindow}
 
 func _init(cmd: String, target: String) -> void:
-	pass
+	commandType = cmd
 
 func execute(Target: String, Player: Node3D, castPullController: CastPullSystem)-> void:
 	commandType = "PlayerLeft"

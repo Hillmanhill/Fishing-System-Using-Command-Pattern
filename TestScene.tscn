@@ -5,9 +5,8 @@
 [ext_resource type="Script" uid="uid://c3wwupjndh0my" path="res://Enemy Structure/_GenericFish.gd" id="2_cguwc"]
 [ext_resource type="PackedScene" uid="uid://byqjje8y85jg5" path="res://Enemy Structure/FishEnemyTest.blend" id="4_go42g"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_go42g"]
-height = 0.206909
-radius = 0.0942383
+[sub_resource type="SphereShape3D" id="SphereShape3D_go42g"]
+radius = 0.447502
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lc3a7"]
 albedo_color = Color(0.660678, 0, 0.137327, 1)
@@ -40,7 +39,7 @@ castObjectLocation = NodePath("../CollisionShape3D/Player Mesh/Cast Object POS")
 ropeVisualizer = NodePath("../CollisionShape3D/Player Mesh/Cast Object POS")
 
 [node name="CastObject" type="RigidBody3D" parent="." node_paths=PackedStringArray("castPullController")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.416584, 1.84151)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0982084, 0.416584, 1.84151)
 collision_layer = 2
 collision_mask = 2
 collision_priority = 5.0
@@ -54,8 +53,8 @@ script = ExtResource("1_wicfy")
 castPullController = NodePath("../Player/Cast Reel Input Controller & Handler")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CastObject"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0101929, 0)
-shape = SubResource("CylinderShape3D_go42g")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00961304, 0)
+shape = SubResource("SphereShape3D_go42g")
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="CastObject"]
 radius = 0.0866725

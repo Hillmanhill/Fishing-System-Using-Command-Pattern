@@ -18,10 +18,6 @@ func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, lo
 		print("body name: ", body.name, " cauth")
 		hasFish = body
 		castPullController.hookedFish = hasFish
-		#self.linear_velocity = Vector3.ZERO
-		#self.angular_velocity = Vector3.ZERO
-		#hasFish.linear_velocity = Vector3.ZERO
-		#hasFish.angular_velocity = Vector3.ZERO
 		collision_shape_3d.call_deferred("set_disabled", true)
 		self.freeze = true
 		self.custom_integrator = true

@@ -3,16 +3,16 @@ extends CommandAction
 
 func get_id()-> Dictionary:
 	attackTimeElapse =2
-	avalibleAttackSubWindow =1
+	avalibleAttackSubWindow =0
 	return {"ACID": "RightMouse", "attackTime": attackTimeElapse, "avalibleTime": avalibleAttackSubWindow}
 
-func _init(cmd: String, target: String) -> void:
+func _init(_cmd: String, _target: String) -> void:
 	pass
 
 #func execute(Target: String, Player: Node3D, castPullController: CastPullSystem)-> void:
 #	castPullController.ropeVisualizer.reel_in(.01)
 
-func execute(Target: String, Player: Node3D, castPullController: CastPullSystem)-> void:
+func execute(_Target: String, _Player: Node3D, castPullController: CastPullSystem)-> void:
 	if castPullController.isCast:
 		print("Valid reel attempt")
 		var CASTOBJECT = castPullController.CastObject

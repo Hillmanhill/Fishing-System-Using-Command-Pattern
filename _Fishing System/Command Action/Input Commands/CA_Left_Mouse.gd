@@ -6,11 +6,11 @@ extends CommandAction
 
 func get_id()-> Dictionary:
 	attackTimeElapse =2
-	avalibleAttackSubWindow =1
+	avalibleAttackSubWindow =0
 	return {"ACID": "LeftMouse", "attackTime": attackTimeElapse, "avalibleTime": avalibleAttackSubWindow}
 
 func _init(cmd: String, target: String) -> void:
-	pass
+	commandType = cmd
 
 func execute(Target: String, Player: Node3D, castPullController: CastPullSystem)-> void:
 	if castPullController.isCast:
@@ -25,5 +25,5 @@ func execute(Target: String, Player: Node3D, castPullController: CastPullSystem)
 		castPullController.CastObject.linear_velocity = direction * 15
 		castPullController.isCast = true
 		#await get_tree().create_timer(.1).timeout
-		castPullController.ropeVisualizer.create_rope(castPullController.CastObject, castPullController.castObjectLocation, 12)
+		castPullController.ropeVisualizer.create_rope(castPullController.CastObject, castPullController.castObjectLocation, 15)
 	print("is cast: ", castPullController.isCast)

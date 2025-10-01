@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bpgjkra8k7buf"]
+[gd_scene load_steps=13 format=3 uid="uid://bpgjkra8k7buf"]
 
 [ext_resource type="Script" uid="uid://bncuc2imx11h1" path="res://_Player/PlayerMovement.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://bbj1o80v4hhn2" path="res://_Fishing System/FishingLine.gd" id="2_3i7y5"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://bldkomf1fir2v" path="res://_Fishing System/Command Action/Input Commands/CA_Left_Mouse.gd" id="3_lf471"]
 [ext_resource type="Script" uid="uid://6qero8umtmg2" path="res://_Fishing System/Command Action/Input Commands/CA_Right_Mouse.gd" id="4_3i7y5"]
 [ext_resource type="Script" uid="uid://c3kae4gnl4pun" path="res://_Fishing System/Command Action/_CommandHandler.gd" id="5_lf471"]
+[ext_resource type="Script" uid="uid://c4wwxoonhk7er" path="res://_Fishing System/Command Action/Command Combos/CC_RightReelIn.gd" id="7_v07bw"]
+[ext_resource type="Script" uid="uid://lyoeid6ixfu2" path="res://_Fishing System/Command Action/Command Combos/CC_LeftReelIn.gd" id="8_0js2u"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lf471"]
 
@@ -75,6 +77,14 @@ script = ExtResource("4_3i7y5")
 script = ExtResource("5_lf471")
 player = NodePath("../..")
 castPullController = NodePath("..")
+
+[node name="RightReelCombo" type="Node" parent="Cast Reel Input Controller & Handler" node_paths=PackedStringArray("commandHandler")]
+script = ExtResource("7_v07bw")
+commandHandler = NodePath("../Command Handler")
+
+[node name="LeftReelCombo" type="Node" parent="Cast Reel Input Controller & Handler" node_paths=PackedStringArray("commandHandler")]
+script = ExtResource("8_0js2u")
+commandHandler = NodePath("../Command Handler")
 
 [node name="temp ececute handler" type="Timer" parent="."]
 wait_time = 0.1
