@@ -103,7 +103,6 @@ func reel_in(amount: float):
 func destroy_rope():
 	for i in ropeSegments:
 		i.queue_free()
-	
 	ropeSegments.clear()
 	isObjectCast = false
 	mesh.clear_surfaces()

@@ -12,4 +12,5 @@ func _init(cmd: String, target: String) -> void:
 
 func execute(Target: String, Player: PlayerController, castPullController: inputHandlerController)-> void:
 	commandType = "AIRPlayerBackward"
+	
 	print("Type: ",commandType, " Target: ", Target)
