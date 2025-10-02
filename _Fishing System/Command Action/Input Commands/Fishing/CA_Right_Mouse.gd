@@ -1,4 +1,4 @@
-class_name RightMouseAction
+class_name RightMouseReelAction
 extends CommandAction
 
 func get_id()-> Dictionary:

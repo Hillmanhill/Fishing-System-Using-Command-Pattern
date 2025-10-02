@@ -1,4 +1,4 @@
-class_name LeftMouseAction
+class_name LeftMouseCastAction
 extends CommandAction
 #
 @export var ropeVisualizer: ropeVisual

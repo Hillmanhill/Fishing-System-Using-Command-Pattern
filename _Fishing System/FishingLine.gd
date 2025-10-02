@@ -1,6 +1,6 @@
 class_name ropeVisual
 extends Node3D
-
+#
 var castObject : Node3D
 @export var reelPoint: Node3D
 

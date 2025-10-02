@@ -1,4 +1,4 @@
-class_name LeftReelInAction
+class_name UpReelInAction
 extends CommandAction
 
 @export var commandHandler: CommandActionHandler
@@ -9,10 +9,10 @@ func get_id() -> Dictionary:
 	return {"ACID": "RightMouse", "attackTime": attackTimeElapse, "avalibleTime": avalibleAttackSubWindow}
 
 func _ready() -> void:
-	commandHandler.register_combo(["PlayerLeft"], self)
+	commandHandler.register_combo(["PlayerForward"], self)
 	#nextComboBranch = {}
 
 func execute(Target: String, Player: Node3D, castPullController: CastPullSystem) -> void:
-	var direction = (castPullController.hookedFish.global_position - Player.global_position).cross(Vector3.UP).normalized() * -20
+	var direction = (castPullController.hookedFish.global_position - Player.global_position).cross(Vector3.RIGHT).normalized() * -10
 	castPullController.hookedFish.linear_velocity = direction
-	print("!!!! right reel combo 01 !!!! @: ")
+	print("!!!! UP reel combo 01 !!!! @: ")

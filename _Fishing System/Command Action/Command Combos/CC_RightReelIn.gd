@@ -14,5 +14,5 @@ func _ready() -> void:
 
 func execute(Target: String, Player: Node3D, castPullController: CastPullSystem) -> void:
 	var direction = (castPullController.hookedFish.global_position - Player.global_position).cross(Vector3.UP).normalized() * 20
-	castPullController.hookedFish.apply_impulse(direction)
+	castPullController.hookedFish.linear_velocity = direction
 	print("!!!! right reel combo 01 !!!! @: ")

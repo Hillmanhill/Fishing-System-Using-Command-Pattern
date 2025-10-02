@@ -33,6 +33,10 @@ radius = 1.30868
 [node name="Player" parent="." instance=ExtResource("1_mncer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.20772, -0.202245, 4.5242)
 
+[node name="Cast Object POS" parent="Player/CollisionShape3D/Player Mesh" index="1"]
+maxLength = 5.0
+slackLength = 5.0
+
 [node name="Cast Reel Input Controller & Handler" parent="Player" index="2" node_paths=PackedStringArray("CastObject", "castObjectLocation", "ropeVisualizer")]
 CastObject = NodePath("../../CastObject")
 castObjectLocation = NodePath("../CollisionShape3D/Player Mesh/Cast Object POS")
