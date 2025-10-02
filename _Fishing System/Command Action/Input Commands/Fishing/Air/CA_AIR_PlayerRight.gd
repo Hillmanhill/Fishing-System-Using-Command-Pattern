@@ -10,6 +10,6 @@ func get_id()-> Dictionary:
 func _init(cmd: String, target: String) -> void:
 	pass
 
-func execute(Target: String, Player: PlayerController, _castPullController: CastPullSystem)-> void:
+func execute(Target: String, Player: PlayerController, _castPullController: inputHandlerController)-> void:
 	commandType = "AIRPlayerRight"
 	print("Type: ",commandType, " Target: ", Target)

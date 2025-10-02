@@ -12,7 +12,8 @@ func _ready() -> void:
 	commandHandler.register_combo(["PlayerLeft"], self)
 	#nextComboBranch = {}
 
-func execute(Target: String, Player: Node3D, castPullController: CastPullSystem) -> void:
-	var direction = (castPullController.hookedFish.global_position - Player.global_position).cross(Vector3.UP).normalized() * -20
-	castPullController.hookedFish.linear_velocity = direction
-	print("!!!! right reel combo 01 !!!! @: ")
+func execute(Target: String, Player: Node3D, castPullController: inputHandlerController) -> void:
+	if  castPullController.hookedFish:
+		var direction = (castPullController.hookedFish.global_position - Player.global_position).cross(Vector3.UP).normalized() * -20
+		castPullController.hookedFish.linear_velocity = direction
+		print("!!!! right reel combo 01 !!!! @: ")

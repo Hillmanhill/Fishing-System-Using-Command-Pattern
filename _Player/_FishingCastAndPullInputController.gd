@@ -1,4 +1,4 @@
-class_name CastPullSystem
+class_name inputHandlerController
 extends Node
 
 @export var commandHandler: CommandActionHandler

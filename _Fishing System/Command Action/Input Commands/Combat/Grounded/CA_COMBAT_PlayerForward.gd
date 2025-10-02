@@ -10,6 +10,6 @@ func get_id()-> Dictionary:
 func _init(cmd: String, target: String) -> void:
 	pass
 
-func execute(Target: String, Player: Node3D, castPullController: CastPullSystem)-> void:
+func execute(Target: String, Player: Node3D, castPullController: inputHandlerController)-> void:
 	commandType = "COMBAT_PlayerForward"
 	print("Type: ",commandType, " Target: ", Target)

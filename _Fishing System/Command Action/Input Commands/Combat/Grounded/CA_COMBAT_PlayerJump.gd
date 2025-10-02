@@ -10,7 +10,7 @@ func get_id()-> Dictionary:
 func _init(cmd: String, target: String) -> void:
 	pass
 
-func execute(Target: String, Player: CharacterBody3D, castPullController: CastPullSystem)-> void:
+func execute(Target: String, Player: CharacterBody3D, castPullController: inputHandlerController)-> void:
 	commandType = "COMBAT_PlayerJump"
 	Player.velocity.y = 20
 	print("Type: ",commandType, " Target: ", Target)

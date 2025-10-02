@@ -12,7 +12,7 @@ func get_id()-> Dictionary:
 func _init(cmd: String, target: String) -> void:
 	commandType = cmd
 
-func execute(Target: String, Player: Node3D, castPullController: CastPullSystem)-> void:
+func execute(Target: String, Player: Node3D, castPullController: inputHandlerController)-> void:
 	if castPullController.isCast:
 		castPullController.isCast = false
 		castPullController.CastObject.freeze = true

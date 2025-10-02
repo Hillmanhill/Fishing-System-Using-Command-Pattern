@@ -1,7 +1,7 @@
 class_name fishingBobber
 extends RigidBody3D
 
-@export var castPullController: CastPullSystem
+@export var castPullController: inputHandlerController
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
 var hasFish: RigidBody3D
 var isAttached: bool = false

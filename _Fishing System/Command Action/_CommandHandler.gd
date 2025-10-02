@@ -1,7 +1,7 @@
 class_name CommandActionHandler extends Node
 
 @export var player: PlayerController
-@export var castPullController: CastPullSystem
+@export var castPullController: inputHandlerController
 
 var commandQueue : Array = []
 var undoStack : Array = []

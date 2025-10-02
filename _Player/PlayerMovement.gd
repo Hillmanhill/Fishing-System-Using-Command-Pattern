@@ -3,6 +3,7 @@ extends CharacterBody3D
 
 @export var gravityMultiplyer: float
 @export var SPEED: float = 5.0;
+@export var COMBATSPEED: float = 9
 var RELETIVESPEED: float
 
 @export var camera_3d: Camera3D;
@@ -13,7 +14,7 @@ var RELETIVESPEED: float
 
 @export var player_meshes: Node3D
 
-@export var castPullController : CastPullSystem
+@export var castPullController : inputHandlerController
 
 func _ready() -> void:
 	RELETIVESPEED = SPEED
