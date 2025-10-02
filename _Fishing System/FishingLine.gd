@@ -3,16 +3,15 @@ extends Node3D
 #
 var castObject : Node3D
 @export var reelPoint: Node3D
+var mesh : ImmediateMesh
 
+var ropeSegments: Array[RigidBody3D] = []
+var segmentcount: int
 @export var maxLength : float = 5
 @export var slackLength : float = 5
 var springStiffnessWeight: int = 0
 
 var isObjectCast : bool = false
-var ropeSegments: Array[RigidBody3D] = []
-var segmentcount: int
-
-var mesh : ImmediateMesh
 
 func _ready() -> void:
 	mesh = ImmediateMesh.new()
@@ -36,7 +35,6 @@ func _process(delta):
 		im.surface_end()
 
 func create_rope(Bobber: Node3D, castPoint: Node3D, segmentCount: int):
-	
 	castObject = Bobber
 	isObjectCast = true
 	segmentcount = 0
@@ -49,13 +47,10 @@ func create_rope(Bobber: Node3D, castPoint: Node3D, segmentCount: int):
 		var segment: RigidBody3D = preload("res://_Fishing System/ropeSegment.tscn").instantiate()
 		var segmentPosition = ropeVector + castPoint.global_position * lengthPerSegment * (i + 1)
 		segment.global_position = castPoint.global_position + segmentPosition
-		
 		ropeSegments.append(segment)
 		get_tree().current_scene.add_child(segment)
 		
-		
 		var joint = Generic6DOFJoint3D.new()
-		
 		joint.node_a = last.get_path()
 		joint.node_b = segment.get_path()
 		joint.global_position = segment.global_position
@@ -84,8 +79,6 @@ func create_rope(Bobber: Node3D, castPoint: Node3D, segmentCount: int):
 		last = segment
 		segmentcount += 1
 	
-	#last.global_position = castPoint.global_position
-	
 	var final_joint = Generic6DOFJoint3D.new()
 	final_joint.node_a = ropeSegments.back().get_path()
 	final_joint.node_b = castPoint.get_path()
@@ -94,7 +87,7 @@ func create_rope(Bobber: Node3D, castPoint: Node3D, segmentCount: int):
 func reel_in(amount: float):
 	slackLength = max(slackLength - amount, 0.0)
 	var segmentCount: int = ropeSegments.size()
-	if segmentCount == 0:return
+	if segmentCount == 0 : return
 	
 	var reelPOS = reelPoint.global_position
 	var bobberPOS = castObject.global_position

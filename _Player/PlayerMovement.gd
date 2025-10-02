@@ -3,7 +3,9 @@ extends CharacterBody3D
 
 @export var gravityMultiplyer: float
 @export var SPEED: float = 5.0;
-@export var COMBATSPEED: float = 9
+@export var SPRINTSPEED: float = 10
+@export var COMBATSPEED: float = 6.5
+@export var COMBATSPRINTSPEED: float = 13
 var RELETIVESPEED: float
 
 @export var camera_3d: Camera3D;
@@ -25,6 +27,17 @@ func _input(event: InputEvent):
 		camera_mount_orbit.rotate_y(deg_to_rad(-event.relative.x * sense_Horizontal))
 		camera_mount_pitch.rotate_x(deg_to_rad(-event.relative.y * sense_Vertical))
 		camera_mount_pitch.rotation_degrees.x = clamp(camera_mount_pitch.rotation_degrees.x, -80, 80)
+	
+	if castPullController.inCombat == false:
+		if Input.is_action_pressed("PlayerSprint"):
+			RELETIVESPEED = SPRINTSPEED
+		else: 
+			RELETIVESPEED = SPEED
+	else:
+		if Input.is_action_pressed("PlayerSprint"):
+			RELETIVESPEED = COMBATSPRINTSPEED
+		else: 
+			RELETIVESPEED = COMBATSPEED
 
 func _physics_process(delta: float):
 	if not is_on_floor():
@@ -33,7 +46,6 @@ func _physics_process(delta: float):
 	else: 
 		velocity += get_gravity() * delta * gravityMultiplyer
 		castPullController.inAir = false
-	
 	PlayerMover()
 	move_and_slide()
 
