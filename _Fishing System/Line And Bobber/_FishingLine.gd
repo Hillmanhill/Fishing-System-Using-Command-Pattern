@@ -44,7 +44,7 @@ func create_rope(Bobber: Node3D, castPoint: Node3D, segmentCount: int):
 	
 	for i in segmentCount:
 		await get_tree().create_timer(.1).timeout
-		var segment: RigidBody3D = preload("res://_Fishing System/ropeSegment.tscn").instantiate()
+		var segment: RigidBody3D = preload("res://_Fishing System/Line And Bobber/ropeSegment.tscn").instantiate()
 		var segmentPosition = ropeVector + castPoint.global_position * lengthPerSegment * (i + 1)
 		segment.global_position = castPoint.global_position + segmentPosition
 		ropeSegments.append(segment)

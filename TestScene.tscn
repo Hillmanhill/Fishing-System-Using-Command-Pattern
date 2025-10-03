@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://btjsp0rgdfor6"]
 
 [ext_resource type="PackedScene" uid="uid://bpgjkra8k7buf" path="res://_Player/player.tscn" id="1_mncer"]
-[ext_resource type="Script" uid="uid://5n5io3d7goai" path="res://bobber.gd" id="1_wicfy"]
+[ext_resource type="Script" uid="uid://5n5io3d7goai" path="res://_Fishing System/Line And Bobber/bobber.gd" id="1_wicfy"]
 [ext_resource type="Script" uid="uid://c3wwupjndh0my" path="res://Enemy Structure/_GenericFish.gd" id="2_cguwc"]
 [ext_resource type="PackedScene" uid="uid://byqjje8y85jg5" path="res://Enemy Structure/FishEnemyTest.blend" id="4_go42g"]
 
@@ -33,7 +33,10 @@ radius = 1.30868
 [node name="Player" parent="." instance=ExtResource("1_mncer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.20772, -0.202245, 4.5242)
 
-[node name="Cast Reel Input Controller & Handler" parent="Player" index="2" node_paths=PackedStringArray("CastObject")]
+[node name="TargetLockOn" parent="Player" index="0" node_paths=PackedStringArray("enemyContainer")]
+enemyContainer = NodePath("../../Enemy Container")
+
+[node name="Cast Reel Input Controller & Handler" parent="Player" index="3" node_paths=PackedStringArray("CastObject")]
 CastObject = NodePath("../../CastObject")
 
 [node name="CastObject" type="RigidBody3D" parent="." node_paths=PackedStringArray("castPullController")]
@@ -73,6 +76,13 @@ use_collision = true
 collision_layer = 3
 collision_mask = 3
 size = Vector3(1.98608, 0.280884, 0.949648)
+
+[node name="CSGBox3D31" type="CSGBox3D" parent="Map"]
+transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, 10.3365, 0.895482, -0.47345)
+use_collision = true
+collision_layer = 3
+collision_mask = 3
+size = Vector3(0.100524, 0.254822, 0.949648)
 
 [node name="CSGBox3D9" type="CSGBox3D" parent="Map"]
 transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, 19.5863, -0.98369, -0.563978)

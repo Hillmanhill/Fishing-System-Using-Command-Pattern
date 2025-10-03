@@ -2,6 +2,8 @@ class_name inputHandlerController
 extends Node
 
 @export var commandHandler: CommandActionHandler
+@export var TargetLockOn : PlayerTargetLockOn
+@export var ropeVisualizer: ropeVisual
 
 @export var Player : PlayerController
 @export var HokkedEnemy : Node3D
@@ -15,7 +17,7 @@ var inCombat: bool = false
 @export var castObjectLocation: StaticBody3D
 @export var player_mesh: Node3D
 
-@export var ropeVisualizer: ropeVisual
+
 
 func _ready() -> void: 
 	CastObject.position = castObjectLocation.global_position 
@@ -28,11 +30,19 @@ func _physics_process(delta: float) -> void:
 			ropeVisualizer.reel_in(1)
 
 func _input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("PlayerTargetLockOn") and TargetLockOn.currentTarget == null:
+		TargetLockOn.lock_onto_closest()
+	elif Input.is_action_just_pressed("PlayerTargetLockOn") and TargetLockOn.currentTarget:
+		TargetLockOn.unlock_Target()
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_WHEEL_UP) or Input.is_mouse_button_pressed(MOUSE_BUTTON_WHEEL_DOWN):
+		TargetLockOn.cycle_target(true)
+	
 	if Input.is_action_just_pressed("SetCombatState"):
 		if inCombat:
 			inCombat = false
 		else:
 			inCombat = true
+	
 	if !inCombat:
 		if event.is_action_pressed("PlayerSprint"):
 			var sprint = PlayerSprintAction.new("PlayerSprintAction", "$Player")
@@ -100,7 +110,6 @@ func _input(event: InputEvent) -> void:
 		if event is InputEventMouseButton and event.is_pressed():
 			match event.button_index:
 				MOUSE_BUTTON_LEFT:
-					# ADD COMBAT MOUSE CLICKS
 					var LeftMouse = LeftMouseCastAction.new("LeftMouseCastAction", "$CurrentTarget")
 					commandHandler.add_command(LeftMouse, "$CurrentTarget")
 				MOUSE_BUTTON_RIGHT:

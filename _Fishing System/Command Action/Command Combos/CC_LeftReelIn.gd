@@ -9,7 +9,7 @@ func get_id() -> Dictionary:
 	return {"ACID": "RightMouse", "attackTime": attackTimeElapse, "avalibleTime": avalibleAttackSubWindow}
 
 func _ready() -> void:
-	commandHandler.register_combo(["PlayerLeft"], self)
+	commandHandler.register_combo(["COMBAT_PlayerLeft"], self)
 	#nextComboBranch = {}
 
 func execute(Target: String, Player: Node3D, castPullController: inputHandlerController) -> void:

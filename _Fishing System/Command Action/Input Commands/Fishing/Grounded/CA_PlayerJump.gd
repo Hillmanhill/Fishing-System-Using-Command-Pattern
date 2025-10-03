@@ -2,8 +2,8 @@ class_name PlayerJumpAction
 extends CommandAction
 
 func get_id()-> Dictionary:
-	attackTimeElapse = .1
-	avalibleAttackSubWindow = .05
+	attackTimeElapse = 3
+	avalibleAttackSubWindow = .0
 	
 	return {"ACID": "PlayerJump", "attackTime": attackTimeElapse, "avalibleTime": avalibleAttackSubWindow}
 

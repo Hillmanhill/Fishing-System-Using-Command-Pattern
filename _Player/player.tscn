@@ -1,10 +1,11 @@
-[gd_scene load_steps=38 format=3 uid="uid://bpgjkra8k7buf"]
+[gd_scene load_steps=41 format=3 uid="uid://bpgjkra8k7buf"]
 
 [ext_resource type="Script" uid="uid://bncuc2imx11h1" path="res://_Player/_PlayerMovement.gd" id="1_4flbx"]
-[ext_resource type="Script" uid="uid://bbj1o80v4hhn2" path="res://_Fishing System/_FishingLine.gd" id="2_3i7y5"]
+[ext_resource type="Script" uid="uid://bbj1o80v4hhn2" path="res://_Fishing System/Line And Bobber/_FishingLine.gd" id="2_3i7y5"]
+[ext_resource type="Script" uid="uid://tpmiordqrnuc" path="res://_Player/_PlayerTargetLockOn.gd" id="2_jr7ij"]
 [ext_resource type="Script" uid="uid://ddewqodfuca1e" path="res://_Player/_FishingCastAndPullInputController.gd" id="2_t8t7b"]
-[ext_resource type="Script" uid="uid://bldkomf1fir2v" path="res://_Fishing System/Command Action/Input Commands/Fishing/CA_Left_Mouse.gd" id="3_lf471"]
-[ext_resource type="Script" uid="uid://6qero8umtmg2" path="res://_Fishing System/Command Action/Input Commands/Fishing/CA_Right_Mouse.gd" id="4_3i7y5"]
+[ext_resource type="Script" uid="uid://bldkomf1fir2v" path="res://_Fishing System/Command Action/Input Commands/CA_Left_Mouse.gd" id="3_lf471"]
+[ext_resource type="Script" uid="uid://6qero8umtmg2" path="res://_Fishing System/Command Action/Input Commands/CA_Right_Mouse.gd" id="4_3i7y5"]
 [ext_resource type="Script" uid="uid://c3kae4gnl4pun" path="res://_Fishing System/Command Action/_CommandHandler.gd" id="5_lf471"]
 [ext_resource type="Script" uid="uid://c4wwxoonhk7er" path="res://_Fishing System/Command Action/Command Combos/CC_RightReelIn.gd" id="7_v07bw"]
 [ext_resource type="Script" uid="uid://lyoeid6ixfu2" path="res://_Fishing System/Command Action/Command Combos/CC_LeftReelIn.gd" id="8_0js2u"]
@@ -34,12 +35,15 @@ size = Vector3(0.1, 0.1, 0.1)
 [sub_resource type="PrismMesh" id="PrismMesh_v07bw"]
 size = Vector3(0.1, 0.1, 0.1)
 
+[sub_resource type="BoxMesh" id="BoxMesh_5xi80"]
+size = Vector3(0, 0, 0)
+
 [sub_resource type="Animation" id="Animation_5xi80"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionShape3D/Player Mesh/Node3D/MeshInstance3D:position")
+tracks/0/path = NodePath("MovementCollider/Player Mesh/Node3D/MeshInstance3D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -51,7 +55,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape3D/Player Mesh/Node3D/MeshInstance3D2:position")
+tracks/1/path = NodePath("MovementCollider/Player Mesh/Node3D/MeshInstance3D2:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -63,7 +67,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CollisionShape3D/Player Mesh:position")
+tracks/2/path = NodePath("MovementCollider/Player Mesh:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -71,6 +75,42 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 0.13501, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MovementCollider/Player Mesh/MeshInstance3D:mesh")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("BoxMesh_5xi80")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MovementCollider/Player Mesh/MeshInstance3D:mesh:size")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("MovementCollider/Player Mesh/MeshInstance3D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.983038, 0.960681, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jr7ij"]
@@ -85,7 +125,47 @@ _data = {
 [sub_resource type="Animation" id="Animation_p6xc4"]
 resource_name = "AIR_heavyAttack"
 
+[sub_resource type="BoxMesh" id="BoxMesh_jr7ij"]
+size = Vector3(0.335, 0.405, 0.275)
+
 [sub_resource type="Animation" id="Animation_4p3ea"]
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MovementCollider/Player Mesh/MeshInstance3D:mesh")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("BoxMesh_jr7ij")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MovementCollider/Player Mesh/MeshInstance3D:mesh:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.335, 0.405, 0.275)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MovementCollider/Player Mesh/MeshInstance3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1, 0.199912, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.983038, 0.960681, 0), Vector3(-0.604528, 0.548738, 0.840561), Vector3(0.128946, 0.0116866, 1.07031), Vector3(1.15054, -0.649422, 0.279863)]
+}
 
 [sub_resource type="Animation" id="Animation_dcv2n"]
 
@@ -126,12 +206,40 @@ _data = {
 &"Grounded_rightReelIn": SubResource("Animation_gde5x")
 }
 
+[sub_resource type="Animation" id="Animation_jr7ij"]
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MovementCollider/Player Mesh/Node3D/MeshInstance3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.366667, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.500986, -1.11116, 0), Vector3(0.500986, -0.896863, 0), Vector3(0.500986, -1.11116, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MovementCollider/Player Mesh/Node3D/MeshInstance3D2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.366667, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.501, -0.822157, 0), Vector3(-0.501, -1.09635, 0), Vector3(-0.501, -0.822157, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_rmxa3"]
 length = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionShape3D/Player Mesh/Node3D/MeshInstance3D:position")
+tracks/0/path = NodePath("MovementCollider/Player Mesh/Node3D/MeshInstance3D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -143,7 +251,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape3D/Player Mesh/Node3D/MeshInstance3D2:position")
+tracks/1/path = NodePath("MovementCollider/Player Mesh/Node3D/MeshInstance3D2:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -159,7 +267,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionShape3D/Player Mesh:position")
+tracks/0/path = NodePath("MovementCollider/Player Mesh:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -171,7 +279,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape3D/Player Mesh/Node3D/MeshInstance3D:position")
+tracks/1/path = NodePath("MovementCollider/Player Mesh/Node3D/MeshInstance3D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -183,7 +291,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CollisionShape3D/Player Mesh/Node3D/MeshInstance3D2:position")
+tracks/2/path = NodePath("MovementCollider/Player Mesh/Node3D/MeshInstance3D2:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -200,7 +308,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionShape3D/Player Mesh/Node3D/MeshInstance3D2:position")
+tracks/0/path = NodePath("MovementCollider/Player Mesh/Node3D/MeshInstance3D2:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -212,7 +320,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape3D/Player Mesh/Node3D/MeshInstance3D:position")
+tracks/1/path = NodePath("MovementCollider/Player Mesh/Node3D/MeshInstance3D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -224,7 +332,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CollisionShape3D/Player Mesh:position")
+tracks/2/path = NodePath("MovementCollider/Player Mesh:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -232,34 +340,6 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector3(0, 0.13501, 0), Vector3(0, 0.00556618, 0), Vector3(0, 0.13501, 0), Vector3(0, 0.00556618, 0), Vector3(0, 0.13501, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_jr7ij"]
-length = 0.7
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionShape3D/Player Mesh/Node3D/MeshInstance3D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.366667, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0.500986, -1.11116, 0), Vector3(0.500986, -0.896863, 0), Vector3(0.500986, -1.11116, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape3D/Player Mesh/Node3D/MeshInstance3D2:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.366667, 0.7),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(-0.501, -0.822157, 0), Vector3(-0.501, -1.09635, 0), Vector3(-0.501, -0.822157, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wkedm"]
@@ -274,46 +354,55 @@ _data = {
 script = ExtResource("1_4flbx")
 gravityMultiplyer = 3.0
 camera_3d = NodePath("CameraMountOrbit/CameraMountPitch/Camera3D")
-player_meshes = NodePath("CollisionShape3D/Player Mesh")
+player_meshes = NodePath("MovementCollider/Player Mesh")
 castPullController = NodePath("Cast Reel Input Controller & Handler")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="TargetLockOn" type="Node3D" parent="." node_paths=PackedStringArray("player", "playerCamera")]
+script = ExtResource("2_jr7ij")
+player = NodePath("..")
+playerCamera = NodePath("../CameraMountOrbit/CameraMountPitch/Camera3D")
+
+[node name="MovementCollider" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_lf471")
 
-[node name="Player Mesh" type="CSGCylinder3D" parent="CollisionShape3D"]
+[node name="Player Mesh" type="CSGCylinder3D" parent="MovementCollider"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13501, 0)
 height = 2.14856
 
-[node name="Node3D" type="Node3D" parent="CollisionShape3D/Player Mesh"]
+[node name="Node3D" type="Node3D" parent="MovementCollider/Player Mesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0508791, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D/Player Mesh/Node3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MovementCollider/Player Mesh/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.500986, -0.985058, 0)
 mesh = SubResource("SphereMesh_r120c")
 skeleton = NodePath("../../../..")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="CollisionShape3D/Player Mesh/Node3D"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="MovementCollider/Player Mesh/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.501, -0.985, 0)
 mesh = SubResource("SphereMesh_o7r8c")
 skeleton = NodePath("../../../..")
 
-[node name="ReelToolPOS" type="CSGBox3D" parent="CollisionShape3D/Player Mesh"]
+[node name="ReelToolPOS" type="CSGBox3D" parent="MovementCollider/Player Mesh"]
 transform = Transform3D(0.325575, 0, 0, 0, 0.325575, 0, 0, 0, 0.325575, 0, -0.0917516, 0.568988)
 size = Vector3(1, 1, 1.04358)
 material = SubResource("StandardMaterial3D_3i7y5")
 
-[node name="Cast Object POS" type="StaticBody3D" parent="CollisionShape3D/Player Mesh" node_paths=PackedStringArray("reelPoint")]
+[node name="Cast Object POS" type="StaticBody3D" parent="MovementCollider/Player Mesh" node_paths=PackedStringArray("reelPoint")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19962, 1.74725)
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("2_3i7y5")
 reelPoint = NodePath("../ReelToolPOS")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionShape3D/Player Mesh/Cast Object POS"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MovementCollider/Player Mesh/Cast Object POS"]
 shape = SubResource("BoxShape3D_3i7y5")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D/Player Mesh/Cast Object POS"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MovementCollider/Player Mesh/Cast Object POS"]
 mesh = SubResource("PrismMesh_v07bw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MovementCollider/Player Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.983038, 0.960681, 0)
+mesh = SubResource("BoxMesh_5xi80")
 
 [node name="CameraMountOrbit" type="Node3D" parent="."]
 
@@ -323,19 +412,20 @@ mesh = SubResource("PrismMesh_v07bw")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.43346, 5.48762)
 fov = 90.0
 
-[node name="Cast Reel Input Controller & Handler" type="Node" parent="." node_paths=PackedStringArray("commandHandler", "Player", "castObjectLocation", "player_mesh", "ropeVisualizer")]
+[node name="Cast Reel Input Controller & Handler" type="Node" parent="." node_paths=PackedStringArray("commandHandler", "TargetLockOn", "ropeVisualizer", "Player", "castObjectLocation", "player_mesh")]
 script = ExtResource("2_t8t7b")
 commandHandler = NodePath("Command Handler")
+TargetLockOn = NodePath("../TargetLockOn")
+ropeVisualizer = NodePath("../MovementCollider/Player Mesh/Cast Object POS")
 Player = NodePath("..")
-castObjectLocation = NodePath("../CollisionShape3D/Player Mesh/Cast Object POS")
-player_mesh = NodePath("../CollisionShape3D/Player Mesh")
-ropeVisualizer = NodePath("../CollisionShape3D/Player Mesh/Cast Object POS")
+castObjectLocation = NodePath("../MovementCollider/Player Mesh/Cast Object POS")
+player_mesh = NodePath("../MovementCollider/Player Mesh")
 
 [node name="Inputs" type="Node" parent="Cast Reel Input Controller & Handler"]
 
 [node name="CA_Left_Mouse" type="Node" parent="Cast Reel Input Controller & Handler/Inputs" node_paths=PackedStringArray("ropeVisualizer")]
 script = ExtResource("3_lf471")
-ropeVisualizer = NodePath("../../../CollisionShape3D/Player Mesh/Cast Object POS")
+ropeVisualizer = NodePath("../../../MovementCollider/Player Mesh/Cast Object POS")
 
 [node name="CA_Right_Mouse" type="Node" parent="Cast Reel Input Controller & Handler/Inputs"]
 script = ExtResource("4_3i7y5")

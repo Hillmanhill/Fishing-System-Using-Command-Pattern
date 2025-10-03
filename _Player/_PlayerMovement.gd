@@ -29,6 +29,7 @@ func _input(event: InputEvent):
 		camera_mount_orbit.rotate_y(deg_to_rad(-event.relative.x * sense_Horizontal))
 		camera_mount_pitch.rotate_x(deg_to_rad(-event.relative.y * sense_Vertical))
 		camera_mount_pitch.rotation_degrees.x = clamp(camera_mount_pitch.rotation_degrees.x, -80, 80)
+	PlayerMover()
 
 func _physics_process(delta: float):
 	if not is_on_floor():
@@ -44,7 +45,6 @@ func _physics_process(delta: float):
 	else:
 		isSprinting = false
 	
-	PlayerMover()
 	move_and_slide()
 
 func PlayerMover() -> void:
@@ -62,6 +62,7 @@ func PlayerMover() -> void:
 	if move_dir != Vector3.ZERO:
 		move_dir.y = -0.1
 		player_meshes.look_at(global_position + -move_dir, Vector3.UP)
+		
 		if is_on_floor():
 			if !isSprinting and castPullController.inCombat:
 				RELETIVESPEED = COMBATSPEED
@@ -75,7 +76,7 @@ func PlayerMover() -> void:
 			elif isSprinting and not castPullController.inCombat:
 				RELETIVESPEED = SPRINTSPEED
 				animation_player.play("General_Player/Grounded_Run")
-			
+		
 		velocity.x = move_dir.x * RELETIVESPEED
 		velocity.z = move_dir.z * RELETIVESPEED
 	else:
