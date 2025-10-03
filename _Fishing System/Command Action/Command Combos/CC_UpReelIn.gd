@@ -13,6 +13,7 @@ func _ready() -> void:
 	#nextComboBranch = {}
 
 func execute(Target: String, Player: Node3D, castPullController: inputHandlerController) -> void:
-	var direction = (castPullController.hookedFish.global_position - Player.global_position).cross(Vector3.RIGHT).normalized() * -10
-	castPullController.hookedFish.linear_velocity = direction
-	print("!!!! Forward UP reel combo 01 !!!! @: ")
+	if castPullController.hookedFish:
+		var direction = (castPullController.hookedFish.global_position - Player.global_position).cross(Vector3.RIGHT).normalized() * -10
+		castPullController.hookedFish.linear_velocity = direction
+		print("!!!! Forward UP reel combo 01 !!!! @: ")
