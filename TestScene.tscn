@@ -23,7 +23,7 @@ background_mode = 2
 sky = SubResource("Sky_cguwc")
 tonemap_mode = 3
 sdfgi_read_sky_light = false
-fog_enabled = true
+fog_light_color = Color(0.217525, 0.239357, 0.273677, 1)
 fog_sky_affect = 0.0
 volumetric_fog_density = 0.005
 
@@ -47,7 +47,7 @@ radius = 1.30868
 [node name="World" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("1_mncer")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.20772, -0.202245, 4.5242)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.20772, 4.29222, 4.5242)
 
 [node name="TargetLockOn" parent="Player" index="1" node_paths=PackedStringArray("enemyContainer")]
 enemyContainer = NodePath("../../Enemy Container")

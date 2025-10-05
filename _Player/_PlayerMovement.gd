@@ -18,6 +18,7 @@ var isSprinting: bool = false
 @export var player_meshes: Node3D
 
 @export var castPullController : inputHandlerController
+@onready var animation_state: playerAnimStates = $animationStateController
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
@@ -29,8 +30,21 @@ func _input(event: InputEvent):
 		camera_mount_orbit.rotate_y(deg_to_rad(-event.relative.x * sense_Horizontal))
 		camera_mount_pitch.rotate_x(deg_to_rad(-event.relative.y * sense_Vertical))
 		camera_mount_pitch.rotation_degrees.x = clamp(camera_mount_pitch.rotation_degrees.x, -80, 80)
-	PlayerMover()
-
+	
+	if is_on_floor() :#and velocity >= Vector3(0.01,0.01,0.01):
+		if !isSprinting and castPullController.inCombat:
+			RELETIVESPEED = COMBATSPEED
+			animation_state.execute_animation_state(animation_state.animStates.walk, "")
+		elif !isSprinting and not castPullController.inCombat:
+			RELETIVESPEED = SPEED
+			animation_state.execute_animation_state(animation_state.animStates.walk, "")
+		elif isSprinting and castPullController.inCombat:
+			RELETIVESPEED = COMBATSPRINTSPEED
+			animation_state.execute_animation_state(animation_state.animStates.sprint, "")
+		elif isSprinting and not castPullController.inCombat:
+			RELETIVESPEED = SPRINTSPEED
+			animation_state.execute_animation_state(animation_state.animStates.sprint, "")
+	
 func _physics_process(delta: float):
 	if not is_on_floor():
 		velocity += get_gravity() * delta * gravityMultiplyer
@@ -44,11 +58,11 @@ func _physics_process(delta: float):
 		isSprinting = true
 	else:
 		isSprinting = false
-	
+	PlayerMover()
 	move_and_slide()
 
 func PlayerMover() -> void:
-	var input_dir := Input.get_vector("PlayerLeft", "PlayerRight", "PlayerForward", "PlayerBackward")
+	var input_dir: Vector2 = Input.get_vector("PlayerLeft", "PlayerRight", "PlayerForward", "PlayerBackward")
 	
 	var cam_forward = camera_3d.global_transform.basis.z
 	var cam_right = camera_3d.global_transform.basis.x
@@ -63,23 +77,10 @@ func PlayerMover() -> void:
 		move_dir.y = -0.1
 		player_meshes.look_at(global_position + -move_dir, Vector3.UP)
 		
-		if is_on_floor():
-			if !isSprinting and castPullController.inCombat:
-				RELETIVESPEED = COMBATSPEED
-				animation_player.play("General_Player/Grounded_Walk")
-			elif !isSprinting and not castPullController.inCombat:
-				RELETIVESPEED = SPEED
-				animation_player.play("General_Player/Grounded_Walk")
-			elif isSprinting and castPullController.inCombat:
-				RELETIVESPEED = COMBATSPRINTSPEED
-				animation_player.play("General_Player/Grounded_Run")
-			elif isSprinting and not castPullController.inCombat:
-				RELETIVESPEED = SPRINTSPEED
-				animation_player.play("General_Player/Grounded_Run")
-		
 		velocity.x = move_dir.x * RELETIVESPEED
 		velocity.z = move_dir.z * RELETIVESPEED
 	else:
+		animation_state.execute_animation_state(animation_state.animStates.idle, "")
 		animation_player.play("RESET")
 		velocity.x = move_toward(velocity.x, 0, RELETIVESPEED)
 		velocity.z = move_toward(velocity.z, 0, RELETIVESPEED)

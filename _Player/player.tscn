@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://bpgjkra8k7buf"]
+[gd_scene load_steps=43 format=3 uid="uid://bpgjkra8k7buf"]
 
 [ext_resource type="Script" uid="uid://bncuc2imx11h1" path="res://_Player/_PlayerMovement.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://bbj1o80v4hhn2" path="res://_Fishing System/Line And Bobber/_FishingLine.gd" id="2_3i7y5"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://c4wwxoonhk7er" path="res://_Fishing System/Command Action/Command Combos/CC_RightReelIn.gd" id="7_v07bw"]
 [ext_resource type="Script" uid="uid://lyoeid6ixfu2" path="res://_Fishing System/Command Action/Command Combos/CC_LeftReelIn.gd" id="8_0js2u"]
 [ext_resource type="Script" uid="uid://b3jfvgeh2xctx" path="res://_Fishing System/Command Action/Command Combos/CC_UpReelIn.gd" id="9_5xi80"]
+[ext_resource type="Script" uid="uid://dxg5sgx5y7s8t" path="res://_Player/_PlayerAnimController.gd" id="11_dcv2n"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_5xi80"]
 size = Vector3(0, 0, 0)
@@ -580,5 +581,10 @@ commandHandler = NodePath("../../Command Handler")
 [node name="temp ececute handler" type="Timer" parent="."]
 wait_time = 0.1
 autostart = true
+
+[node name="animationStateController" type="Node" parent="." node_paths=PackedStringArray("PlayerAnimationPlayer", "playerInputHandler")]
+script = ExtResource("11_dcv2n")
+PlayerAnimationPlayer = NodePath("../AnimationPlayer")
+playerInputHandler = NodePath("../Cast Reel Input Controller & Handler")
 
 [connection signal="timeout" from="temp ececute handler" to="Cast Reel Input Controller & Handler/Command Handler" method="_on_temp_ececute_handler_timeout"]
