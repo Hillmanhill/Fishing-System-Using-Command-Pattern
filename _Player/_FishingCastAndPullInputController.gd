@@ -27,11 +27,15 @@ func _physics_process(delta: float) -> void:
 		CastObject.global_position = castObjectLocation.global_position
 		hookedFish = null
 	elif hookedFish:
-			ropeVisualizer.reel_in(1)
+			print("fish hooked and reeling")
+			ropeVisualizer.reel_in(.1)
+			
 
 func _input(event: InputEvent) -> void:
 	if Input.is_key_pressed(KEY_0):
 		ropeVisualizer.remove_last_segment()
+	if Input.is_key_pressed(KEY_9):
+		ropeVisualizer.append_segments_to_current(1)
 	
 	if Input.is_action_just_pressed("PlayerTargetLockOn") and TargetLockOn.currentTarget == null:
 		TargetLockOn.lock_onto_closest()
