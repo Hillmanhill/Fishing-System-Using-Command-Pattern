@@ -30,6 +30,9 @@ func _physics_process(delta: float) -> void:
 			ropeVisualizer.reel_in(1)
 
 func _input(event: InputEvent) -> void:
+	if Input.is_key_pressed(KEY_0):
+		ropeVisualizer.remove_last_segment()
+	
 	if Input.is_action_just_pressed("PlayerTargetLockOn") and TargetLockOn.currentTarget == null:
 		TargetLockOn.lock_onto_closest()
 	elif Input.is_action_just_pressed("PlayerTargetLockOn") and TargetLockOn.currentTarget:

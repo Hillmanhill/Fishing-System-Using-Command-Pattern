@@ -3,6 +3,7 @@ extends Node3D
 #
 var castObject : RigidBody3D
 @export var reelPoint: Node3D
+var castedPoint: Node3D
 var mesh : ImmediateMesh
 
 var ropeSegments: Array[RigidBody3D] = []
@@ -10,7 +11,6 @@ var segmentcount: int
 @export var maxLength : float = 5
 @export var slackLength : float = 5
 var springStiffnessWeight: int = 0.1
-@export var pullStrength = 6
 
 var isObjectCast : bool = false
 
@@ -50,10 +50,11 @@ func _physics_process(delta: float) -> void:
 		
 		if castObject.global_position.distance_to(reelPoint.global_position) > 18:
 			reel_in(0.1)
-			pull_in_by_distance()
+			pull_in_by_distance(6)
 
 func create_rope(Bobber: Node3D, castPoint: Node3D, segmentCount: int):
 	castObject = Bobber
+	castedPoint = castPoint
 	isObjectCast = true
 	segmentcount = 0
 	var last = Bobber
@@ -112,7 +113,7 @@ func create_rope(Bobber: Node3D, castPoint: Node3D, segmentCount: int):
 	
 	add_child(final_joint)
 
-func pull_in_by_distance():
+func pull_in_by_distance(pullStrength):
 	var pullDir = (reelPoint.global_position - castObject.global_position).normalized()
 	castObject.apply_central_force(pullDir * pullStrength)
 
@@ -133,6 +134,25 @@ func reel_in(amount: float):
 		if is_instance_valid(segment):
 			segment.global_position = segment_pos
 
+func remove_last_segment():
+	if ropeSegments.size() > 0:
+		var lastSegment = ropeSegments.pop_back()
+		for child in get_tree().current_scene.get_children():
+			if child is Generic6DOFJoint3D:
+				if child.node_b == lastSegment.get_path():
+					child.queue_free()
+					break
+		lastSegment.queue_free()
+		
+		var newJoint = Generic6DOFJoint3D.new()
+		ropeSegments.back().global_position = castedPoint.global_position
+		newJoint.node_a = ropeSegments.back().get_path()
+		newJoint.node_b = castedPoint.get_path()
+		add_child(newJoint)
+		pull_in_by_distance(15)
+		reel_in(0.1)
+		
+		
 func destroy_rope():
 	for i in ropeSegments:
 		i.queue_free()
