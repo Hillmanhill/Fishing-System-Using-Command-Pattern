@@ -51,7 +51,7 @@ func _physics_process(delta: float) -> void:
 			joint.set_param_y(Generic6DOFJoint3D.PARAM_LINEAR_SPRING_STIFFNESS, tension)
 			joint.set_param_z(Generic6DOFJoint3D.PARAM_LINEAR_SPRING_STIFFNESS, tension)
 		
-		if castObject.global_position.distance_to(reelPoint.global_position) > ropeSegments.size():
+		if castObject.global_position.distance_to(reelPoint.global_position) > 18:
 			reel_in(1)
 			pull_in_by_distance(6)
 

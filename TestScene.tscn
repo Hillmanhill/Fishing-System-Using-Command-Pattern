@@ -21,7 +21,6 @@ sky_material = SubResource("ProceduralSkyMaterial_mncer")
 [sub_resource type="Environment" id="Environment_wicfy"]
 background_mode = 2
 sky = SubResource("Sky_cguwc")
-tonemap_mode = 3
 sdfgi_read_sky_light = false
 fog_light_color = Color(0.217525, 0.239357, 0.273677, 1)
 fog_sky_affect = 0.0
@@ -48,6 +47,13 @@ radius = 1.30868
 
 [node name="Player" parent="." instance=ExtResource("1_mncer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.20772, 4.29222, 4.5242)
+
+[node name="AnimationTree" parent="Player/animationStateController" index="1"]
+parameters/conditions/isCasBACKWARD = false
+parameters/conditions/isCast = false
+parameters/conditions/isCastFORWARD = false
+parameters/conditions/isCastLEFT = false
+parameters/conditions/isCastRIGHT = false
 
 [node name="TargetLockOn" parent="Player" index="1" node_paths=PackedStringArray("enemyContainer")]
 enemyContainer = NodePath("../../Enemy Container")
@@ -328,15 +334,16 @@ metadata/_edit_group_ = true
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy Container/Fish"]
 shape = SubResource("SphereShape3D_mncer")
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="Enemy Container/Fish"]
-radius = 1.33171
-
 [node name="Bod" type="Node3D" parent="Enemy Container/Fish"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.324025)
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="Enemy Container/Fish/Bod"]
 transform = Transform3D(0.435779, 0, 0, 0, 0.435779, 0, 0, 0, 0.435779, -7.15256e-07, 0, -1.6405)
 use_collision = true
+radius = 1.33171
+
+[node name="CSGSphere3D2" type="CSGSphere3D" parent="Enemy Container/Fish/Bod"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.324025)
 radius = 1.33171
 
 [node name="Fish2" type="RigidBody3D" parent="Enemy Container"]

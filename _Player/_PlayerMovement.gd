@@ -20,6 +20,7 @@ var isSprinting: bool = false
 @export var castPullController : inputHandlerController
 @onready var animation_state: playerAnimStates = $animationStateController
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+var lastAnimState
 
 func _ready() -> void:
 	RELETIVESPEED = SPEED
@@ -34,30 +35,43 @@ func _input(event: InputEvent):
 	if is_on_floor() :#and velocity >= Vector3(0.01,0.01,0.01):
 		if !isSprinting and castPullController.inCombat:
 			RELETIVESPEED = COMBATSPEED
-			animation_state.execute_animation_state(animation_state.animStates.walk, "")
+			#animation_state.execute_animation_state(animation_state.animStates.walk, "")
 		elif !isSprinting and not castPullController.inCombat:
 			RELETIVESPEED = SPEED
-			animation_state.execute_animation_state(animation_state.animStates.walk, "")
+			#animation_state.execute_animation_state(animation_state.animStates.walk, "")
 		elif isSprinting and castPullController.inCombat:
 			RELETIVESPEED = COMBATSPRINTSPEED
-			animation_state.execute_animation_state(animation_state.animStates.sprint, "")
+			#animation_state.execute_animation_state(animation_state.animStates.sprint, "")
 		elif isSprinting and not castPullController.inCombat:
 			RELETIVESPEED = SPRINTSPEED
-			animation_state.execute_animation_state(animation_state.animStates.sprint, "")
+			#animation_state.execute_animation_state(animation_state.animStates.sprint, "")
 	
 func _physics_process(delta: float):
-	if not is_on_floor():
-		velocity += get_gravity() * delta * gravityMultiplyer
-		castPullController.inAir = true
-		animation_player.play("General_Player/AIR_Falling")
-	else: 
+	var newAnimState
+	
+	if is_on_floor():
+		if velocity.length() > 0.1:
+			if isSprinting:
+				newAnimState = animation_state.animStates.sprint
+			else: 
+				newAnimState = animation_state.animStates.walk
+		else: 
+			newAnimState = animation_state.animStates.idle
+	else:
+		newAnimState = animation_state.animStates.jump
 		velocity += get_gravity() * delta * gravityMultiplyer
 		castPullController.inAir = false
+		
+	if newAnimState != lastAnimState:
+		animation_state.execute_animation_state(newAnimState, "move")
+		#animation_state.animationTree.set("parameters/playback/current",newAnimState)
+		lastAnimState = newAnimState
 	
 	if Input.is_action_pressed("PlayerSprint"):
 		isSprinting = true
 	else:
 		isSprinting = false
+	
 	PlayerMover()
 	move_and_slide()
 
@@ -80,8 +94,7 @@ func PlayerMover() -> void:
 		velocity.x = move_dir.x * RELETIVESPEED
 		velocity.z = move_dir.z * RELETIVESPEED
 	else:
-		animation_state.execute_animation_state(animation_state.animStates.idle, "")
-		animation_player.play("RESET")
+		#animation_state.execute_animation_state(animation_state.animStates.idle, "")
+		#animation_player.play("RESET")
 		velocity.x = move_toward(velocity.x, 0, RELETIVESPEED)
 		velocity.z = move_toward(velocity.z, 0, RELETIVESPEED)
-	

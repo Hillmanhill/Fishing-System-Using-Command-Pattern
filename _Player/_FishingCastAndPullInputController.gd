@@ -1,23 +1,21 @@
 class_name inputHandlerController
 extends Node
 
-@export var commandHandler: CommandActionHandler
-@export var TargetLockOn : PlayerTargetLockOn
-@export var ropeVisualizer: ropeVisual
-
 @export var Player : PlayerController
+@export var player_mesh: Node3D
+@export var commandHandler: CommandActionHandler
+@export var animation_state: playerAnimStates
+@export var TargetLockOn : PlayerTargetLockOn
 @export var HokkedEnemy : Node3D
 @export var CastObject : RigidBody3D
+@export var castObjectLocation: StaticBody3D
+
+@export var ropeVisualizer: ropeVisual
 var hookedFish: RigidBody3D
 
 var isCast : bool = false
 var inAir : bool = false
 var inCombat: bool = false
-
-@export var castObjectLocation: StaticBody3D
-@export var player_mesh: Node3D
-
-
 
 func _ready() -> void: 
 	CastObject.position = castObjectLocation.global_position 
@@ -27,11 +25,10 @@ func _physics_process(delta: float) -> void:
 		CastObject.global_position = castObjectLocation.global_position
 		hookedFish = null
 	elif hookedFish:
-			print("fish hooked and reeling")
 			ropeVisualizer.reel_in(.1)
-			
 
 func _input(event: InputEvent) -> void:
+	
 	if Input.is_key_pressed(KEY_0):
 		ropeVisualizer.remove_last_segment()
 	if Input.is_key_pressed(KEY_9):
@@ -98,9 +95,9 @@ func _input(event: InputEvent) -> void:
 										commandHandler.add_command(Right, "$Player")
 									_:
 										pass
-
-			
+		
 		if Input.is_action_just_pressed("PlayerJump") and Player.is_on_floor():
+			animation_state.execute_animation_state(animation_state.animStates.jump,"jump")
 			var jump = PlayerJumpAction.new("PlayerJumpAction", "$Player")
 			commandHandler.add_command(jump, "$Player")
 		elif Input.is_action_just_pressed("PlayerDown") and inAir:
@@ -109,6 +106,7 @@ func _input(event: InputEvent) -> void:
 		elif Input.is_action_just_pressed("PlayerDown") and !inAir:
 			var down = PlayerDownAction.new("PlayerDownAction", "$Player")
 			commandHandler.add_command(down, "$Player")
+
 	else:
 		if event.is_action_pressed("PlayerSprint"):
 			var combatSprint = COMBAT_PlayerSprintAction.new("COMBAT_PlayerSprintAction", "$Player")
@@ -119,9 +117,12 @@ func _input(event: InputEvent) -> void:
 				MOUSE_BUTTON_LEFT:
 					var LeftMouse = LeftMouseCastAction.new("LeftMouseCastAction", "$CurrentTarget")
 					commandHandler.add_command(LeftMouse, "$CurrentTarget")
+					animation_state.execute_animation_state(animation_state.animStates.lightAttack, "lightAttack")
 				MOUSE_BUTTON_RIGHT:
 					var RightMouse = RightMouseReelAction.new("RightMouseReelAction", "$CurrentTarget")
 					commandHandler.add_command(RightMouse, "$CurrentTarget")
+					animation_state.execute_animation_state(animation_state.animStates.lightAttack,"heavyAttack")
+			
 		elif event.is_pressed():
 				for action in ["PlayerForward", "PlayerBackward", "PlayerLeft", "PlayerRight"]:
 					if Input.is_action_just_pressed(action):
@@ -159,6 +160,7 @@ func _input(event: InputEvent) -> void:
 										pass
 		
 		if Input.is_action_just_pressed("PlayerJump") and Player.is_on_floor():
+			animation_state.execute_animation_state(animation_state.animStates.jump,"jump")
 			var jump = COMBAT_PlayerJumpAction.new("COMBAT_PlayerJumpAction", "$Player")
 			commandHandler.add_command(jump, "$Player")
 		elif Input.is_action_just_pressed("PlayerDown") and inAir:

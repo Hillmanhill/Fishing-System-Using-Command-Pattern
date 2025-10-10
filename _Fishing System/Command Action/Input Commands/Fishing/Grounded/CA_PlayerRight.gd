@@ -12,5 +12,5 @@ func _init(cmd: String, target: String) -> void:
 
 func execute(Target: String, Player: Node3D, castPullController: inputHandlerController)-> void:
 	commandType = "PlayerRight"
-	Player.animation_player.play("General_Player/Grounded_Walk")
+	#Player.animation_player.play("General_Player/Grounded_Walk")
 	print("Type: ",commandType, " Target: ", Target)
