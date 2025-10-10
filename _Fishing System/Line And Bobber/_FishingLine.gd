@@ -1,7 +1,7 @@
 class_name ropeVisual
 extends Node3D
 #
-var castObject : Node3D
+var castObject : RigidBody3D
 @export var reelPoint: Node3D
 var mesh : ImmediateMesh
 
@@ -9,7 +9,8 @@ var ropeSegments: Array[RigidBody3D] = []
 var segmentcount: int
 @export var maxLength : float = 5
 @export var slackLength : float = 5
-var springStiffnessWeight: int = 0
+var springStiffnessWeight: int = 0.1
+@export var pullStrength = 6
 
 var isObjectCast : bool = false
 
@@ -34,6 +35,23 @@ func _process(delta):
 					im.surface_add_vertex(segment.global_position)
 		im.surface_end()
 
+func _physics_process(delta: float) -> void:
+	for i in ropeSegments.size():
+		if i == 0: continue
+		var segA = ropeSegments[i - 1]
+		var segB = ropeSegments[i]
+		var dist = segA.global_position.distance_to(segB.global_position)
+		var joint = segB.get_parent().find_child("JointTo_" + str(i), true, false)
+		if dist > maxLength / segmentcount:
+			var tension = clamp((dist - (maxLength / segmentcount)) * 10, 0, 100)
+			joint.set_param_x(Generic6DOFJoint3D.PARAM_LINEAR_SPRING_STIFFNESS, tension)
+			joint.set_param_y(Generic6DOFJoint3D.PARAM_LINEAR_SPRING_STIFFNESS, tension)
+			joint.set_param_z(Generic6DOFJoint3D.PARAM_LINEAR_SPRING_STIFFNESS, tension)
+		
+		if castObject.global_position.distance_to(reelPoint.global_position) > 18:
+			reel_in(0.1)
+			pull_in_by_distance()
+
 func create_rope(Bobber: Node3D, castPoint: Node3D, segmentCount: int):
 	castObject = Bobber
 	isObjectCast = true
@@ -51,6 +69,7 @@ func create_rope(Bobber: Node3D, castPoint: Node3D, segmentCount: int):
 		get_tree().current_scene.add_child(segment)
 		
 		var joint = Generic6DOFJoint3D.new()
+		joint.name = "JointTo_" + str(i)
 		joint.node_a = last.get_path()
 		joint.node_b = segment.get_path()
 		joint.global_position = segment.global_position
@@ -82,12 +101,25 @@ func create_rope(Bobber: Node3D, castPoint: Node3D, segmentCount: int):
 	var final_joint = Generic6DOFJoint3D.new()
 	final_joint.node_a = ropeSegments.back().get_path()
 	final_joint.node_b = castPoint.get_path()
+	
+	final_joint.set_flag_x(Generic6DOFJoint3D.FLAG_ENABLE_LINEAR_SPRING, true)
+	final_joint.set_flag_y(Generic6DOFJoint3D.FLAG_ENABLE_LINEAR_SPRING, true)
+	final_joint.set_flag_z(Generic6DOFJoint3D.FLAG_ENABLE_LINEAR_SPRING, true)
+	
+	final_joint.set_param_x(Generic6DOFJoint3D.PARAM_LINEAR_SPRING_STIFFNESS, springStiffnessWeight)
+	final_joint.set_param_y(Generic6DOFJoint3D.PARAM_LINEAR_SPRING_STIFFNESS, springStiffnessWeight)
+	final_joint.set_param_z(Generic6DOFJoint3D.PARAM_LINEAR_SPRING_STIFFNESS, springStiffnessWeight)
+	
 	add_child(final_joint)
+
+func pull_in_by_distance():
+	var pullDir = (reelPoint.global_position - castObject.global_position).normalized()
+	castObject.apply_central_force(pullDir * pullStrength)
 
 func reel_in(amount: float):
 	slackLength = max(slackLength - amount, 0.0)
 	var segmentCount: int = ropeSegments.size()
-	if segmentCount == 0 : return
+	if not segmentCount == 0 : return
 	
 	var reelPOS = reelPoint.global_position
 	var bobberPOS = castObject.global_position
@@ -97,6 +129,7 @@ func reel_in(amount: float):
 		var t = float(i) / float(segmentCount)
 		var segment_pos = bobberPOS.lerp(reelPOS, t + (effective_length / maxLength))
 		var segment = ropeSegments[i]
+		segment.linear_velocity = Vector3.ZERO
 		if is_instance_valid(segment):
 			segment.global_position = segment_pos
 

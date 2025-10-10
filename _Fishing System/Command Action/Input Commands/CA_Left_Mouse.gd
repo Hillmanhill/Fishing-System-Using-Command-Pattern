@@ -26,7 +26,7 @@ func execute(Target: String, Player: PlayerController, castPullController: input
 			castPullController.CastObject.linear_velocity = direction * 15
 			castPullController.isCast = true
 			#await get_tree().create_timer(.1).timeout
-			castPullController.ropeVisualizer.create_rope(castPullController.CastObject, castPullController.castObjectLocation, 15)
+			castPullController.ropeVisualizer.create_rope(castPullController.CastObject, castPullController.castObjectLocation, 10)
 		print("is cast: ", castPullController.isCast)
 	else:
 		print("Left Mouse Attack")
