@@ -977,6 +977,17 @@ mesh = SubResource("BoxMesh_5xi80")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.43346, 5.48762)
 fov = 90.0
 
+[node name="ProgressBar" type="ProgressBar" parent="CameraMountOrbit/CameraMountPitch/Camera3D"]
+offset_left = 3.0
+offset_top = 612.0
+offset_right = 426.0
+offset_bottom = 639.0
+min_value = 5.0
+max_value = 15.0
+step = 1.0
+value = 10.0
+show_percentage = false
+
 [node name="Cast Reel Input Controller & Handler" type="Node" parent="." node_paths=PackedStringArray("Player", "player_mesh", "commandHandler", "animation_state", "TargetLockOn", "castObjectLocation", "ropeVisualizer")]
 script = ExtResource("2_t8t7b")
 Player = NodePath("..")

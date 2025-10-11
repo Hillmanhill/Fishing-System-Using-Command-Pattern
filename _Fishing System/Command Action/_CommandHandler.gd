@@ -25,13 +25,12 @@ func _ready() -> void:
 	clearTimer.connect("timeout", Callable(self, "_on_combo_timeout"))
 
 func _process(delta: float) -> void:
-	#print("time window", canAttackBetweenTime)
 	if clearTimer.time_left >= attackTimeWindow:
 		canAttackBetweenTime = true
 
 func register_combo(sequence: Array[String], combo_action: CommandAction) -> void:
 	comboDefinitions[sequence] = combo_action
-	print("callback: ",combo_action)
+	#print("callback: ",combo_action)
 
 func add_command(cmd: CommandAction, target: String)-> void: 
 	var id_data = cmd.get_id()
@@ -60,7 +59,6 @@ func add_command(cmd: CommandAction, target: String)-> void:
 					comboReady = true
 					print("Matched continuation branch:", sequence)
 					break
-	
 	commandQueue.append({"cmd": cmd, "target": target})
 	if not comboReady:
 		check_combos()
@@ -112,7 +110,6 @@ func _Update_attack_timer(id_data: Dictionary) -> void:
 		AttackTimeEplase = id_data["attackTime"]
 	if id_data.has("avalibleTime"):
 		attackTimeWindow = id_data["avalibleTime"]
-	#print("Time elapse: ", AttackTimeEplase, " Attack Window: ", attackTimeWindow)
 
 func restart_combo_timer():
 	clearTimer.stop()

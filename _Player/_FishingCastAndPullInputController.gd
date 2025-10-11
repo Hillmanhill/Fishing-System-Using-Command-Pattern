@@ -1,5 +1,6 @@
 class_name inputHandlerController
 extends Node
+@onready var progress_bar: ProgressBar = $"../CameraMountOrbit/CameraMountPitch/Camera3D/ProgressBar"
 
 @export var Player : PlayerController
 @export var player_mesh: Node3D
@@ -17,8 +18,11 @@ var isCast : bool = false
 var inAir : bool = false
 var inCombat: bool = false
 
+var fishingLineLength: int = 10
+
 func _ready() -> void: 
 	CastObject.position = castObjectLocation.global_position 
+	progress_bar.value = fishingLineLength
 
 func _physics_process(delta: float) -> void:
 	if !isCast:
@@ -28,11 +32,23 @@ func _physics_process(delta: float) -> void:
 			ropeVisualizer.reel_in(.1)
 
 func _input(event: InputEvent) -> void:
-	
-	if Input.is_key_pressed(KEY_0):
-		ropeVisualizer.remove_last_segment()
-	if Input.is_key_pressed(KEY_9):
-		ropeVisualizer.append_segments_to_current(1)
+	if Input.is_key_pressed(KEY_1):
+		if fishingLineLength < 15:
+			fishingLineLength += 1
+			progress_bar.value +=1
+	elif Input.is_key_pressed(KEY_2):
+		if fishingLineLength > 5:
+			fishingLineLength -= 1
+			progress_bar.value -=1
+	if isCast: 
+		if Input.is_key_pressed(KEY_0):
+			if fishingLineLength >= 5:
+				ropeVisualizer.remove_last_segment()
+				progress_bar.value -=1
+		elif Input.is_key_pressed(KEY_9):
+			if fishingLineLength <= 15:
+				ropeVisualizer.append_segments_to_current(1)
+				progress_bar.value +=1
 	
 	if Input.is_action_just_pressed("PlayerTargetLockOn") and TargetLockOn.currentTarget == null:
 		TargetLockOn.lock_onto_closest()

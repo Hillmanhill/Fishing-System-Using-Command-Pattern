@@ -31,25 +31,27 @@ func execute_animation_state(animStateinput: animStates, _command: String):
 			#print("Player IDLE" if playerInputHandler.inCombat == false else "COMBAT Player IDLE")
 			transition_to("isIdle")
 		animStates.cast:
-			print("Player CAST" if playerInputHandler.inCombat == false else "COMBAT Player CAST")
+			#print("Player CAST" if playerInputHandler.inCombat == false else "COMBAT Player CAST")
 			transition_to("isCast")
 		animStates.castLeft:
-			print("Player cast LEFT" if playerInputHandler.inCombat == false else "COMBAT Player cast LEFT")
+			#print("Player cast LEFT" if playerInputHandler.inCombat == false else "COMBAT Player cast LEFT")
 			transition_to("isCastLEFT")
 		animStates.castRight:
-			print("Player cast RIGHT" if playerInputHandler.inCombat == false else "COMBAT Player cast RIGHT")
+			#print("Player cast RIGHT" if playerInputHandler.inCombat == false else "COMBAT Player cast RIGHT")
 			transition_to("isCastRIGHT")
 		animStates.castForwrd:
-			print("Player cast FORWARD" if playerInputHandler.inCombat == false else "COMBAT Player cast FORWARD")#
+			#print("Player cast FORWARD" if playerInputHandler.inCombat == false else "COMBAT Player cast FORWARD")#
 			transition_to("isCastFORWARD")
 		animStates.castBackward:
-			print("Player cast Backward" if playerInputHandler.inCombat == false else "COMBAT Player cast Backward")
+			#print("Player cast Backward" if playerInputHandler.inCombat == false else "COMBAT Player cast Backward")
 			transition_to("isCastBACKWARD")
 		
 		animStates.lightAttack:
-			transition_to("isLightAttack")
+			#transition_to("isLightAttack")
+			print("light attack")
 		animStates.heavyAttack:
-			transition_to("isHeavyAttack")
+			#transition_to("isHeavyAttack")
+			print("heavy attack")
 		
 		animStates.sprint:
 			#print("Player SPRINTING" if playerInputHandler.inCombat == false else "COMBAT Player SPRINTING")

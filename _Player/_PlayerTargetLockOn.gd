@@ -21,10 +21,9 @@ func _ready() -> void:
 func find_targetable_nodes(root: Node) -> Array[RigidBody3D]:
 	var found : Array[RigidBody3D] = []
 	for child in root.get_children(false):
-		if child is enemyFish :#and child.is_class("enemyFish"):
+		if child is enemyFish :
 			found.append(child)
 		found += find_targetable_nodes(child)
-		#print("found: ", found)
 	return found
 
 func is_occluded(from: Vector3, to: Vector3) -> bool:

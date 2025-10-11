@@ -48,13 +48,6 @@ radius = 1.30868
 [node name="Player" parent="." instance=ExtResource("1_mncer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.20772, 4.29222, 4.5242)
 
-[node name="AnimationTree" parent="Player/animationStateController" index="1"]
-parameters/conditions/isCasBACKWARD = false
-parameters/conditions/isCast = false
-parameters/conditions/isCastFORWARD = false
-parameters/conditions/isCastLEFT = false
-parameters/conditions/isCastRIGHT = false
-
 [node name="TargetLockOn" parent="Player" index="1" node_paths=PackedStringArray("enemyContainer")]
 enemyContainer = NodePath("../../Enemy Container")
 
@@ -72,6 +65,7 @@ axis_lock_angular_z = true
 freeze = true
 contact_monitor = true
 max_contacts_reported = 2
+constant_torque = Vector3(0, 5, 0)
 script = ExtResource("1_wicfy")
 castPullController = NodePath("../Player/Cast Reel Input Controller & Handler")
 

@@ -9,9 +9,6 @@ func get_id()-> Dictionary:
 func _init(_cmd: String, _target: String) -> void:
 	pass
 
-#func execute(Target: String, Player: Node3D, castPullController: CastPullSystem)-> void:
-#	castPullController.ropeVisualizer.reel_in(.01)
-
 func execute(_Target: String, _Player: Node3D, castPullController: inputHandlerController)-> void:
 	if castPullController.isCast:
 		print("Valid reel attempt")

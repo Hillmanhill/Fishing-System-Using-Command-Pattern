@@ -32,23 +32,18 @@ func _input(event: InputEvent):
 		camera_mount_pitch.rotate_x(deg_to_rad(-event.relative.y * sense_Vertical))
 		camera_mount_pitch.rotation_degrees.x = clamp(camera_mount_pitch.rotation_degrees.x, -80, 80)
 	
-	if is_on_floor() :#and velocity >= Vector3(0.01,0.01,0.01):
+	if is_on_floor():
 		if !isSprinting and castPullController.inCombat:
 			RELETIVESPEED = COMBATSPEED
-			#animation_state.execute_animation_state(animation_state.animStates.walk, "")
 		elif !isSprinting and not castPullController.inCombat:
 			RELETIVESPEED = SPEED
-			#animation_state.execute_animation_state(animation_state.animStates.walk, "")
 		elif isSprinting and castPullController.inCombat:
 			RELETIVESPEED = COMBATSPRINTSPEED
-			#animation_state.execute_animation_state(animation_state.animStates.sprint, "")
 		elif isSprinting and not castPullController.inCombat:
 			RELETIVESPEED = SPRINTSPEED
-			#animation_state.execute_animation_state(animation_state.animStates.sprint, "")
 	
 func _physics_process(delta: float):
 	var newAnimState
-	
 	if is_on_floor():
 		if velocity.length() > 0.1:
 			if isSprinting:
@@ -61,10 +56,9 @@ func _physics_process(delta: float):
 		newAnimState = animation_state.animStates.jump
 		velocity += get_gravity() * delta * gravityMultiplyer
 		castPullController.inAir = false
-		
+	
 	if newAnimState != lastAnimState:
 		animation_state.execute_animation_state(newAnimState, "move")
-		#animation_state.animationTree.set("parameters/playback/current",newAnimState)
 		lastAnimState = newAnimState
 	
 	if Input.is_action_pressed("PlayerSprint"):
@@ -77,24 +71,19 @@ func _physics_process(delta: float):
 
 func PlayerMover() -> void:
 	var input_dir: Vector2 = Input.get_vector("PlayerLeft", "PlayerRight", "PlayerForward", "PlayerBackward")
-	
 	var cam_forward = camera_3d.global_transform.basis.z
 	var cam_right = camera_3d.global_transform.basis.x
 	cam_forward.y = 0
 	cam_right.y = 0
 	cam_forward = cam_forward.normalized()
 	cam_right = cam_right.normalized()
-	
 	var move_dir: Vector3 = (cam_forward * input_dir.y + cam_right * input_dir.x).normalized()
 	
 	if move_dir != Vector3.ZERO:
 		move_dir.y = -0.1
 		player_meshes.look_at(global_position + -move_dir, Vector3.UP)
-		
 		velocity.x = move_dir.x * RELETIVESPEED
 		velocity.z = move_dir.z * RELETIVESPEED
 	else:
-		#animation_state.execute_animation_state(animation_state.animStates.idle, "")
-		#animation_player.play("RESET")
 		velocity.x = move_toward(velocity.x, 0, RELETIVESPEED)
 		velocity.z = move_toward(velocity.z, 0, RELETIVESPEED)

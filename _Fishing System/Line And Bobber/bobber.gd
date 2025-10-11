@@ -15,7 +15,6 @@ func _input(event: InputEvent) -> void:
 
 func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
 	if castPullController.isCast == true and body.get_script() == enemyFish:
-		print("body name: ", body.name, " cauth")
 		hasFish = body
 		castPullController.hookedFish = hasFish
 		collision_shape_3d.call_deferred("set_disabled", true)
