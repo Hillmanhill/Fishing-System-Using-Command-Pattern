@@ -48,6 +48,9 @@ radius = 1.30868
 [node name="Player" parent="." instance=ExtResource("1_mncer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.20772, 4.29222, 4.5242)
 
+[node name="AnimationTree" parent="Player/animationStateController" index="1"]
+parameters/General_Player_Walk_Run/blend_position = Vector2(0, 0)
+
 [node name="TargetLockOn" parent="Player" index="1" node_paths=PackedStringArray("enemyContainer")]
 enemyContainer = NodePath("../../Enemy Container")
 

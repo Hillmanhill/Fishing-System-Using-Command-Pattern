@@ -14,7 +14,7 @@ func _ready() -> void:
 
 func execute(Target: String, Player: Node3D, castPullController: inputHandlerController) -> void:
 	if castPullController.hookedFish:
-		castPullController.animation_state.execute_animation_state(castPullController.animation_state.animStates.castLeft, "")
+		castPullController.animation_state.execute_animation_state(castPullController.animation_state.animStates.castLeft, Vector2(-1,0))
 		var direction = (castPullController.hookedFish.global_position - Player.global_position).cross(Vector3.UP).normalized() * -20
 		castPullController.hookedFish.linear_velocity = direction
 		print("!!!! right reel combo 01 !!!! @: ")

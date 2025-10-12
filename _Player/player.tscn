@@ -1,4 +1,4 @@
-[gd_scene load_steps=126 format=3 uid="uid://bpgjkra8k7buf"]
+[gd_scene load_steps=95 format=3 uid="uid://bpgjkra8k7buf"]
 
 [ext_resource type="Script" uid="uid://bncuc2imx11h1" path="res://_Player/_PlayerMovement.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://bbj1o80v4hhn2" path="res://_Fishing System/Line And Bobber/_FishingLine.gd" id="2_3i7y5"]
@@ -107,6 +107,8 @@ _data = {
 &"RESET": SubResource("Animation_5xi80")
 }
 
+[sub_resource type="Animation" id="Animation_mdxx1"]
+
 [sub_resource type="Animation" id="Animation_dapxt"]
 
 [sub_resource type="Animation" id="Animation_u0mky"]
@@ -156,16 +158,26 @@ tracks/2/keys = {
 "values": [Vector3(-0.983038, 0.960681, 0), Vector3(-0.604528, 0.548738, 0.840561), Vector3(0.128946, 0.0116866, 1.07031), Vector3(1.15054, -0.649422, 0.279863)]
 }
 
+[sub_resource type="Animation" id="Animation_wkedm"]
+
+[sub_resource type="Animation" id="Animation_hhlvc"]
+
+[sub_resource type="Animation" id="Animation_buxd7"]
+
 [sub_resource type="Animation" id="Animation_dcv2n"]
 
 [sub_resource type="Animation" id="Animation_rk5uq"]
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_buxd7"]
 _data = {
+&"AIR_Dodge": SubResource("Animation_mdxx1"),
 &"AIR_UpwardAttack": SubResource("Animation_dapxt"),
 &"AIR_downwardAttack": SubResource("Animation_u0mky"),
 &"AIR_heavyAttack": SubResource("Animation_p6xc4"),
 &"AIR_lightAttack": SubResource("Animation_4p3ea"),
+&"Grounded_Dodge": SubResource("Animation_wkedm"),
+&"Grounded_DownwardAttack": SubResource("Animation_hhlvc"),
+&"Grounded_UpwardAttack": SubResource("Animation_buxd7"),
 &"Grounded_heavyAttack": SubResource("Animation_dcv2n"),
 &"Grounded_lightAttack": SubResource("Animation_rk5uq")
 }
@@ -442,32 +454,81 @@ _data = {
 &"Grounded_Walk": SubResource("Animation_8x25t")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dapxt"]
-animation = &"COMBAT_PlayerSword/AIR_UpwardAttack"
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_r120c"]
+animation = &"COMBAT_PlayerSword/AIR_heavyAttack"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_buxd7"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o7r8c"]
 animation = &"COMBAT_PlayerSword/AIR_lightAttack"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bcscf"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vpk4e"]
+animation = &"COMBAT_PlayerSword/AIR_UpwardAttack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kjg7r"]
+animation = &"COMBAT_PlayerSword/AIR_downwardAttack"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_6cbhi"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_r120c")
+blend_point_0/pos = Vector2(-1, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_o7r8c")
+blend_point_1/pos = Vector2(1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_vpk4e")
+blend_point_2/pos = Vector2(0, 1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_kjg7r")
+blend_point_3/pos = Vector2(0, -1)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dcv2n"]
+animation = &"COMBAT_PlayerSword/Grounded_DownwardAttack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4p3ea"]
+animation = &"COMBAT_PlayerSword/Grounded_UpwardAttack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_u0mky"]
 animation = &"COMBAT_PlayerSword/Grounded_lightAttack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dapxt"]
+animation = &"COMBAT_PlayerSword/Grounded_heavyAttack"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_buxd7"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_dcv2n")
+blend_point_0/pos = Vector2(0, -1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_4p3ea")
+blend_point_1/pos = Vector2(0, 1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_u0mky")
+blend_point_2/pos = Vector2(1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_dapxt")
+blend_point_3/pos = Vector2(-1, 0)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a7vl7"]
 animation = &"FISHING_PlayerRod/Grounded_Cast"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dcv2n"]
-animation = &"FISHING_PlayerRod/Grounded_CastIdel"
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cvyes"]
+animation = &"FISHING_PlayerRod/Grounded_rightReelIn"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gde5x"]
-animation = &"FISHING_PlayerRod/Grounded_backwardReelIn"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qsyx4"]
-animation = &"FISHING_PlayerRod/Grounded_forwardReelIn"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o2ate"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wq62m"]
 animation = &"FISHING_PlayerRod/Grounded_leftReelIn"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_q6eug"]
-animation = &"FISHING_PlayerRod/Grounded_rightReelIn"
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tf447"]
+animation = &"FISHING_PlayerRod/Grounded_forwardReelIn"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w67r7"]
+animation = &"FISHING_PlayerRod/Grounded_backwardReelIn"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o2ate"]
+animation = &"FISHING_PlayerRod/Grounded_ReelIn"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_wmqpd"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_cvyes")
+blend_point_0/pos = Vector2(1, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_wq62m")
+blend_point_1/pos = Vector2(-1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_tf447")
+blend_point_2/pos = Vector2(0, 1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_w67r7")
+blend_point_3/pos = Vector2(0, -1)
+blend_point_4/node = SubResource("AnimationNodeAnimation_o2ate")
+blend_point_4/pos = Vector2(0, 0)
+blend_mode = 1
+sync = true
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rk5uq"]
 animation = &"General_Player/AIR_Falling"
@@ -475,178 +536,33 @@ animation = &"General_Player/AIR_Falling"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_p6xc4"]
 animation = &"General_Player/Grounded_Jump"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4p3ea"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_buxd7"]
+animation = &"FISHING_PlayerRod/Grounded_CastIdel"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bcscf"]
 animation = &"General_Player/Grounded_Run"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_u0mky"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gde5x"]
 animation = &"General_Player/Grounded_Walk"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dcv2n"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isRunning"
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qsyx4"]
+animation = &"FISHING_PlayerRod/Grounded_CastIdel"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rk5uq"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isWalking"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p6xc4"]
-xfade_time = 0.25
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isWalking"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4p3ea"]
-xfade_time = 0.25
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isIdle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u0mky"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isIdle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_buxd7"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isRunning"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bcscf"]
-switch_mode = 1
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dapxt"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isJump"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_a7vl7"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isJump"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gde5x"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isJump"
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_qsyx4"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_buxd7")
+blend_point_0/pos = Vector2(0, 0.8)
+blend_point_1/node = SubResource("AnimationNodeAnimation_bcscf")
+blend_point_1/pos = Vector2(1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_gde5x")
+blend_point_2/pos = Vector2(-1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_qsyx4")
+blend_point_3/pos = Vector2(0, -0.8)
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qsyx4"]
 switch_mode = 2
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o2ate"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isIdle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q6eug"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isRunning"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lcc44"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isWalking"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hhlvc"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isCast"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8x25t"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isIdle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rmxa3"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isRunning"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0nvq2"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isJump"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wkedm"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isWalking"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mdxx1"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isCasBACKWARD"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_r120c"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isCasBACKWARD"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o7r8c"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isCasBACKWARD"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vpk4e"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isCasBACKWARD"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kjg7r"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isCasBACKWARD"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6cbhi"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isIdle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cvyes"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isCastLEFT"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wq62m"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isCastLEFT"
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tf447"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isCast"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_w67r7"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isIdle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wmqpd"]
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"isCast"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u021t"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isIdle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t2j8l"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isCast"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1l5et"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isCast"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_a2d4f"]
 switch_mode = 1
 advance_mode = 2
 advance_condition = &"isCast"
@@ -656,206 +572,128 @@ switch_mode = 1
 advance_mode = 2
 advance_condition = &"isCast"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6txyq"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dcv2n"]
 switch_mode = 1
 advance_mode = 2
-advance_condition = &"isCastLEFT"
+advance_condition = &"IsReelingFish"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_khhi8"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4p3ea"]
 switch_mode = 1
 advance_mode = 2
-advance_condition = &"isCastLEFT"
+advance_condition = &"IsReelingFish"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v1na2"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u0mky"]
 switch_mode = 1
 advance_mode = 2
-advance_condition = &"isCastLEFT"
+advance_condition = &"IsReelingFish"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_isiwf"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_buxd7"]
+break_loop_at_end = true
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"isJump"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bcscf"]
 switch_mode = 1
 advance_mode = 2
-advance_condition = &"isCastLEFT"
+advance_condition = &"isJump"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uak5y"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_a7vl7"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"isJump"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8x25t"]
+break_loop_at_end = true
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"isAttack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0nvq2"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"isAttack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wkedm"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"isAttack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mdxx1"]
+xfade_time = 0.2
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"IsReelingFish"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o2ate"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"isMoving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q6eug"]
+break_loop_at_end = true
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"isMoving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lcc44"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"isMoving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rmxa3"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"isMoving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_r120c"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"isMoving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o7r8c"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"isAttack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vpk4e"]
 switch_mode = 1
 advance_mode = 2
 advance_condition = &"isCast"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fcggt"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kjg7r"]
+xfade_time = 0.2
 switch_mode = 1
 advance_mode = 2
-advance_condition = &"isCast"
+advance_condition = &"IsReelingFish"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vldi8"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6cbhi"]
 switch_mode = 1
 advance_mode = 2
-advance_condition = &"isCastLEFT"
+advance_condition = &"isJump"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_627df"]
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"isIdle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sw00p"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cvyes"]
 switch_mode = 1
 advance_mode = 2
-advance_condition = &"isIdle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kckac"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isIdle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nxk4b"]
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"isWalking"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_88ukj"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isWalking"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hfuwt"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isWalking"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ys6or"]
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"isRunning"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_plunt"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isRunning"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ufki1"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isRunning"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_di0w5"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isRunning"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_43sah"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isCastFORWARD"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5cd08"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isCastRIGHT"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uh6cc"]
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"isCastFORWARD"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xka5h"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isIdle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_k5ycd"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isCastFORWARD"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g2qjx"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isIdle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iu8it"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isIdle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3inho"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isCasBACKWARD"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x0mdo"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isCastRIGHT"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_trbnc"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isCastFORWARD"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_b8c17"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isCastFORWARD"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_beiyn"]
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"isCastRIGHT"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q28nw"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isCastRIGHT"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_i10rq"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isCastRIGHT"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fhgve"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isCastRIGHT"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_e78ew"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isCastRIGHT"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_46lyk"]
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"isCasBACKWARD"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_buxd7"]
-states/COMBAT_PlayerSword_AIR_UpwardAttack/node = SubResource("AnimationNodeAnimation_dapxt")
-states/COMBAT_PlayerSword_AIR_UpwardAttack/position = Vector2(1296.32, 40)
-states/COMBAT_PlayerSword_AIR_lightAttack/node = SubResource("AnimationNodeAnimation_buxd7")
-states/COMBAT_PlayerSword_AIR_lightAttack/position = Vector2(1552.32, 54)
-states/COMBAT_PlayerSword_Grounded_lightAttack/node = SubResource("AnimationNodeAnimation_bcscf")
-states/COMBAT_PlayerSword_Grounded_lightAttack/position = Vector2(1515.32, 4)
+states/COMBAT_PlayerSword_AIR_Attacks/node = SubResource("AnimationNodeBlendSpace2D_6cbhi")
+states/COMBAT_PlayerSword_AIR_Attacks/position = Vector2(548.317, -306)
+states/COMBAT_PlayerSword_Grounded_Attacks/node = SubResource("AnimationNodeBlendSpace2D_buxd7")
+states/COMBAT_PlayerSword_Grounded_Attacks/position = Vector2(788.317, -232)
 states/FISHING_PlayerRod_Grounded_Cast/node = SubResource("AnimationNodeAnimation_a7vl7")
-states/FISHING_PlayerRod_Grounded_Cast/position = Vector2(71.3165, -170)
-states/FISHING_PlayerRod_Grounded_CastIdel/node = SubResource("AnimationNodeAnimation_dcv2n")
-states/FISHING_PlayerRod_Grounded_CastIdel/position = Vector2(342, -3)
-states/FISHING_PlayerRod_Grounded_backwardReelIn/node = SubResource("AnimationNodeAnimation_gde5x")
-states/FISHING_PlayerRod_Grounded_backwardReelIn/position = Vector2(748, -79)
-states/FISHING_PlayerRod_Grounded_forwardReelIn/node = SubResource("AnimationNodeAnimation_qsyx4")
-states/FISHING_PlayerRod_Grounded_forwardReelIn/position = Vector2(578.317, -317)
-states/FISHING_PlayerRod_Grounded_leftReelIn/node = SubResource("AnimationNodeAnimation_o2ate")
-states/FISHING_PlayerRod_Grounded_leftReelIn/position = Vector2(256.316, -298)
-states/FISHING_PlayerRod_Grounded_rightReelIn/node = SubResource("AnimationNodeAnimation_q6eug")
-states/FISHING_PlayerRod_Grounded_rightReelIn/position = Vector2(848.317, -205)
+states/FISHING_PlayerRod_Grounded_Cast/position = Vector2(71.3165, -171)
+states/FISHING_Player_Grounded_reelSet/node = SubResource("AnimationNodeBlendSpace2D_wmqpd")
+states/FISHING_Player_Grounded_reelSet/position = Vector2(242, -306)
 states/General_Player_AIR_Falling/node = SubResource("AnimationNodeAnimation_rk5uq")
-states/General_Player_AIR_Falling/position = Vector2(748, 17)
+states/General_Player_AIR_Falling/position = Vector2(177, 114)
 states/General_Player_Grounded_Jump/node = SubResource("AnimationNodeAnimation_p6xc4")
-states/General_Player_Grounded_Jump/position = Vector2(764, 275)
-states/General_Player_Grounded_Run/node = SubResource("AnimationNodeAnimation_4p3ea")
-states/General_Player_Grounded_Run/position = Vector2(539, 148)
-states/General_Player_Grounded_Walk/node = SubResource("AnimationNodeAnimation_u0mky")
-states/General_Player_Grounded_Walk/position = Vector2(209, 238)
-states/Start/position = Vector2(150, 93)
-transitions = ["FISHING_PlayerRod_Grounded_CastIdel", "General_Player_Grounded_Run", SubResource("AnimationNodeStateMachineTransition_dcv2n"), "General_Player_Grounded_Run", "General_Player_Grounded_Walk", SubResource("AnimationNodeStateMachineTransition_rk5uq"), "FISHING_PlayerRod_Grounded_CastIdel", "General_Player_Grounded_Walk", SubResource("AnimationNodeStateMachineTransition_p6xc4"), "General_Player_Grounded_Walk", "FISHING_PlayerRod_Grounded_CastIdel", SubResource("AnimationNodeStateMachineTransition_4p3ea"), "General_Player_Grounded_Run", "FISHING_PlayerRod_Grounded_CastIdel", SubResource("AnimationNodeStateMachineTransition_u0mky"), "General_Player_Grounded_Walk", "General_Player_Grounded_Run", SubResource("AnimationNodeStateMachineTransition_buxd7"), "Start", "FISHING_PlayerRod_Grounded_CastIdel", SubResource("AnimationNodeStateMachineTransition_bcscf"), "General_Player_Grounded_Walk", "General_Player_Grounded_Jump", SubResource("AnimationNodeStateMachineTransition_dapxt"), "General_Player_Grounded_Run", "General_Player_Grounded_Jump", SubResource("AnimationNodeStateMachineTransition_a7vl7"), "FISHING_PlayerRod_Grounded_CastIdel", "General_Player_Grounded_Jump", SubResource("AnimationNodeStateMachineTransition_gde5x"), "General_Player_Grounded_Jump", "General_Player_AIR_Falling", SubResource("AnimationNodeStateMachineTransition_qsyx4"), "General_Player_AIR_Falling", "FISHING_PlayerRod_Grounded_CastIdel", SubResource("AnimationNodeStateMachineTransition_o2ate"), "General_Player_AIR_Falling", "General_Player_Grounded_Run", SubResource("AnimationNodeStateMachineTransition_q6eug"), "General_Player_AIR_Falling", "General_Player_Grounded_Walk", SubResource("AnimationNodeStateMachineTransition_lcc44"), "FISHING_PlayerRod_Grounded_CastIdel", "FISHING_PlayerRod_Grounded_Cast", SubResource("AnimationNodeStateMachineTransition_hhlvc"), "FISHING_PlayerRod_Grounded_backwardReelIn", "FISHING_PlayerRod_Grounded_CastIdel", SubResource("AnimationNodeStateMachineTransition_8x25t"), "FISHING_PlayerRod_Grounded_backwardReelIn", "General_Player_Grounded_Run", SubResource("AnimationNodeStateMachineTransition_rmxa3"), "FISHING_PlayerRod_Grounded_backwardReelIn", "General_Player_Grounded_Jump", SubResource("AnimationNodeStateMachineTransition_0nvq2"), "FISHING_PlayerRod_Grounded_backwardReelIn", "General_Player_Grounded_Walk", SubResource("AnimationNodeStateMachineTransition_wkedm"), "General_Player_AIR_Falling", "FISHING_PlayerRod_Grounded_backwardReelIn", SubResource("AnimationNodeStateMachineTransition_mdxx1"), "FISHING_PlayerRod_Grounded_CastIdel", "FISHING_PlayerRod_Grounded_backwardReelIn", SubResource("AnimationNodeStateMachineTransition_r120c"), "General_Player_Grounded_Run", "FISHING_PlayerRod_Grounded_backwardReelIn", SubResource("AnimationNodeStateMachineTransition_o7r8c"), "General_Player_Grounded_Jump", "FISHING_PlayerRod_Grounded_backwardReelIn", SubResource("AnimationNodeStateMachineTransition_vpk4e"), "General_Player_Grounded_Walk", "FISHING_PlayerRod_Grounded_backwardReelIn", SubResource("AnimationNodeStateMachineTransition_kjg7r"), "FISHING_PlayerRod_Grounded_Cast", "FISHING_PlayerRod_Grounded_CastIdel", SubResource("AnimationNodeStateMachineTransition_6cbhi"), "FISHING_PlayerRod_Grounded_CastIdel", "FISHING_PlayerRod_Grounded_leftReelIn", SubResource("AnimationNodeStateMachineTransition_cvyes"), "General_Player_AIR_Falling", "FISHING_PlayerRod_Grounded_leftReelIn", SubResource("AnimationNodeStateMachineTransition_wq62m"), "General_Player_Grounded_Jump", "FISHING_PlayerRod_Grounded_Cast", SubResource("AnimationNodeStateMachineTransition_tf447"), "FISHING_PlayerRod_Grounded_backwardReelIn", "FISHING_PlayerRod_Grounded_Cast", SubResource("AnimationNodeStateMachineTransition_w67r7"), "FISHING_PlayerRod_Grounded_leftReelIn", "FISHING_PlayerRod_Grounded_Cast", SubResource("AnimationNodeStateMachineTransition_wmqpd"), "FISHING_PlayerRod_Grounded_forwardReelIn", "FISHING_PlayerRod_Grounded_Cast", SubResource("AnimationNodeStateMachineTransition_u021t"), "FISHING_PlayerRod_Grounded_rightReelIn", "FISHING_PlayerRod_Grounded_Cast", SubResource("AnimationNodeStateMachineTransition_t2j8l"), "General_Player_Grounded_Walk", "FISHING_PlayerRod_Grounded_Cast", SubResource("AnimationNodeStateMachineTransition_1l5et"), "General_Player_Grounded_Run", "FISHING_PlayerRod_Grounded_Cast", SubResource("AnimationNodeStateMachineTransition_a2d4f"), "General_Player_AIR_Falling", "FISHING_PlayerRod_Grounded_Cast", SubResource("AnimationNodeStateMachineTransition_wy1wk"), "FISHING_PlayerRod_Grounded_Cast", "FISHING_PlayerRod_Grounded_leftReelIn", SubResource("AnimationNodeStateMachineTransition_6txyq"), "FISHING_PlayerRod_Grounded_forwardReelIn", "FISHING_PlayerRod_Grounded_leftReelIn", SubResource("AnimationNodeStateMachineTransition_khhi8"), "FISHING_PlayerRod_Grounded_rightReelIn", "FISHING_PlayerRod_Grounded_leftReelIn", SubResource("AnimationNodeStateMachineTransition_v1na2"), "FISHING_PlayerRod_Grounded_backwardReelIn", "FISHING_PlayerRod_Grounded_leftReelIn", SubResource("AnimationNodeStateMachineTransition_isiwf"), "General_Player_Grounded_Jump", "FISHING_PlayerRod_Grounded_leftReelIn", SubResource("AnimationNodeStateMachineTransition_uak5y"), "General_Player_Grounded_Run", "FISHING_PlayerRod_Grounded_leftReelIn", SubResource("AnimationNodeStateMachineTransition_fcggt"), "General_Player_Grounded_Walk", "FISHING_PlayerRod_Grounded_leftReelIn", SubResource("AnimationNodeStateMachineTransition_vldi8"), "FISHING_PlayerRod_Grounded_leftReelIn", "FISHING_PlayerRod_Grounded_CastIdel", SubResource("AnimationNodeStateMachineTransition_627df"), "FISHING_PlayerRod_Grounded_forwardReelIn", "FISHING_PlayerRod_Grounded_CastIdel", SubResource("AnimationNodeStateMachineTransition_sw00p"), "FISHING_PlayerRod_Grounded_rightReelIn", "FISHING_PlayerRod_Grounded_CastIdel", SubResource("AnimationNodeStateMachineTransition_kckac"), "FISHING_PlayerRod_Grounded_leftReelIn", "General_Player_Grounded_Walk", SubResource("AnimationNodeStateMachineTransition_nxk4b"), "FISHING_PlayerRod_Grounded_forwardReelIn", "General_Player_Grounded_Walk", SubResource("AnimationNodeStateMachineTransition_88ukj"), "FISHING_PlayerRod_Grounded_rightReelIn", "General_Player_Grounded_Walk", SubResource("AnimationNodeStateMachineTransition_hfuwt"), "FISHING_PlayerRod_Grounded_leftReelIn", "General_Player_Grounded_Run", SubResource("AnimationNodeStateMachineTransition_ys6or"), "FISHING_PlayerRod_Grounded_forwardReelIn", "General_Player_Grounded_Run", SubResource("AnimationNodeStateMachineTransition_plunt"), "FISHING_PlayerRod_Grounded_Cast", "General_Player_Grounded_Run", SubResource("AnimationNodeStateMachineTransition_ufki1"), "FISHING_PlayerRod_Grounded_rightReelIn", "General_Player_Grounded_Run", SubResource("AnimationNodeStateMachineTransition_di0w5"), "General_Player_AIR_Falling", "FISHING_PlayerRod_Grounded_forwardReelIn", SubResource("AnimationNodeStateMachineTransition_43sah"), "General_Player_AIR_Falling", "FISHING_PlayerRod_Grounded_rightReelIn", SubResource("AnimationNodeStateMachineTransition_5cd08"), "FISHING_PlayerRod_Grounded_leftReelIn", "FISHING_PlayerRod_Grounded_forwardReelIn", SubResource("AnimationNodeStateMachineTransition_uh6cc"), "FISHING_PlayerRod_Grounded_Cast", "FISHING_PlayerRod_Grounded_forwardReelIn", SubResource("AnimationNodeStateMachineTransition_xka5h"), "FISHING_PlayerRod_Grounded_CastIdel", "FISHING_PlayerRod_Grounded_forwardReelIn", SubResource("AnimationNodeStateMachineTransition_k5ycd"), "General_Player_Grounded_Walk", "FISHING_PlayerRod_Grounded_forwardReelIn", SubResource("AnimationNodeStateMachineTransition_g2qjx"), "General_Player_Grounded_Run", "FISHING_PlayerRod_Grounded_forwardReelIn", SubResource("AnimationNodeStateMachineTransition_iu8it"), "FISHING_PlayerRod_Grounded_forwardReelIn", "FISHING_PlayerRod_Grounded_backwardReelIn", SubResource("AnimationNodeStateMachineTransition_3inho"), "FISHING_PlayerRod_Grounded_forwardReelIn", "FISHING_PlayerRod_Grounded_rightReelIn", SubResource("AnimationNodeStateMachineTransition_x0mdo"), "FISHING_PlayerRod_Grounded_rightReelIn", "FISHING_PlayerRod_Grounded_forwardReelIn", SubResource("AnimationNodeStateMachineTransition_trbnc"), "FISHING_PlayerRod_Grounded_backwardReelIn", "FISHING_PlayerRod_Grounded_forwardReelIn", SubResource("AnimationNodeStateMachineTransition_b8c17"), "FISHING_PlayerRod_Grounded_leftReelIn", "FISHING_PlayerRod_Grounded_rightReelIn", SubResource("AnimationNodeStateMachineTransition_beiyn"), "FISHING_PlayerRod_Grounded_CastIdel", "FISHING_PlayerRod_Grounded_rightReelIn", SubResource("AnimationNodeStateMachineTransition_q28nw"), "FISHING_PlayerRod_Grounded_backwardReelIn", "FISHING_PlayerRod_Grounded_rightReelIn", SubResource("AnimationNodeStateMachineTransition_i10rq"), "General_Player_Grounded_Run", "FISHING_PlayerRod_Grounded_rightReelIn", SubResource("AnimationNodeStateMachineTransition_fhgve"), "General_Player_Grounded_Walk", "FISHING_PlayerRod_Grounded_rightReelIn", SubResource("AnimationNodeStateMachineTransition_e78ew"), "FISHING_PlayerRod_Grounded_leftReelIn", "FISHING_PlayerRod_Grounded_backwardReelIn", SubResource("AnimationNodeStateMachineTransition_46lyk")]
-graph_offset = Vector2(-264.683, -309)
+states/General_Player_Grounded_Jump/position = Vector2(379, 114)
+states/General_Player_Walk_Run/node = SubResource("AnimationNodeBlendSpace2D_qsyx4")
+states/General_Player_Walk_Run/position = Vector2(680.317, -95)
+states/Start/position = Vector2(973, -154)
+transitions = ["General_Player_Grounded_Jump", "General_Player_AIR_Falling", SubResource("AnimationNodeStateMachineTransition_qsyx4"), "General_Player_Grounded_Jump", "FISHING_PlayerRod_Grounded_Cast", SubResource("AnimationNodeStateMachineTransition_tf447"), "General_Player_AIR_Falling", "FISHING_PlayerRod_Grounded_Cast", SubResource("AnimationNodeStateMachineTransition_wy1wk"), "FISHING_PlayerRod_Grounded_Cast", "FISHING_Player_Grounded_reelSet", SubResource("AnimationNodeStateMachineTransition_dcv2n"), "General_Player_AIR_Falling", "FISHING_Player_Grounded_reelSet", SubResource("AnimationNodeStateMachineTransition_4p3ea"), "COMBAT_PlayerSword_AIR_Attacks", "FISHING_Player_Grounded_reelSet", SubResource("AnimationNodeStateMachineTransition_u0mky"), "FISHING_Player_Grounded_reelSet", "General_Player_Grounded_Jump", SubResource("AnimationNodeStateMachineTransition_buxd7"), "FISHING_PlayerRod_Grounded_Cast", "General_Player_Grounded_Jump", SubResource("AnimationNodeStateMachineTransition_bcscf"), "COMBAT_PlayerSword_AIR_Attacks", "General_Player_Grounded_Jump", SubResource("AnimationNodeStateMachineTransition_a7vl7"), "FISHING_Player_Grounded_reelSet", "COMBAT_PlayerSword_AIR_Attacks", SubResource("AnimationNodeStateMachineTransition_8x25t"), "General_Player_AIR_Falling", "COMBAT_PlayerSword_AIR_Attacks", SubResource("AnimationNodeStateMachineTransition_0nvq2"), "General_Player_Grounded_Jump", "COMBAT_PlayerSword_AIR_Attacks", SubResource("AnimationNodeStateMachineTransition_wkedm"), "General_Player_Grounded_Jump", "FISHING_Player_Grounded_reelSet", SubResource("AnimationNodeStateMachineTransition_mdxx1"), "COMBAT_PlayerSword_AIR_Attacks", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_o2ate"), "FISHING_Player_Grounded_reelSet", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_q6eug"), "FISHING_PlayerRod_Grounded_Cast", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_lcc44"), "General_Player_AIR_Falling", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_rmxa3"), "COMBAT_PlayerSword_Grounded_Attacks", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_r120c"), "General_Player_Walk_Run", "COMBAT_PlayerSword_AIR_Attacks", SubResource("AnimationNodeStateMachineTransition_o7r8c"), "General_Player_Walk_Run", "FISHING_PlayerRod_Grounded_Cast", SubResource("AnimationNodeStateMachineTransition_vpk4e"), "General_Player_Walk_Run", "FISHING_Player_Grounded_reelSet", SubResource("AnimationNodeStateMachineTransition_kjg7r"), "General_Player_Walk_Run", "General_Player_Grounded_Jump", SubResource("AnimationNodeStateMachineTransition_6cbhi"), "Start", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_cvyes")]
+graph_offset = Vector2(-255.683, -334)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lf471"]
 
@@ -892,11 +730,10 @@ camera_3d = NodePath("CameraMountOrbit/CameraMountPitch/Camera3D")
 player_meshes = NodePath("MovementCollider/Player Mesh")
 castPullController = NodePath("Cast Reel Input Controller & Handler")
 
-[node name="animationStateController" type="Node" parent="." node_paths=PackedStringArray("PlayerAnimationPlayer", "playerInputHandler", "animationTree")]
+[node name="animationStateController" type="Node" parent="." node_paths=PackedStringArray("PlayerAnimationPlayer", "playerInputHandler")]
 script = ExtResource("11_dcv2n")
 PlayerAnimationPlayer = NodePath("AnimationPlayer")
 playerInputHandler = NodePath("../Cast Reel Input Controller & Handler")
-animationTree = NodePath("AnimationTree")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="animationStateController"]
 root_node = NodePath("../..")
@@ -911,15 +748,15 @@ libraries = {
 root_node = NodePath("../..")
 tree_root = SubResource("AnimationNodeStateMachine_buxd7")
 anim_player = NodePath("../AnimationPlayer")
-parameters/conditions/isCasBACKWARD = false
+parameters/conditions/IsReelingFish = false
+parameters/conditions/isAttack = false
 parameters/conditions/isCast = false
-parameters/conditions/isCastFORWARD = false
-parameters/conditions/isCastLEFT = false
-parameters/conditions/isCastRIGHT = false
-parameters/conditions/isIdle = false
 parameters/conditions/isJump = false
-parameters/conditions/isRunning = false
-parameters/conditions/isWalking = false
+parameters/conditions/isMoving = false
+parameters/COMBAT_PlayerSword_AIR_Attacks/blend_position = Vector2(0, 0)
+parameters/COMBAT_PlayerSword_Grounded_Attacks/blend_position = Vector2(0, 0)
+parameters/FISHING_Player_Grounded_reelSet/blend_position = Vector2(0, 0)
+parameters/General_Player_Walk_Run/blend_position = Vector2(0, 0)
 
 [node name="TargetLockOn" type="Node3D" parent="." node_paths=PackedStringArray("player", "playerCamera")]
 script = ExtResource("2_jr7ij")
@@ -986,7 +823,6 @@ min_value = 5.0
 max_value = 15.0
 step = 1.0
 value = 10.0
-show_percentage = false
 
 [node name="Cast Reel Input Controller & Handler" type="Node" parent="." node_paths=PackedStringArray("Player", "player_mesh", "commandHandler", "animation_state", "TargetLockOn", "castObjectLocation", "ropeVisualizer")]
 script = ExtResource("2_t8t7b")

@@ -19,8 +19,11 @@ var isSprinting: bool = false
 
 @export var castPullController : inputHandlerController
 @onready var animation_state: playerAnimStates = $animationStateController
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
 var lastAnimState
+var newAnimState
+var animInputVector: Vector2
+
+@onready var animation_player: AnimationPlayer = $animationStateController/AnimationPlayer
 
 func _ready() -> void:
 	RELETIVESPEED = SPEED
@@ -43,22 +46,24 @@ func _input(event: InputEvent):
 			RELETIVESPEED = SPRINTSPEED
 	
 func _physics_process(delta: float):
-	var newAnimState
 	if is_on_floor():
 		if velocity.length() > 0.1:
 			if isSprinting:
 				newAnimState = animation_state.animStates.sprint
-			else: 
+				animInputVector = Vector2(1,0)
+			elif !isSprinting: 
 				newAnimState = animation_state.animStates.walk
-		else: 
+				animInputVector = Vector2(-1,0)
+		if velocity.length() < 0.1: 
 			newAnimState = animation_state.animStates.idle
+			animInputVector = Vector2(0,0)
 	else:
 		newAnimState = animation_state.animStates.jump
 		velocity += get_gravity() * delta * gravityMultiplyer
 		castPullController.inAir = false
 	
 	if newAnimState != lastAnimState:
-		animation_state.execute_animation_state(newAnimState, "move")
+		animation_state.execute_animation_state(newAnimState, animInputVector)
 		lastAnimState = newAnimState
 	
 	if Input.is_action_pressed("PlayerSprint"):

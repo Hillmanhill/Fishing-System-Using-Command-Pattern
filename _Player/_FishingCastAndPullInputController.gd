@@ -113,7 +113,7 @@ func _input(event: InputEvent) -> void:
 										pass
 		
 		if Input.is_action_just_pressed("PlayerJump") and Player.is_on_floor():
-			animation_state.execute_animation_state(animation_state.animStates.jump,"jump")
+			animation_state.execute_animation_state(animation_state.animStates.jump,Vector2(0,0))
 			var jump = PlayerJumpAction.new("PlayerJumpAction", "$Player")
 			commandHandler.add_command(jump, "$Player")
 		elif Input.is_action_just_pressed("PlayerDown") and inAir:
@@ -133,11 +133,11 @@ func _input(event: InputEvent) -> void:
 				MOUSE_BUTTON_LEFT:
 					var LeftMouse = LeftMouseCastAction.new("LeftMouseCastAction", "$CurrentTarget")
 					commandHandler.add_command(LeftMouse, "$CurrentTarget")
-					animation_state.execute_animation_state(animation_state.animStates.lightAttack, "lightAttack")
+					animation_state.execute_animation_state(animation_state.animStates.lightAttack, Vector2(0,-1))
 				MOUSE_BUTTON_RIGHT:
 					var RightMouse = RightMouseReelAction.new("RightMouseReelAction", "$CurrentTarget")
 					commandHandler.add_command(RightMouse, "$CurrentTarget")
-					animation_state.execute_animation_state(animation_state.animStates.lightAttack,"heavyAttack")
+					animation_state.execute_animation_state(animation_state.animStates.lightAttack,Vector2(0,1))
 			
 		elif event.is_pressed():
 				for action in ["PlayerForward", "PlayerBackward", "PlayerLeft", "PlayerRight"]:
@@ -176,7 +176,7 @@ func _input(event: InputEvent) -> void:
 										pass
 		
 		if Input.is_action_just_pressed("PlayerJump") and Player.is_on_floor():
-			animation_state.execute_animation_state(animation_state.animStates.jump,"jump")
+			animation_state.execute_animation_state(animation_state.animStates.jump,Vector2(0,0))
 			var jump = COMBAT_PlayerJumpAction.new("COMBAT_PlayerJumpAction", "$Player")
 			commandHandler.add_command(jump, "$Player")
 		elif Input.is_action_just_pressed("PlayerDown") and inAir:

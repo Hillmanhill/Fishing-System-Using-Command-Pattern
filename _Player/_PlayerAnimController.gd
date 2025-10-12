@@ -3,8 +3,7 @@ extends Node
 
 @export var PlayerAnimationPlayer: AnimationPlayer
 @export var playerInputHandler: inputHandlerController
-@export var animationTree: AnimationTree
-@export var animtionStatePath: String = "parameters/playback"
+@onready var animationTree: AnimationTree = $AnimationTree
 
 enum animStates {
 	idle, walk, sprint, jump,
@@ -16,52 +15,53 @@ enum animStates {
 	lightAttack, heavyAttack,
 }
 
-var allconditions : = ["isIdle","isRunning","isWalking","isJump", "isLightAttack","isHeavyAttack", "isCast","isCastLEFT","isCastRIGHT","isCastFORWARD","isCasBACKWARD"]
+var allconditions : = ["isMoving", "isAttack", "isReelingFish", "isCast", "isJump"]
+var allStates : = {"isReelingFish": "FISHING_Player_Grounded_reelSet", "isMoving": "General_Player_Walk_Run", "isAttack": "COMBAT_PlayerSword_AIR_Attacks" }
 
 func _ready() -> void:
 	animationTree.active = true
 
-func transition_to(state_name: String):
+func transition_to(state_name: String, blendValue: Vector2):
+	
 	for cond in allconditions:
 		animationTree.set("parameters/conditions/"+ cond, cond == state_name)
 	
-func execute_animation_state(animStateinput: animStates, _command: String):
+	var activeState = allStates.get(state_name)
+	print("active state: ", activeState)
+	
+	if activeState != null:
+		animationTree.set("parameters/" + activeState + "/blend_position", blendValue)
+		print("blende pos: ",animationTree.get("parameters/" + activeState + "/blend_position"))
+		
+	else:
+		print("Invalid state:", state_name)
+
+func execute_animation_state(animStateinput: animStates, blendValue: Vector2):
 	match animStateinput:
 		animStates.idle:
 			#print("Player IDLE" if playerInputHandler.inCombat == false else "COMBAT Player IDLE")
-			transition_to("isIdle")
+			transition_to("isMoving", blendValue)
 		animStates.cast:
-			#print("Player CAST" if playerInputHandler.inCombat == false else "COMBAT Player CAST")
-			transition_to("isCast")
+			transition_to("isCast", blendValue)
 		animStates.castLeft:
-			#print("Player cast LEFT" if playerInputHandler.inCombat == false else "COMBAT Player cast LEFT")
-			transition_to("isCastLEFT")
+			transition_to("isReelingFish", blendValue)
 		animStates.castRight:
-			#print("Player cast RIGHT" if playerInputHandler.inCombat == false else "COMBAT Player cast RIGHT")
-			transition_to("isCastRIGHT")
+			transition_to("isReelingFish", blendValue)
 		animStates.castForwrd:
-			#print("Player cast FORWARD" if playerInputHandler.inCombat == false else "COMBAT Player cast FORWARD")#
-			transition_to("isCastFORWARD")
+			transition_to("isReelingFish", blendValue)
 		animStates.castBackward:
-			#print("Player cast Backward" if playerInputHandler.inCombat == false else "COMBAT Player cast Backward")
-			transition_to("isCastBACKWARD")
+			transition_to("isReelingFish", blendValue)
 		
 		animStates.lightAttack:
-			#transition_to("isLightAttack")
-			print("light attack")
+			transition_to("isAttack", blendValue)
 		animStates.heavyAttack:
-			#transition_to("isHeavyAttack")
-			print("heavy attack")
+			transition_to("isAttack", blendValue)
 		
 		animStates.sprint:
-			#print("Player SPRINTING" if playerInputHandler.inCombat == false else "COMBAT Player SPRINTING")
-			transition_to("isRunning")
+			transition_to("isMoving",blendValue)
 		animStates.walk:
-			#print("Player WALKING" if playerInputHandler.inCombat == false else "COMBAT Player WALKING")
-			transition_to("isWalking")
+			transition_to("isMoving",blendValue)
 		animStates.jump:
-			#print("Player JUMP")
-			transition_to("isJump")
+			transition_to("isJump",blendValue)
 		_:
-			#print("Player IDLE" if playerInputHandler.inCombat == false else "COMBAT Player IDLE")
-			transition_to("isIdle")
+			transition_to("isMoving",blendValue)
