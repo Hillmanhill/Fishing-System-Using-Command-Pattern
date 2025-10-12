@@ -51,15 +51,6 @@ enemyContainer = NodePath("../../Enemy Container")
 [node name="Cast Reel Input Controller & Handler" parent="Player" index="4" node_paths=PackedStringArray("CastObject")]
 CastObject = NodePath("../../CastObject")
 
-[node name="RightReelCombo" parent="Player/Cast Reel Input Controller & Handler/Command Combos" index="0"]
-nextComboBranch = null
-
-[node name="LeftReelCombo" parent="Player/Cast Reel Input Controller & Handler/Command Combos" index="1"]
-nextComboBranch = null
-
-[node name="UpReelCombo" parent="Player/Cast Reel Input Controller & Handler/Command Combos" index="2"]
-nextComboBranch = null
-
 [node name="CastObject" type="RigidBody3D" parent="." node_paths=PackedStringArray("castPullController")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0982084, 0.416584, 1.84151)
 collision_layer = 2

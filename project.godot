@@ -14,7 +14,7 @@ config/name="Basic Fishing System"
 config/tags=PackedStringArray("workingprogress")
 run/main_scene="uid://btjsp0rgdfor6"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://bh1tt2lsbsrvq"
 
 [dotnet]
 
