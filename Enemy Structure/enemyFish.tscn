@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://ditlc7wnqhku0"]
+
+[ext_resource type="Script" uid="uid://c3wwupjndh0my" path="res://Enemy Structure/_GenericFish.gd" id="1_bw7a5"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_mncer"]
+radius = 1.30868
+
+[node name="Fish" type="RigidBody3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+collision_layer = 3
+collision_mask = 3
+contact_monitor = true
+angular_damp = 10.0
+script = ExtResource("1_bw7a5")
+metadata/_custom_type_script = "uid://c3wwupjndh0my"
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_mncer")
+
+[node name="Bod" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.324025)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Bod"]
+transform = Transform3D(0.435779, 0, 0, 0, 0.435779, 0, 0, 0, 0.435779, -7.15256e-07, 0, -1.6405)
+use_collision = true
+radius = 1.33171
+
+[node name="CSGSphere3D2" type="CSGSphere3D" parent="Bod"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.324025)
+radius = 1.33171
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

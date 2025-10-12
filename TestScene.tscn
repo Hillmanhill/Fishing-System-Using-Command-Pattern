@@ -1,8 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://btjsp0rgdfor6"]
+[gd_scene load_steps=14 format=3 uid="uid://btjsp0rgdfor6"]
 
 [ext_resource type="PackedScene" uid="uid://bpgjkra8k7buf" path="res://_Player/player.tscn" id="1_mncer"]
 [ext_resource type="Script" uid="uid://5n5io3d7goai" path="res://_Fishing System/Line And Bobber/bobber.gd" id="1_wicfy"]
-[ext_resource type="Script" uid="uid://c3wwupjndh0my" path="res://Enemy Structure/_GenericFish.gd" id="2_cguwc"]
+[ext_resource type="PackedScene" uid="uid://ditlc7wnqhku0" path="res://Enemy Structure/enemyFish.tscn" id="3_sreuk"]
 [ext_resource type="PackedScene" uid="uid://byqjje8y85jg5" path="res://Enemy Structure/FishEnemyTest.blend" id="4_go42g"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_go42g"]
@@ -40,22 +40,25 @@ albedo_color = Color(0.281187, 0.281187, 0.281187, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tq6uv"]
 albedo_color = Color(0.281187, 0.281187, 0.281187, 1)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_mncer"]
-radius = 1.30868
-
 [node name="World" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("1_mncer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.20772, 4.29222, 4.5242)
-
-[node name="AnimationTree" parent="Player/animationStateController" index="1"]
-parameters/General_Player_Walk_Run/blend_position = Vector2(0, 0)
 
 [node name="TargetLockOn" parent="Player" index="1" node_paths=PackedStringArray("enemyContainer")]
 enemyContainer = NodePath("../../Enemy Container")
 
 [node name="Cast Reel Input Controller & Handler" parent="Player" index="4" node_paths=PackedStringArray("CastObject")]
 CastObject = NodePath("../../CastObject")
+
+[node name="RightReelCombo" parent="Player/Cast Reel Input Controller & Handler/Command Combos" index="0"]
+nextComboBranch = null
+
+[node name="LeftReelCombo" parent="Player/Cast Reel Input Controller & Handler/Command Combos" index="1"]
+nextComboBranch = null
+
+[node name="UpReelCombo" parent="Player/Cast Reel Input Controller & Handler/Command Combos" index="2"]
+nextComboBranch = null
 
 [node name="CastObject" type="RigidBody3D" parent="." node_paths=PackedStringArray("castPullController")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0982084, 0.416584, 1.84151)
@@ -89,6 +92,8 @@ transform = Transform3D(1, 0, 0, 0, 0.380732, 0.924686, 0, -0.924686, 0.380732, 
 shadow_enabled = true
 
 [node name="Map" type="Node" parent="."]
+
+[node name="_EnviromentalHassards" type="Node" parent="Map"]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Map"]
 transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, -0.224943, -4.23155, -0.47345)
@@ -318,82 +323,35 @@ size = Vector3(29.815, 5.13916, 6.15527)
 
 [node name="Enemy Container" type="Node" parent="."]
 
-[node name="Fish" type="RigidBody3D" parent="Enemy Container"]
+[node name="Fish" parent="Enemy Container" instance=ExtResource("3_sreuk")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 13.1665, 3.04906, 3.09037)
-collision_layer = 3
-collision_mask = 3
-can_sleep = false
-angular_damp = 10.0
-script = ExtResource("2_cguwc")
-metadata/_custom_type_script = "uid://c3wwupjndh0my"
-metadata/_edit_group_ = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy Container/Fish"]
-shape = SubResource("SphereShape3D_mncer")
+[node name="Fish2" parent="Enemy Container" instance=ExtResource("3_sreuk")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 16.1429, 6.57056, 18.4559)
 
-[node name="Bod" type="Node3D" parent="Enemy Container/Fish"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.324025)
+[node name="Fish3" parent="Enemy Container" instance=ExtResource("3_sreuk")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -21.1986, 6.21793, 24.8938)
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="Enemy Container/Fish/Bod"]
-transform = Transform3D(0.435779, 0, 0, 0, 0.435779, 0, 0, 0, 0.435779, -7.15256e-07, 0, -1.6405)
-use_collision = true
-radius = 1.33171
+[node name="Fish10" parent="Enemy Container" instance=ExtResource("3_sreuk")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.60941, 6.21793, -13.407)
 
-[node name="CSGSphere3D2" type="CSGSphere3D" parent="Enemy Container/Fish/Bod"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.324025)
-radius = 1.33171
+[node name="Fish4" parent="Enemy Container" instance=ExtResource("3_sreuk")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3.64591, -1.1066, 37.025)
 
-[node name="Fish2" type="RigidBody3D" parent="Enemy Container"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.10547, 3.04906, 21.6402)
-collision_layer = 3
-collision_mask = 3
-mass = 5.0
-angular_damp = 10.0
-script = ExtResource("2_cguwc")
-weight = 5.0
-metadata/_custom_type_script = "uid://c3wwupjndh0my"
-metadata/_edit_group_ = true
+[node name="Fish5" parent="Enemy Container" instance=ExtResource("3_sreuk")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 11.4156, 1.48346, 45.2381)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy Container/Fish2"]
-shape = SubResource("SphereShape3D_mncer")
+[node name="Fish6" parent="Enemy Container" instance=ExtResource("3_sreuk")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -14.6859, 3.04906, 68.3583)
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="Enemy Container/Fish2"]
-radius = 1.33171
+[node name="Fish7" parent="Enemy Container" instance=ExtResource("3_sreuk")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.72002, -4.48108, 68.7177)
 
-[node name="Fish4" type="RigidBody3D" parent="Enemy Container"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.44104, 3.04906, 50.8544)
-collision_layer = 3
-collision_mask = 3
-mass = 5.0
-angular_damp = 10.0
-script = ExtResource("2_cguwc")
-weight = 5.0
-metadata/_custom_type_script = "uid://c3wwupjndh0my"
-metadata/_edit_group_ = true
+[node name="Fish8" parent="Enemy Container" instance=ExtResource("3_sreuk")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 31.2855, -0.298962, 67.58)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy Container/Fish4"]
-shape = SubResource("SphereShape3D_mncer")
-
-[node name="CSGSphere3D" type="CSGSphere3D" parent="Enemy Container/Fish4"]
-radius = 1.33171
-
-[node name="Fish3" type="RigidBody3D" parent="Enemy Container"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -12.5507, 3.04906, 12.6645)
-collision_layer = 3
-collision_mask = 3
-mass = 2.5
-angular_velocity = Vector3(0, 0.174533, 0)
-angular_damp = 10.0
-script = ExtResource("2_cguwc")
-weight = 2.5
-metadata/_custom_type_script = "uid://c3wwupjndh0my"
-metadata/_edit_group_ = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy Container/Fish3"]
-shape = SubResource("SphereShape3D_mncer")
-
-[node name="CSGSphere3D" type="CSGSphere3D" parent="Enemy Container/Fish3"]
-radius = 1.33171
+[node name="Fish9" parent="Enemy Container" instance=ExtResource("3_sreuk")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.20346, 1.69523, 91.5691)
 
 [node name="FishEnemyTest" parent="Enemy Container" instance=ExtResource("4_go42g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6278, -1.42278, -2.08841)

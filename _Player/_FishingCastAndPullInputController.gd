@@ -67,15 +67,34 @@ func _input(event: InputEvent) -> void:
 		if event.is_action_pressed("PlayerSprint"):
 			var sprint = PlayerSprintAction.new("PlayerSprintAction", "$Player")
 			commandHandler.add_command(sprint, "$Player") 
+		
+		if event.is_action_pressed("ReelInBobber"):
+			var reelIn = ReelInAction.new("ReelInAction", "$CurrentTarget")
+			commandHandler.add_command(reelIn, "$Player")
+			animation_state.execute_animation_state(animation_state.animStates.castForwrd, Vector2(0,0))
 			
 		if event is InputEventMouseButton and event.is_pressed():
-			match event.button_index:
-				MOUSE_BUTTON_LEFT:
-					var LeftMouse = LeftMouseCastAction.new("LeftMouseCastAction", "$CurrentTarget")
-					commandHandler.add_command(LeftMouse, "$CurrentTarget")
-				MOUSE_BUTTON_RIGHT:
-					var RightMouse = RightMouseReelAction.new("RightMouseReelAction", "$CurrentTarget")
-					commandHandler.add_command(RightMouse, "$CurrentTarget")
+			if !inAir:
+				match event.button_index:
+					MOUSE_BUTTON_LEFT:
+						var LeftMouse = LeftMouseCastAction.new("LeftMouseCastAction", "$CurrentTarget")
+						commandHandler.add_command(LeftMouse, "$CurrentTarget")
+						animation_state.execute_animation_state(animation_state.animStates.cast, Vector2(0,-1))
+					MOUSE_BUTTON_RIGHT:
+						var RightMouse = RightMouseReelAction.new("RightMouseReelAction", "$CurrentTarget")
+						commandHandler.add_command(RightMouse, "$CurrentTarget")
+						#animation_state.execute_animation_state(animation_state.animStates.castForwrd, Vector2(0, 1))
+			else:
+				match event.button_index:
+					MOUSE_BUTTON_LEFT:
+						var LeftMouse = LeftMouseCastAction.new("LeftMouseCastAction", "$CurrentTarget")
+						commandHandler.add_command(LeftMouse, "$CurrentTarget")
+						animation_state.execute_animation_state(animation_state.animStates.cast, Vector2(0,-1))
+					MOUSE_BUTTON_RIGHT:
+						var RightMouse = RightMouseReelAction.new("RightMouseReelAction", "$CurrentTarget")
+						commandHandler.add_command(RightMouse, "$CurrentTarget")
+						#animation_state.execute_animation_state(animation_state.animStates.castForwrd, Vector2(0, 1))
+		
 		elif event.is_pressed():
 				for action in ["PlayerForward", "PlayerBackward", "PlayerLeft", "PlayerRight"]:
 					if Input.is_action_just_pressed(action):
@@ -122,23 +141,39 @@ func _input(event: InputEvent) -> void:
 		elif Input.is_action_just_pressed("PlayerDown") and !inAir:
 			var down = PlayerDownAction.new("PlayerDownAction", "$Player")
 			commandHandler.add_command(down, "$Player")
-
+	
 	else:
 		if event.is_action_pressed("PlayerSprint"):
 			var combatSprint = COMBAT_PlayerSprintAction.new("COMBAT_PlayerSprintAction", "$Player")
 			commandHandler.add_command(combatSprint, "$Player")
-			
+
+		if event.is_action_pressed("ReelInBobber"):
+			var reelIn = ReelInAction.new("ReelInAction", "$Player")
+			commandHandler.add_command(reelIn, "$Player")
+			animation_state.execute_animation_state(animation_state.animStates.castForwrd, Vector2(0,0))
+		
 		if event is InputEventMouseButton and event.is_pressed():
-			match event.button_index:
-				MOUSE_BUTTON_LEFT:
-					var LeftMouse = LeftMouseCastAction.new("LeftMouseCastAction", "$CurrentTarget")
-					commandHandler.add_command(LeftMouse, "$CurrentTarget")
-					animation_state.execute_animation_state(animation_state.animStates.lightAttack, Vector2(0,-1))
-				MOUSE_BUTTON_RIGHT:
-					var RightMouse = RightMouseReelAction.new("RightMouseReelAction", "$CurrentTarget")
-					commandHandler.add_command(RightMouse, "$CurrentTarget")
-					animation_state.execute_animation_state(animation_state.animStates.lightAttack,Vector2(0,1))
-			
+			if !inAir:
+				match event.button_index:
+					MOUSE_BUTTON_LEFT:
+						var LeftMouse = LeftMouseCastAction.new("LeftMouseCastAction", "$CurrentTarget")
+						commandHandler.add_command(LeftMouse, "$CurrentTarget")
+						animation_state.execute_animation_state(animation_state.animStates.lightAttack, Vector2(0,-1))
+					MOUSE_BUTTON_RIGHT:
+						var RightMouse = RightMouseReelAction.new("RightMouseReelAction", "$CurrentTarget")
+						commandHandler.add_command(RightMouse, "$CurrentTarget")
+						animation_state.execute_animation_state(animation_state.animStates.heavyAttack,Vector2(0,1))
+			else:
+				match event.button_index:
+					MOUSE_BUTTON_LEFT:
+						var LeftMouse = LeftMouseCastAction.new("LeftMouseCastAction", "$CurrentTarget")
+						commandHandler.add_command(LeftMouse, "$CurrentTarget")
+						animation_state.execute_animation_state(animation_state.animStates.lightAttack, Vector2(0,-1))
+					MOUSE_BUTTON_RIGHT:
+						var RightMouse = RightMouseReelAction.new("RightMouseReelAction", "$CurrentTarget")
+						commandHandler.add_command(RightMouse, "$CurrentTarget")
+						animation_state.execute_animation_state(animation_state.animStates.heavyAttack, Vector2(0, 1))
+		
 		elif event.is_pressed():
 				for action in ["PlayerForward", "PlayerBackward", "PlayerLeft", "PlayerRight"]:
 					if Input.is_action_just_pressed(action):
@@ -185,4 +220,3 @@ func _input(event: InputEvent) -> void:
 		elif Input.is_action_just_pressed("PlayerDown") and !inAir:
 			var down = COMBAT_PlayerDownAction.new("COMBAT_PlayerDownAction", "$Player")
 			commandHandler.add_command(down, "$Player")
-			

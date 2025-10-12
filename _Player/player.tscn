@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=3 uid="uid://bpgjkra8k7buf"]
+[gd_scene load_steps=83 format=3 uid="uid://bpgjkra8k7buf"]
 
 [ext_resource type="Script" uid="uid://bncuc2imx11h1" path="res://_Player/_PlayerMovement.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://bbj1o80v4hhn2" path="res://_Fishing System/Line And Bobber/_FishingLine.gd" id="2_3i7y5"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://c3kae4gnl4pun" path="res://_Fishing System/Command Action/_CommandHandler.gd" id="5_lf471"]
 [ext_resource type="Script" uid="uid://c4wwxoonhk7er" path="res://_Fishing System/Command Action/Command Combos/CC_RightReelIn.gd" id="7_v07bw"]
 [ext_resource type="Script" uid="uid://lyoeid6ixfu2" path="res://_Fishing System/Command Action/Command Combos/CC_LeftReelIn.gd" id="8_0js2u"]
+[ext_resource type="Script" uid="uid://cnxh5my7s14jw" path="res://_Fishing System/Command Action/Input Commands/CA_ReelIn.gd" id="8_rk5uq"]
 [ext_resource type="Script" uid="uid://b3jfvgeh2xctx" path="res://_Fishing System/Command Action/Command Combos/CC_UpReelIn.gd" id="9_5xi80"]
 [ext_resource type="Script" uid="uid://dxg5sgx5y7s8t" path="res://_Player/_PlayerAnimController.gd" id="11_dcv2n"]
 
@@ -197,7 +198,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1, 2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, -0.0632206, 0), Vector3(0, 0, 0)]
+"values": [Vector3(0, 0.135, 0), Vector3(0, 0.1, 0), Vector3(0, 0.135, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -454,28 +455,6 @@ _data = {
 &"Grounded_Walk": SubResource("Animation_8x25t")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_r120c"]
-animation = &"COMBAT_PlayerSword/AIR_heavyAttack"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o7r8c"]
-animation = &"COMBAT_PlayerSword/AIR_lightAttack"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vpk4e"]
-animation = &"COMBAT_PlayerSword/AIR_UpwardAttack"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kjg7r"]
-animation = &"COMBAT_PlayerSword/AIR_downwardAttack"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_6cbhi"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_r120c")
-blend_point_0/pos = Vector2(-1, 0)
-blend_point_1/node = SubResource("AnimationNodeAnimation_o7r8c")
-blend_point_1/pos = Vector2(1, 0)
-blend_point_2/node = SubResource("AnimationNodeAnimation_vpk4e")
-blend_point_2/pos = Vector2(0, 1)
-blend_point_3/node = SubResource("AnimationNodeAnimation_kjg7r")
-blend_point_3/pos = Vector2(0, -1)
-
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dcv2n"]
 animation = &"COMBAT_PlayerSword/Grounded_DownwardAttack"
 
@@ -501,33 +480,32 @@ blend_point_3/pos = Vector2(-1, 0)
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a7vl7"]
 animation = &"FISHING_PlayerRod/Grounded_Cast"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cvyes"]
-animation = &"FISHING_PlayerRod/Grounded_rightReelIn"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wq62m"]
-animation = &"FISHING_PlayerRod/Grounded_leftReelIn"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tf447"]
-animation = &"FISHING_PlayerRod/Grounded_forwardReelIn"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w67r7"]
-animation = &"FISHING_PlayerRod/Grounded_backwardReelIn"
-
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o2ate"]
 animation = &"FISHING_PlayerRod/Grounded_ReelIn"
 
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_wmqpd"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_cvyes")
-blend_point_0/pos = Vector2(1, 0)
-blend_point_1/node = SubResource("AnimationNodeAnimation_wq62m")
-blend_point_1/pos = Vector2(-1, 0)
-blend_point_2/node = SubResource("AnimationNodeAnimation_tf447")
-blend_point_2/pos = Vector2(0, 1)
-blend_point_3/node = SubResource("AnimationNodeAnimation_w67r7")
-blend_point_3/pos = Vector2(0, -1)
-blend_point_4/node = SubResource("AnimationNodeAnimation_o2ate")
-blend_point_4/pos = Vector2(0, 0)
-blend_mode = 1
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_q6eug"]
+animation = &"FISHING_PlayerRod/Grounded_leftReelIn"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lcc44"]
+animation = &"FISHING_PlayerRod/Grounded_rightReelIn"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hhlvc"]
+animation = &"FISHING_PlayerRod/Grounded_forwardReelIn"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8x25t"]
+animation = &"FISHING_PlayerRod/Grounded_backwardReelIn"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_rmxa3"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_o2ate")
+blend_point_0/pos = Vector2(0, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_q6eug")
+blend_point_1/pos = Vector2(-0.9, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_lcc44")
+blend_point_2/pos = Vector2(0.9, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_hhlvc")
+blend_point_3/pos = Vector2(0, 0.9)
+blend_point_4/node = SubResource("AnimationNodeAnimation_8x25t")
+blend_point_4/pos = Vector2(0, -0.9)
 sync = true
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rk5uq"]
@@ -572,69 +550,10 @@ switch_mode = 1
 advance_mode = 2
 advance_condition = &"isCast"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dcv2n"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"IsReelingFish"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4p3ea"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"IsReelingFish"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u0mky"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"IsReelingFish"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_buxd7"]
-break_loop_at_end = true
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"isJump"
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bcscf"]
 switch_mode = 1
 advance_mode = 2
 advance_condition = &"isJump"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_a7vl7"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isJump"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8x25t"]
-break_loop_at_end = true
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"isAttack"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0nvq2"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isAttack"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wkedm"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isAttack"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mdxx1"]
-xfade_time = 0.2
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"IsReelingFish"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o2ate"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isMoving"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q6eug"]
-break_loop_at_end = true
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"isMoving"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lcc44"]
 switch_mode = 1
@@ -651,21 +570,10 @@ switch_mode = 1
 advance_mode = 2
 advance_condition = &"isMoving"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o7r8c"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"isAttack"
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vpk4e"]
 switch_mode = 1
 advance_mode = 2
 advance_condition = &"isCast"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kjg7r"]
-xfade_time = 0.2
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"IsReelingFish"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6cbhi"]
 switch_mode = 1
@@ -676,15 +584,38 @@ advance_condition = &"isJump"
 switch_mode = 1
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0nvq2"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"IsReelingFish"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wkedm"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"IsReelingFish"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mdxx1"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"IsReelingFish"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o7r8c"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"IsReelingFish"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dcv2n"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"isMoving"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_buxd7"]
-states/COMBAT_PlayerSword_AIR_Attacks/node = SubResource("AnimationNodeBlendSpace2D_6cbhi")
-states/COMBAT_PlayerSword_AIR_Attacks/position = Vector2(548.317, -306)
 states/COMBAT_PlayerSword_Grounded_Attacks/node = SubResource("AnimationNodeBlendSpace2D_buxd7")
-states/COMBAT_PlayerSword_Grounded_Attacks/position = Vector2(788.317, -232)
+states/COMBAT_PlayerSword_Grounded_Attacks/position = Vector2(645.317, -346)
 states/FISHING_PlayerRod_Grounded_Cast/node = SubResource("AnimationNodeAnimation_a7vl7")
 states/FISHING_PlayerRod_Grounded_Cast/position = Vector2(71.3165, -171)
-states/FISHING_Player_Grounded_reelSet/node = SubResource("AnimationNodeBlendSpace2D_wmqpd")
-states/FISHING_Player_Grounded_reelSet/position = Vector2(242, -306)
+states/FISHING_Player_Grounded_reelSet/node = SubResource("AnimationNodeBlendSpace2D_rmxa3")
+states/FISHING_Player_Grounded_reelSet/position = Vector2(334.317, -303)
 states/General_Player_AIR_Falling/node = SubResource("AnimationNodeAnimation_rk5uq")
 states/General_Player_AIR_Falling/position = Vector2(177, 114)
 states/General_Player_Grounded_Jump/node = SubResource("AnimationNodeAnimation_p6xc4")
@@ -692,8 +623,8 @@ states/General_Player_Grounded_Jump/position = Vector2(379, 114)
 states/General_Player_Walk_Run/node = SubResource("AnimationNodeBlendSpace2D_qsyx4")
 states/General_Player_Walk_Run/position = Vector2(680.317, -95)
 states/Start/position = Vector2(973, -154)
-transitions = ["General_Player_Grounded_Jump", "General_Player_AIR_Falling", SubResource("AnimationNodeStateMachineTransition_qsyx4"), "General_Player_Grounded_Jump", "FISHING_PlayerRod_Grounded_Cast", SubResource("AnimationNodeStateMachineTransition_tf447"), "General_Player_AIR_Falling", "FISHING_PlayerRod_Grounded_Cast", SubResource("AnimationNodeStateMachineTransition_wy1wk"), "FISHING_PlayerRod_Grounded_Cast", "FISHING_Player_Grounded_reelSet", SubResource("AnimationNodeStateMachineTransition_dcv2n"), "General_Player_AIR_Falling", "FISHING_Player_Grounded_reelSet", SubResource("AnimationNodeStateMachineTransition_4p3ea"), "COMBAT_PlayerSword_AIR_Attacks", "FISHING_Player_Grounded_reelSet", SubResource("AnimationNodeStateMachineTransition_u0mky"), "FISHING_Player_Grounded_reelSet", "General_Player_Grounded_Jump", SubResource("AnimationNodeStateMachineTransition_buxd7"), "FISHING_PlayerRod_Grounded_Cast", "General_Player_Grounded_Jump", SubResource("AnimationNodeStateMachineTransition_bcscf"), "COMBAT_PlayerSword_AIR_Attacks", "General_Player_Grounded_Jump", SubResource("AnimationNodeStateMachineTransition_a7vl7"), "FISHING_Player_Grounded_reelSet", "COMBAT_PlayerSword_AIR_Attacks", SubResource("AnimationNodeStateMachineTransition_8x25t"), "General_Player_AIR_Falling", "COMBAT_PlayerSword_AIR_Attacks", SubResource("AnimationNodeStateMachineTransition_0nvq2"), "General_Player_Grounded_Jump", "COMBAT_PlayerSword_AIR_Attacks", SubResource("AnimationNodeStateMachineTransition_wkedm"), "General_Player_Grounded_Jump", "FISHING_Player_Grounded_reelSet", SubResource("AnimationNodeStateMachineTransition_mdxx1"), "COMBAT_PlayerSword_AIR_Attacks", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_o2ate"), "FISHING_Player_Grounded_reelSet", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_q6eug"), "FISHING_PlayerRod_Grounded_Cast", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_lcc44"), "General_Player_AIR_Falling", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_rmxa3"), "COMBAT_PlayerSword_Grounded_Attacks", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_r120c"), "General_Player_Walk_Run", "COMBAT_PlayerSword_AIR_Attacks", SubResource("AnimationNodeStateMachineTransition_o7r8c"), "General_Player_Walk_Run", "FISHING_PlayerRod_Grounded_Cast", SubResource("AnimationNodeStateMachineTransition_vpk4e"), "General_Player_Walk_Run", "FISHING_Player_Grounded_reelSet", SubResource("AnimationNodeStateMachineTransition_kjg7r"), "General_Player_Walk_Run", "General_Player_Grounded_Jump", SubResource("AnimationNodeStateMachineTransition_6cbhi"), "Start", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_cvyes")]
-graph_offset = Vector2(-255.683, -334)
+transitions = ["General_Player_Grounded_Jump", "General_Player_AIR_Falling", SubResource("AnimationNodeStateMachineTransition_qsyx4"), "General_Player_Grounded_Jump", "FISHING_PlayerRod_Grounded_Cast", SubResource("AnimationNodeStateMachineTransition_tf447"), "General_Player_AIR_Falling", "FISHING_PlayerRod_Grounded_Cast", SubResource("AnimationNodeStateMachineTransition_wy1wk"), "FISHING_PlayerRod_Grounded_Cast", "General_Player_Grounded_Jump", SubResource("AnimationNodeStateMachineTransition_bcscf"), "FISHING_PlayerRod_Grounded_Cast", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_lcc44"), "General_Player_AIR_Falling", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_rmxa3"), "COMBAT_PlayerSword_Grounded_Attacks", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_r120c"), "General_Player_Walk_Run", "FISHING_PlayerRod_Grounded_Cast", SubResource("AnimationNodeStateMachineTransition_vpk4e"), "General_Player_Walk_Run", "General_Player_Grounded_Jump", SubResource("AnimationNodeStateMachineTransition_6cbhi"), "Start", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_cvyes"), "FISHING_PlayerRod_Grounded_Cast", "FISHING_Player_Grounded_reelSet", SubResource("AnimationNodeStateMachineTransition_0nvq2"), "General_Player_AIR_Falling", "FISHING_Player_Grounded_reelSet", SubResource("AnimationNodeStateMachineTransition_wkedm"), "General_Player_Walk_Run", "FISHING_Player_Grounded_reelSet", SubResource("AnimationNodeStateMachineTransition_mdxx1"), "COMBAT_PlayerSword_Grounded_Attacks", "FISHING_Player_Grounded_reelSet", SubResource("AnimationNodeStateMachineTransition_o7r8c"), "FISHING_Player_Grounded_reelSet", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_dcv2n")]
+graph_offset = Vector2(-83.683, -300)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lf471"]
 
@@ -749,11 +680,9 @@ root_node = NodePath("../..")
 tree_root = SubResource("AnimationNodeStateMachine_buxd7")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/IsReelingFish = false
-parameters/conditions/isAttack = false
 parameters/conditions/isCast = false
 parameters/conditions/isJump = false
 parameters/conditions/isMoving = false
-parameters/COMBAT_PlayerSword_AIR_Attacks/blend_position = Vector2(0, 0)
 parameters/COMBAT_PlayerSword_Grounded_Attacks/blend_position = Vector2(0, 0)
 parameters/FISHING_Player_Grounded_reelSet/blend_position = Vector2(0, 0)
 parameters/General_Player_Walk_Run/blend_position = Vector2(0, 0)
@@ -843,6 +772,9 @@ ropeVisualizer = NodePath("../../../MovementCollider/Player Mesh/ReelToolPOS/Cas
 [node name="CA_Right_Mouse" type="Node" parent="Cast Reel Input Controller & Handler/Inputs"]
 script = ExtResource("4_3i7y5")
 
+[node name="CA_ReelIn_E" type="Node" parent="Cast Reel Input Controller & Handler/Inputs"]
+script = ExtResource("8_rk5uq")
+
 [node name="Command Handler" type="Node" parent="Cast Reel Input Controller & Handler" node_paths=PackedStringArray("player", "castPullController")]
 script = ExtResource("5_lf471")
 player = NodePath("../..")
@@ -853,14 +785,17 @@ castPullController = NodePath("..")
 [node name="RightReelCombo" type="Node" parent="Cast Reel Input Controller & Handler/Command Combos" node_paths=PackedStringArray("commandHandler")]
 script = ExtResource("7_v07bw")
 commandHandler = NodePath("../../Command Handler")
+nextComboBranch = null
 
 [node name="LeftReelCombo" type="Node" parent="Cast Reel Input Controller & Handler/Command Combos" node_paths=PackedStringArray("commandHandler")]
 script = ExtResource("8_0js2u")
 commandHandler = NodePath("../../Command Handler")
+nextComboBranch = null
 
 [node name="UpReelCombo" type="Node" parent="Cast Reel Input Controller & Handler/Command Combos" node_paths=PackedStringArray("commandHandler")]
 script = ExtResource("9_5xi80")
 commandHandler = NodePath("../../Command Handler")
+nextComboBranch = null
 
 [node name="temp ececute handler" type="Timer" parent="."]
 wait_time = 0.1

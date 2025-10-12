@@ -6,7 +6,7 @@ extends CommandAction
 func get_id() -> Dictionary:
 	attackTimeElapse = 3
 	avalibleAttackSubWindow = 0
-	return {"ACID": "RightMouse", "attackTime": attackTimeElapse, "avalibleTime": avalibleAttackSubWindow}
+	return {"ACID": "ReelIn", "attackTime": attackTimeElapse, "avalibleTime": avalibleAttackSubWindow}
 
 func _ready() -> void:
 	commandHandler.register_combo(["COMBAT_PlayerRight"], self)

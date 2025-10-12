@@ -24,3 +24,6 @@ func _ready() -> void:
 
 func _on_active_timeout():
 	print("Active timer TICK")
+
+func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
+	pass # Replace with function body.
