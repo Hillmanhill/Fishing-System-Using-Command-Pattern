@@ -5,6 +5,10 @@ extends RigidBody3D
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
 var hasFish: RigidBody3D
 var isAttached: bool = false
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+func _ready() -> void:
+	animation_player.play("PlayerBobber/ShortFlashLongWait")
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("releaseBobber") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):

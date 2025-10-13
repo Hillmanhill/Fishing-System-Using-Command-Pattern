@@ -13,6 +13,7 @@ var segmentcount: int
 var springStiffnessWeight: int = 0.12
 var ropeJoints : Array[Generic6DOFJoint3D] = []
 var isObjectCast : bool = false
+var currentlyCasting: bool = false
 
 func _ready() -> void:
 	mesh = ImmediateMesh.new()
@@ -63,43 +64,44 @@ func create_rope(Bobber: Node3D, castPoint: Node3D, segmentCount: int):
 	var last = Bobber
 	var ropeVector = castPoint.global_position - Bobber.global_position
 	var lengthPerSegment = ropeVector.length() / segmentCount
-	
-	for i in segmentCount:
-		await get_tree().create_timer(.1).timeout
-		var segment: RigidBody3D = preload("res://_Fishing System/Line And Bobber/ropeSegment.tscn").instantiate()
-		var t : float = float(i + 1) / float(segmentcount +1)
-		segment.global_position = Bobber.global_position.lerp(castPoint.global_position, t)
-		ropeSegments.append(segment)
-		get_tree().current_scene.add_child(segment)
-		
-		var joint = Generic6DOFJoint3D.new()
-		joint.name = "JointTo_" + str(i)
-		joint.node_a = last.get_path()
-		joint.node_b = segment.get_path()
-		joint.global_position = segment.global_position
-		
-		for axis in [Generic6DOFJoint3D.FLAG_ENABLE_LINEAR_LIMIT, Generic6DOFJoint3D.FLAG_ENABLE_LINEAR_SPRING]:
-			joint.set_flag_x(axis, true)
-			joint.set_flag_y(axis, true)
-			joint.set_flag_z(axis, true)
-		
-		var limit = lengthPerSegment * .1
-		for axis in  [Generic6DOFJoint3D.PARAM_LINEAR_LOWER_LIMIT, Generic6DOFJoint3D.PARAM_LINEAR_UPPER_LIMIT]:
-			joint.set_param_x(axis, -lengthPerSegment if axis == Generic6DOFJoint3D.PARAM_LINEAR_LOWER_LIMIT else lengthPerSegment)
-			joint.set_param_y(axis, -lengthPerSegment if axis == Generic6DOFJoint3D.PARAM_LINEAR_LOWER_LIMIT else lengthPerSegment)
-			joint.set_param_z(axis, -lengthPerSegment if axis == Generic6DOFJoint3D.PARAM_LINEAR_LOWER_LIMIT else lengthPerSegment)
-		
-		joint.set_param_x(Generic6DOFJoint3D.PARAM_ANGULAR_SPRING_DAMPING, 2)
-		joint.set_param_y(Generic6DOFJoint3D.PARAM_ANGULAR_SPRING_DAMPING, 2)
-		joint.set_param_z(Generic6DOFJoint3D.PARAM_ANGULAR_SPRING_DAMPING, 2)
-		joint.set_param_x(Generic6DOFJoint3D.PARAM_LINEAR_SPRING_STIFFNESS, springStiffnessWeight)
-		joint.set_param_y(Generic6DOFJoint3D.PARAM_LINEAR_SPRING_STIFFNESS, springStiffnessWeight)
-		joint.set_param_z(Generic6DOFJoint3D.PARAM_LINEAR_SPRING_STIFFNESS, springStiffnessWeight)
-		
-		ropeJoints.append(joint)
-		get_tree().current_scene.add_child(joint)
-		last = segment
-		segmentcount += 1
+	if !currentlyCasting:
+		for i in segmentCount:
+			currentlyCasting = true
+			await get_tree().create_timer(.1).timeout
+			var segment: RigidBody3D = preload("res://_Fishing System/Line And Bobber/ropeSegment.tscn").instantiate()
+			var t : float = float(i + 1) / float(segmentcount +1)
+			segment.global_position = Bobber.global_position.lerp(castPoint.global_position, t)
+			ropeSegments.append(segment)
+			get_tree().current_scene.add_child(segment)
+			
+			var joint = Generic6DOFJoint3D.new()
+			joint.name = "JointTo_" + str(i)
+			joint.node_a = last.get_path()
+			joint.node_b = segment.get_path()
+			joint.global_position = segment.global_position
+			
+			for axis in [Generic6DOFJoint3D.FLAG_ENABLE_LINEAR_LIMIT, Generic6DOFJoint3D.FLAG_ENABLE_LINEAR_SPRING]:
+				joint.set_flag_x(axis, true)
+				joint.set_flag_y(axis, true)
+				joint.set_flag_z(axis, true)
+			
+			var limit = lengthPerSegment * .1
+			for axis in  [Generic6DOFJoint3D.PARAM_LINEAR_LOWER_LIMIT, Generic6DOFJoint3D.PARAM_LINEAR_UPPER_LIMIT]:
+				joint.set_param_x(axis, -lengthPerSegment if axis == Generic6DOFJoint3D.PARAM_LINEAR_LOWER_LIMIT else lengthPerSegment)
+				joint.set_param_y(axis, -lengthPerSegment if axis == Generic6DOFJoint3D.PARAM_LINEAR_LOWER_LIMIT else lengthPerSegment)
+				joint.set_param_z(axis, -lengthPerSegment if axis == Generic6DOFJoint3D.PARAM_LINEAR_LOWER_LIMIT else lengthPerSegment)
+			
+			joint.set_param_x(Generic6DOFJoint3D.PARAM_ANGULAR_SPRING_DAMPING, 2)
+			joint.set_param_y(Generic6DOFJoint3D.PARAM_ANGULAR_SPRING_DAMPING, 2)
+			joint.set_param_z(Generic6DOFJoint3D.PARAM_ANGULAR_SPRING_DAMPING, 2)
+			joint.set_param_x(Generic6DOFJoint3D.PARAM_LINEAR_SPRING_STIFFNESS, springStiffnessWeight)
+			joint.set_param_y(Generic6DOFJoint3D.PARAM_LINEAR_SPRING_STIFFNESS, springStiffnessWeight)
+			joint.set_param_z(Generic6DOFJoint3D.PARAM_LINEAR_SPRING_STIFFNESS, springStiffnessWeight)
+			
+			ropeJoints.append(joint)
+			get_tree().current_scene.add_child(joint)
+			last = segment
+			segmentcount += 1
 	
 	var final_joint = Generic6DOFJoint3D.new()
 	final_joint.node_a = ropeSegments.back().get_path()
@@ -114,6 +116,7 @@ func create_rope(Bobber: Node3D, castPoint: Node3D, segmentCount: int):
 	
 	ropeJoints.append(final_joint)
 	add_child(final_joint)
+	currentlyCasting = false
 
 func pull_in_by_distance(pullStrength):
 	var pullDir = (reelPoint.global_position - castObject.global_position).normalized()

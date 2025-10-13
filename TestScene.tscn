@@ -1,10 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://btjsp0rgdfor6"]
+[gd_scene load_steps=24 format=3 uid="uid://btjsp0rgdfor6"]
 
 [ext_resource type="PackedScene" uid="uid://bpgjkra8k7buf" path="res://_Player/player.tscn" id="1_mncer"]
 [ext_resource type="Script" uid="uid://5n5io3d7goai" path="res://_Fishing System/Line And Bobber/bobber.gd" id="1_wicfy"]
 [ext_resource type="PackedScene" uid="uid://ditlc7wnqhku0" path="res://Enemy Structure/enemyFish.tscn" id="3_sreuk"]
 [ext_resource type="PackedScene" uid="uid://bxyckbaly0dfy" path="res://_Fishing System/Line And Bobber/Bobber.blend" id="3_tq6uv"]
 [ext_resource type="PackedScene" uid="uid://byqjje8y85jg5" path="res://Enemy Structure/FishEnemyTest.blend" id="4_go42g"]
+[ext_resource type="Script" uid="uid://ifpb4i8flggh" path="res://Enviromental Hazzards/EH_Wall.gd" id="4_tq6uv"]
+[ext_resource type="Script" uid="uid://4n6oyuos2u1w" path="res://Enviromental Hazzards/_EH_Generic.gd" id="5_12c36"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_go42g"]
 radius = 0.447502
@@ -13,6 +15,101 @@ radius = 0.447502
 albedo_color = Color(0.660678, 0, 0.137327, 1)
 emission_enabled = true
 emission = Color(0.995996, 0.521206, 0.455814, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="Animation" id="Animation_sreuk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGSphere3D:material:emission")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.995996, 0.521206, 0.455814, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CSGSphere3D:material:emission_energy_multiplier")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [3.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tq6uv"]
+_data = {
+&"RESET": SubResource("Animation_sreuk")
+}
+
+[sub_resource type="Animation" id="Animation_12c36"]
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGSphere3D:material:emission")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.995996, 0.521206, 0.455814, 1), Color(0.995996, 0.521206, 0.455814, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CSGSphere3D:material:emission_energy_multiplier")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [3.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_5uqhi"]
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CSGSphere3D:material:emission_energy_multiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 3.0, 3.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CSGSphere3D:material:emission")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.995996, 0.521206, 0.455814, 1), Color(0.995996, 0.521206, 0.455814, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b3dy1"]
+_data = {
+&"ShortFlashLongWait": SubResource("Animation_12c36"),
+&"ShortFlashShortWait": SubResource("Animation_5uqhi")
+}
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mncer"]
 
@@ -23,6 +120,7 @@ sky_material = SubResource("ProceduralSkyMaterial_mncer")
 background_mode = 2
 sky = SubResource("Sky_cguwc")
 sdfgi_read_sky_light = false
+glow_enabled = true
 fog_light_color = Color(0.217525, 0.239357, 0.273677, 1)
 fog_sky_affect = 0.0
 volumetric_fog_density = 0.005
@@ -31,6 +129,12 @@ volumetric_fog_density = 0.005
 dof_blur_far_enabled = true
 dof_blur_far_distance = 40.0
 dof_blur_far_transition = 70.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_12c36"]
+size = Vector3(4.285, 4.975, 0.655)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5uqhi"]
+size = Vector3(4.41, 5, 0.55)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_go42g"]
 albedo_color = Color(0.537131, 0.206065, 0.105952, 1)
@@ -79,6 +183,12 @@ material = SubResource("StandardMaterial3D_lc3a7")
 [node name="Bobber" parent="CastObject" instance=ExtResource("3_tq6uv")]
 transform = Transform3D(1.37854, 0, 0, 0, 1.37854, 0, 0, 0, 1.37854, 0, 0, 0)
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CastObject"]
+libraries = {
+&"": SubResource("AnimationLibrary_tq6uv"),
+&"PlayerBobber": SubResource("AnimationLibrary_b3dy1")
+}
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_wicfy")
 camera_attributes = SubResource("CameraAttributesPractical_go42g")
@@ -90,6 +200,23 @@ shadow_enabled = true
 [node name="Map" type="Node" parent="."]
 
 [node name="_EnviromentalHassards" type="Node" parent="Map"]
+
+[node name="EHWall" type="Area3D" parent="Map/_EnviromentalHassards" node_paths=PackedStringArray("meshInstance", "meshCollisionShape")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.41848, 1.157, -2.96737)
+script = ExtResource("4_tq6uv")
+meshInstance = NodePath("MeshInstance3D")
+meshCollisionShape = NodePath("CollisionShape3D")
+metadata/_custom_type_script = "uid://ifpb4i8flggh"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/_EnviromentalHassards/EHWall"]
+shape = SubResource("BoxShape3D_12c36")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/_EnviromentalHassards/EHWall"]
+mesh = SubResource("BoxMesh_5uqhi")
+
+[node name="enviromentalHazzard" type="Area3D" parent="Map/_EnviromentalHassards"]
+script = ExtResource("5_12c36")
+metadata/_custom_type_script = "uid://4n6oyuos2u1w"
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Map"]
 transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, -0.224943, -4.23155, -0.47345)
@@ -353,5 +480,6 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.2034
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6278, -1.42278, -2.08841)
 
 [connection signal="body_shape_entered" from="CastObject" to="CastObject" method="_on_body_shape_entered"]
+[connection signal="body_shape_entered" from="Map/_EnviromentalHassards/EHWall" to="Map/_EnviromentalHassards/EHWall" method="_on_body_shape_entered"]
 
 [editable path="Player"]
