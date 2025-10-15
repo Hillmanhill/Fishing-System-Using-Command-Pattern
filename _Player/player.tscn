@@ -1,8 +1,9 @@
-[gd_scene load_steps=83 format=3 uid="uid://bpgjkra8k7buf"]
+[gd_scene load_steps=84 format=3 uid="uid://bpgjkra8k7buf"]
 
 [ext_resource type="Script" uid="uid://bncuc2imx11h1" path="res://_Player/_PlayerMovement.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://bbj1o80v4hhn2" path="res://_Fishing System/Line And Bobber/_FishingLine.gd" id="2_3i7y5"]
 [ext_resource type="Script" uid="uid://tpmiordqrnuc" path="res://_Player/_PlayerTargetLockOn.gd" id="2_jr7ij"]
+[ext_resource type="Script" uid="uid://b0hfrbkh8jgu0" path="res://_Fishing System/_GenericHealthHandler.gd" id="2_p6xc4"]
 [ext_resource type="Script" uid="uid://ddewqodfuca1e" path="res://_Player/_FishingCastAndPullInputController.gd" id="2_t8t7b"]
 [ext_resource type="Script" uid="uid://bldkomf1fir2v" path="res://_Fishing System/Command Action/Input Commands/CA_Left_Mouse.gd" id="3_lf471"]
 [ext_resource type="Script" uid="uid://6qero8umtmg2" path="res://_Fishing System/Command Action/Input Commands/CA_Right_Mouse.gd" id="4_3i7y5"]
@@ -661,6 +662,13 @@ camera_3d = NodePath("CameraMountOrbit/CameraMountPitch/Camera3D")
 player_meshes = NodePath("MovementCollider/Player Mesh")
 castPullController = NodePath("Cast Reel Input Controller & Handler")
 
+[node name="HealthHandler" type="Node" parent="."]
+script = ExtResource("2_p6xc4")
+health = 100
+is_player = true
+ResistTypes = Array[String](["WIND", "ELECTRIC"])
+metadata/_custom_type_script = "uid://b0hfrbkh8jgu0"
+
 [node name="animationStateController" type="Node" parent="." node_paths=PackedStringArray("PlayerAnimationPlayer", "playerInputHandler")]
 script = ExtResource("11_dcv2n")
 PlayerAnimationPlayer = NodePath("AnimationPlayer")
@@ -693,6 +701,7 @@ player = NodePath("..")
 playerCamera = NodePath("../CameraMountOrbit/CameraMountPitch/Camera3D")
 
 [node name="MovementCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_lf471")
 
 [node name="Player Mesh" type="CSGCylinder3D" parent="MovementCollider"]
@@ -736,6 +745,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.983038, 0.960681, 0)
 mesh = SubResource("BoxMesh_5xi80")
 
 [node name="CameraMountOrbit" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="CameraMountPitch" type="Node3D" parent="CameraMountOrbit"]
 

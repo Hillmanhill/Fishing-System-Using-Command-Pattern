@@ -23,17 +23,14 @@ func _ready() -> void:
 	animationTree.active = true
 
 func transition_to(state_name: String, blendValue: Vector2):
-	
 	for cond in allconditions:
 		animationTree.set("parameters/conditions/"+ cond, cond == state_name)
-		print(animationTree.get("parameters/conditions/IsReelingFish"))
-		
 	var activeState = allStates.get(state_name)
-	print("active state: ", activeState)
+	#print("active state: ", activeState)
 	
 	if activeState != null:
 		animationTree.set("parameters/" + activeState + "/blend_position", blendValue)
-		print("NANME: ",animationTree.get("parameters/playback").get_current_node() ," blende pos: ", animationTree.get("parameters/" + activeState + "/blend_position"))
+		#print("NANME: ",animationTree.get("parameters/playback").get_current_node() ," blende pos: ", animationTree.get("parameters/" + activeState + "/blend_position"))
 	else:
 		print("Invalid state:", state_name)
 

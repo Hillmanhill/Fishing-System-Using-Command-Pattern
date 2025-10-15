@@ -57,7 +57,7 @@ func add_command(cmd: CommandAction, target: String)-> void:
 					var nextComboAction = lastCmd.nextComboBranch[sequence].new()
 					pendingCombo = nextComboAction
 					comboReady = true
-					print("Matched continuation branch:", sequence)
+					#print("Matched continuation branch:", sequence)
 					break
 	commandQueue.append({"cmd": cmd, "target": target})
 	if not comboReady:
@@ -89,7 +89,7 @@ func execute_next() -> void:
 				var nextComboAction = cmd.nextComboBranch[sequence].new()
 				pendingCombo = nextComboAction
 				comboReady = true
-				print("Matched continuation branch:", sequence)
+				#print("Matched continuation branch:", sequence)
 				break
 		comboBuffer.clear()
 		restart_combo_timer()

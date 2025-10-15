@@ -150,10 +150,10 @@ albedo_color = Color(0.281187, 0.281187, 0.281187, 1)
 [node name="Player" parent="." instance=ExtResource("1_mncer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.20772, 4.29222, 4.5242)
 
-[node name="TargetLockOn" parent="Player" index="1" node_paths=PackedStringArray("enemyContainer")]
+[node name="TargetLockOn" parent="Player" index="2" node_paths=PackedStringArray("enemyContainer")]
 enemyContainer = NodePath("../../Enemy Container")
 
-[node name="Cast Reel Input Controller & Handler" parent="Player" index="4" node_paths=PackedStringArray("CastObject")]
+[node name="Cast Reel Input Controller & Handler" parent="Player" index="5" node_paths=PackedStringArray("CastObject")]
 CastObject = NodePath("../../CastObject")
 
 [node name="CastObject" type="RigidBody3D" parent="." node_paths=PackedStringArray("castPullController")]
@@ -203,6 +203,8 @@ shadow_enabled = true
 
 [node name="EHWall" type="Area3D" parent="Map/_EnviromentalHassards" node_paths=PackedStringArray("meshInstance", "meshCollisionShape")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.41848, 1.157, -2.96737)
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("4_tq6uv")
 meshInstance = NodePath("MeshInstance3D")
 meshCollisionShape = NodePath("CollisionShape3D")
@@ -214,11 +216,19 @@ shape = SubResource("BoxShape3D_12c36")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Map/_EnviromentalHassards/EHWall"]
 mesh = SubResource("BoxMesh_5uqhi")
 
+[node name="StaticBody3D" type="StaticBody3D" parent="Map/_EnviromentalHassards/EHWall"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/_EnviromentalHassards/EHWall/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.806254, 0, 0, 0)
+shape = SubResource("BoxShape3D_12c36")
+
 [node name="enviromentalHazzard" type="Area3D" parent="Map/_EnviromentalHassards"]
 script = ExtResource("5_12c36")
 metadata/_custom_type_script = "uid://4n6oyuos2u1w"
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Map"]
+[node name="TERRAIN" type="Node" parent="Map"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, -0.224943, -4.23155, -0.47345)
 use_collision = true
 collision_layer = 3
@@ -226,84 +236,84 @@ collision_mask = 3
 size = Vector3(1.98608, 0.280884, 0.949648)
 material = SubResource("StandardMaterial3D_go42g")
 
-[node name="CSGBox3D31" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D31" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, 9.645, 0.895482, -6.4376)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
 size = Vector3(0.0302425, 0.254822, 0.343476)
 
-[node name="CSGBox3D9" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D9" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, 19.5863, -0.98369, -0.563978)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
 size = Vector3(0.0477275, 0.469391, 0.940443)
 
-[node name="CSGBox3D10" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D10" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, -20.0388, -1.56016, 19.7309)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
 size = Vector3(0.0477275, 0.349915, 3.00313)
 
-[node name="CSGBox3D24" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D24" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, -20.0388, 3.04659, 73.5987)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
 size = Vector3(0.0477275, 0.456085, 2.51049)
 
-[node name="CSGBox3D30" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D30" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, 38.7295, 0.985725, 73.5987)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
 size = Vector3(0.0477275, 0.665543, 2.51049)
 
-[node name="CSGBox3D17" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D17" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, 28.1204, 0.279191, 28.7809)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
 size = Vector3(0.0477275, 0.349915, 2.04202)
 
-[node name="CSGBox3D11" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D11" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(-8.60157e-07, 0, -19.6781, 0, 19.6781, 0, 19.6781, 0, -8.60157e-07, -3.41901, -1.56016, -10.2254)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
 size = Vector3(0.0477275, 0.349915, 2.31163)
 
-[node name="CSGBox3D18" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D18" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(-8.60157e-07, 0, -19.6781, 0, 19.6781, 0, 19.6781, 0, -8.60157e-07, 24.0137, -0.0572757, 8.75675)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
 size = Vector3(0.0477275, 0.349915, 0.478081)
 
-[node name="CSGBox3D12" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D12" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(-8.60157e-07, 0, -19.6781, 0, 19.6781, 0, 19.6781, 0, -8.60157e-07, 28.3318, -1.06907, 49.065)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
 size = Vector3(0.0477275, 0.483536, 1.03907)
 
-[node name="CSGBox3D21" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D21" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(-8.60157e-07, 0, -19.6781, 0, 19.6781, 0, 19.6781, 0, -8.60157e-07, 8.44533, 1.88508, 98.496)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
 size = Vector3(0.0477275, 0.483536, 3.06025)
 
-[node name="CSGBox3D20" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D20" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(-8.60157e-07, 0, -19.6781, 0, 19.6781, 0, 19.6781, 0, -8.60157e-07, -21.6765, -0.657262, 49.065)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
 size = Vector3(0.0477275, 0.441681, 1.17141)
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D4" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, 5.13299, -6.22488, 33.2112)
 use_collision = true
 collision_layer = 3
@@ -311,7 +321,7 @@ collision_mask = 3
 size = Vector3(2.53064, 0.0949707, 2.1812)
 material = SubResource("StandardMaterial3D_go42g")
 
-[node name="CSGBox3D22" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D22" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, 5.66505, -10.0784, 71.5825)
 use_collision = true
 collision_layer = 3
@@ -319,7 +329,7 @@ collision_mask = 3
 size = Vector3(2.58471, 0.0949707, 1.72291)
 material = SubResource("StandardMaterial3D_go42g")
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D3" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, -15.2177, -4.13546, 28.6872)
 use_collision = true
 collision_layer = 3
@@ -327,7 +337,7 @@ collision_mask = 3
 size = Vector3(0.462278, 0.271118, 2.03367)
 material = SubResource("StandardMaterial3D_go42g")
 
-[node name="CSGBox3D23" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D23" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, -17.6565, -5.73707, 68.8148)
 use_collision = true
 collision_layer = 3
@@ -335,7 +345,7 @@ collision_mask = 3
 size = Vector3(0.710143, 0.433899, 1.9923)
 material = SubResource("StandardMaterial3D_sreuk")
 
-[node name="CSGBox3D29" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D29" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, 6.905, -5.73707, 93.2131)
 use_collision = true
 collision_layer = 3
@@ -343,70 +353,70 @@ collision_mask = 3
 size = Vector3(3.20647, 0.433899, 0.535293)
 material = SubResource("StandardMaterial3D_tq6uv")
 
-[node name="CSGBox3D7" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D7" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, -3.48823, 2.7211, -14.6766)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
 size = Vector3(2.31775, 0.0769653, 0.784516)
 
-[node name="CSGBox3D8" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D8" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, -16.3839, 7.94239, 73.1799)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
 size = Vector3(0.462278, 0.0896606, 2.5106)
 
-[node name="CSGBox3D25" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D25" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, -21.8254, 2.59619, 24.3538)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
 size = Vector3(0.462278, 0.0896606, 2.51919)
 
-[node name="CSGBox3D19" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D19" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, 28.8071, 3.41573, 28.7288)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
 size = Vector3(0.462278, 0.0896606, 2.07454)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(-4.37114e-08, -0.636563, -0.771225, 0, 0.771225, -0.636563, 1, -2.78251e-08, -3.37113e-08, 15.5056, 2.56945, 18.7542)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
 size = Vector3(1, 1, 11.5811)
 
-[node name="CSGBox3D5" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D5" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(1, 0, 0, 0, 0.771225, -0.636563, 0, 0.636563, 0.771225, 4.23656, -4.78855, 10.1227)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
 size = Vector3(29.942, 3.52979, 6.15527)
 
-[node name="CSGBox3D26" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D26" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(1, 0, 0, 0, 0.771225, -0.636563, 0, 0.636563, 0.771225, 9.5223, -8.6079, 55.8891)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
 size = Vector3(40.5135, 3.52979, 6.15527)
 
-[node name="CSGBox3D27" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D27" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(-4.37114e-08, -0.636563, -0.771225, 0, 0.771225, -0.636563, 1, -2.78251e-08, -3.37113e-08, 28.1538, -8.6079, 70.8839)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
 size = Vector3(34.8234, 3.52979, 6.15527)
 
-[node name="CSGBox3D6" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D6" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(-4.37114e-08, 0.636563, 0.771225, 0, 0.771225, -0.636563, -1, -2.78251e-08, -3.37113e-08, -9.90986, -5.40914, 17.0054)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
 size = Vector3(19.1378, 5.13916, 6.15527)
 
-[node name="CSGBox3D13" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D13" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(-19.6781, 0, -1.72031e-06, 0, 19.6781, 0, 1.72031e-06, 0, -19.6781, 18.8827, -4.23155, 43.5316)
 use_collision = true
 collision_layer = 3
@@ -414,7 +424,7 @@ collision_mask = 3
 size = Vector3(0.94226, 0.280884, 0.586045)
 material = SubResource("StandardMaterial3D_go42g")
 
-[node name="CSGBox3D14" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D14" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(-19.6781, 0, -1.72031e-06, 0, 19.6781, 0, 1.72031e-06, 0, -19.6781, 23.6052, -4.13546, 23.1681)
 use_collision = true
 collision_layer = 3
@@ -422,7 +432,7 @@ collision_mask = 3
 size = Vector3(0.462278, 0.271118, 1.50317)
 material = SubResource("StandardMaterial3D_go42g")
 
-[node name="CSGBox3D28" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D28" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(-19.6781, 0, -1.72031e-06, 0, 19.6781, 0, 1.72031e-06, 0, -19.6781, 33.9682, -7.97324, 68.4779)
 use_collision = true
 collision_layer = 3
@@ -430,14 +440,14 @@ collision_mask = 3
 size = Vector3(0.462278, 0.271118, 2.01633)
 material = SubResource("StandardMaterial3D_go42g")
 
-[node name="CSGBox3D15" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D15" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(-1, -5.56501e-08, -6.74226e-08, 0, 0.771225, -0.636563, 8.74228e-08, -0.636563, -0.771225, 14.3656, -4.78855, 36.5129)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
 size = Vector3(9.51272, 3.52979, 6.15527)
 
-[node name="CSGBox3D16" type="CSGBox3D" parent="Map"]
+[node name="CSGBox3D16" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(1.31134e-07, -0.636563, -0.771225, 1.77636e-15, 0.771225, -0.636563, 1, 8.34752e-08, 1.01134e-07, 18.2974, -5.40914, 23.329)
 use_collision = true
 collision_layer = 3
@@ -481,5 +491,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6278, -1.42278, -2.08841)
 
 [connection signal="body_shape_entered" from="CastObject" to="CastObject" method="_on_body_shape_entered"]
 [connection signal="body_shape_entered" from="Map/_EnviromentalHassards/EHWall" to="Map/_EnviromentalHassards/EHWall" method="_on_body_shape_entered"]
+[connection signal="body_shape_entered" from="Map/_EnviromentalHassards/enviromentalHazzard" to="Map/_EnviromentalHassards/enviromentalHazzard" method="_on_body_shape_entered"]
 
 [editable path="Player"]

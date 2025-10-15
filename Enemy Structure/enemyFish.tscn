@@ -1,19 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://ditlc7wnqhku0"]
+[gd_scene load_steps=4 format=3 uid="uid://ditlc7wnqhku0"]
 
 [ext_resource type="Script" uid="uid://c3wwupjndh0my" path="res://Enemy Structure/_GenericFish.gd" id="1_bw7a5"]
+[ext_resource type="Script" uid="uid://b0hfrbkh8jgu0" path="res://_Fishing System/_GenericHealthHandler.gd" id="2_c7628"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_mncer"]
 radius = 1.30868
 
-[node name="Fish" type="RigidBody3D"]
+[node name="Fish" type="RigidBody3D" node_paths=PackedStringArray("healthHandler")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 collision_layer = 3
 collision_mask = 3
 contact_monitor = true
 angular_damp = 10.0
 script = ExtResource("1_bw7a5")
+healthHandler = NodePath("HealthHandler")
 metadata/_custom_type_script = "uid://c3wwupjndh0my"
 metadata/_edit_group_ = true
+
+[node name="HealthHandler" type="Node" parent="."]
+script = ExtResource("2_c7628")
+is_enemy = true
+ResistTypes = Array[String](["WATER", "WIND", "POSION"])
+metadata/_custom_type_script = "uid://b0hfrbkh8jgu0"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_mncer")

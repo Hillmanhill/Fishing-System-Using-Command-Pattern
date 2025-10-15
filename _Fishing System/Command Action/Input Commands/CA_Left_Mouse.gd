@@ -19,9 +19,11 @@ func execute(Target: String, Player: PlayerController, castPullController: input
 				castPullController.CastObject.freeze = true
 				castPullController.ropeVisualizer.destroy_rope()
 			else:
+				if castPullController.TargetLockOn.currentTarget != null:
+					castPullController.player_mesh.look_at(castPullController.TargetLockOn.currentTarget.global_position)
 				castPullController.CastObject.freeze = false
 				#castPullController.CastObject.global_rotation = castPullController.player_mesh.global_rotation
-				var direction = castPullController.player_mesh.transform.basis.z
+				var direction = -castPullController.player_mesh.transform.basis.z
 				direction.y += .25
 				castPullController.CastObject.linear_velocity = direction * 15
 				castPullController.isCast = true
