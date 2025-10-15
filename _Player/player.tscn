@@ -664,7 +664,6 @@ castPullController = NodePath("Cast Reel Input Controller & Handler")
 
 [node name="HealthHandler" type="Node" parent="."]
 script = ExtResource("2_p6xc4")
-health = 100
 is_player = true
 ResistTypes = Array[String](["WIND", "ELECTRIC"])
 metadata/_custom_type_script = "uid://b0hfrbkh8jgu0"

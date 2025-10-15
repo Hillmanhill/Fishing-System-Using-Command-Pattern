@@ -103,33 +103,41 @@ func _input(event: InputEvent) -> void:
 									"PlayerForward":
 										var Forward = PlayerForwardAction.new("PlayerForwardAction", "$Player")
 										commandHandler.add_command(Forward, "$Player")
+										break
 									"PlayerBackward":
 										var Backward = PlayerBackwardAction.new("PlayerBackwardAction", "$Player")
 										commandHandler.add_command(Backward, "$Player")
+										break
 									"PlayerLeft":
 										var Left = PlayerLeftAction.new("PlayerLeftAction", "$Player")
 										commandHandler.add_command(Left, "$Player")
+										break
 									"PlayerRight":
 										var Right = PlayerRightAction.new("PlayerRightAction", "$Player")
 										commandHandler.add_command(Right, "$Player")
+										break
 									_:
-										pass
+										break
 						else: 
 								match action:
 									"PlayerForward":
 										var Forward = AIRPlayerForwardAction.new("AIRPlayerForwardAction", "$Player")
 										commandHandler.add_command(Forward, "$Player")
+										break
 									"PlayerBackward":
 										var Backward = AIRPlayerBackwardAction.new("AIRPlayerBackwardAction", "$Player")
 										commandHandler.add_command(Backward, "$Player")
+										break
 									"PlayerLeft":
 										var Left = AIRPlayerLeftAction.new("AIRPlayerLeftAction", "$Player")
 										commandHandler.add_command(Left, "$Player")
+										break
 									"PlayerRight":
 										var Right = AIRPlayerRightAction.new("AIRPlayerRightAction", "$Player")
 										commandHandler.add_command(Right, "$Player")
+										break
 									_:
-										pass
+										break
 		
 		if Input.is_action_just_pressed("PlayerJump") and Player.is_on_floor():
 			animation_state.execute_animation_state(animation_state.animStates.jump,Vector2(0,0))
@@ -182,33 +190,41 @@ func _input(event: InputEvent) -> void:
 									"PlayerForward":
 										var Forward = COMBAT_PlayerForwardAction.new("COMBAT_PlayerForwardAction", "$Player")
 										commandHandler.add_command(Forward, "$Player")
+										break
 									"PlayerBackward":
 										var Backward = COMBAT_PlayerBackwardAction.new("COMBAT_PlayerBackwardAction", "$Player")
 										commandHandler.add_command(Backward, "$Player")
+										break
 									"PlayerLeft":
 										var Left = COMBAT_PlayerLeftAction.new("COMBAT_PlayerLeftAction", "$Player")
 										commandHandler.add_command(Left, "$Player")
+										break
 									"PlayerRight":
 										var Right = COMBAT_PlayerRightAction.new("COMBAT_PlayerRightAction", "$Player")
 										commandHandler.add_command(Right, "$Player")
+										break
 									_:
-										pass
+										break
 						else: 
 								match action:
 									"PlayerForward":
 										var Forward = COMBAT_AIRPlayerForwardAction.new("COMBAT_AIRPlayerForwardAction", "$Player")
 										commandHandler.add_command(Forward, "$Player")
+										break
 									"PlayerBackward":
 										var Backward = COMBAT_AIRPlayerBackwardAction.new("COMBAT_AIRPlayerBackwardAction", "$Player")
 										commandHandler.add_command(Backward, "$Player")
+										break
 									"PlayerLeft":
 										var Left = COMBAT_AIRPlayerLeftAction.new("COMBAT_AIRPlayerLeftAction", "$Player")
 										commandHandler.add_command(Left, "$Player")
+										break
 									"PlayerRight":
 										var Right = COMBAT_AIRPlayerRightAction.new("COMBAT_AIRPlayerRightAction", "$Player")
 										commandHandler.add_command(Right, "$Player")
+										break
 									_:
-										pass
+										break
 		
 		if Input.is_action_just_pressed("PlayerJump") and Player.is_on_floor():
 			animation_state.execute_animation_state(animation_state.animStates.jump,Vector2(0,0))

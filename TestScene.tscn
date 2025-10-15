@@ -1,10 +1,9 @@
-[gd_scene load_steps=24 format=3 uid="uid://btjsp0rgdfor6"]
+[gd_scene load_steps=23 format=3 uid="uid://btjsp0rgdfor6"]
 
 [ext_resource type="PackedScene" uid="uid://bpgjkra8k7buf" path="res://_Player/player.tscn" id="1_mncer"]
 [ext_resource type="Script" uid="uid://5n5io3d7goai" path="res://_Fishing System/Line And Bobber/bobber.gd" id="1_wicfy"]
 [ext_resource type="PackedScene" uid="uid://ditlc7wnqhku0" path="res://Enemy Structure/enemyFish.tscn" id="3_sreuk"]
 [ext_resource type="PackedScene" uid="uid://bxyckbaly0dfy" path="res://_Fishing System/Line And Bobber/Bobber.blend" id="3_tq6uv"]
-[ext_resource type="PackedScene" uid="uid://byqjje8y85jg5" path="res://Enemy Structure/FishEnemyTest.blend" id="4_go42g"]
 [ext_resource type="Script" uid="uid://ifpb4i8flggh" path="res://Enviromental Hazzards/EH_Wall.gd" id="4_tq6uv"]
 [ext_resource type="Script" uid="uid://4n6oyuos2u1w" path="res://Enviromental Hazzards/_EH_Generic.gd" id="5_12c36"]
 
@@ -207,7 +206,7 @@ collision_layer = 3
 collision_mask = 3
 script = ExtResource("4_tq6uv")
 meshInstance = NodePath("MeshInstance3D")
-meshCollisionShape = NodePath("CollisionShape3D")
+meshCollisionShape = NodePath("StaticBody3D/CollisionShape3D")
 metadata/_custom_type_script = "uid://ifpb4i8flggh"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/_EnviromentalHassards/EHWall"]
@@ -485,9 +484,6 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 31.285
 
 [node name="Fish9" parent="Enemy Container" instance=ExtResource("3_sreuk")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.20346, 1.69523, 91.5691)
-
-[node name="FishEnemyTest" parent="Enemy Container" instance=ExtResource("4_go42g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6278, -1.42278, -2.08841)
 
 [connection signal="body_shape_entered" from="CastObject" to="CastObject" method="_on_body_shape_entered"]
 [connection signal="body_shape_entered" from="Map/_EnviromentalHassards/EHWall" to="Map/_EnviromentalHassards/EHWall" method="_on_body_shape_entered"]
