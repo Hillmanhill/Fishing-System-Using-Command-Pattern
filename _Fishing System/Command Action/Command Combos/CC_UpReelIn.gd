@@ -17,4 +17,4 @@ func execute(Target: String, Player: Node3D, castPullController: inputHandlerCon
 		castPullController.animation_state.execute_animation_state(castPullController.animation_state.animStates.castForwrd, Vector2(1,0))
 		var direction = (castPullController.hookedFish.global_position - Player.global_position).cross(Vector3.RIGHT).normalized() * -10
 		castPullController.hookedFish.linear_velocity = direction
-		print("!!!! Forward UP reel combo 01 !!!! @: ")
+		print("!!!! Forward UP reel combo 01 !!!!")

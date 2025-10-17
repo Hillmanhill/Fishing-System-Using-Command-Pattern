@@ -27,18 +27,24 @@ func transition_to(state_name: String, blendValue: Vector2):
 		animationTree.set("parameters/conditions/"+ cond, cond == state_name)
 	var activeState = allStates.get(state_name)
 	#print("active state: ", activeState)
-	
 	if activeState != null:
 		animationTree.set("parameters/" + activeState + "/blend_position", blendValue)
 		#print("NANME: ",animationTree.get("parameters/playback").get_current_node() ," blende pos: ", animationTree.get("parameters/" + activeState + "/blend_position"))
 	else:
-		print("Invalid state:", state_name)
+		print("Invalid Blend State: ", state_name)
 
 func execute_animation_state(animStateinput: animStates, blendValue: Vector2):
 	match animStateinput:
 		animStates.idle:
 			#print("Player IDLE" if playerInputHandler.inCombat == false else "COMBAT Player IDLE")
 			transition_to("isMoving", blendValue)
+		animStates.sprint:
+			transition_to("isMoving",blendValue)
+		animStates.walk:
+			transition_to("isMoving",blendValue)
+		animStates.jump:
+			transition_to("isJump",blendValue)
+		
 		animStates.cast:
 			transition_to("isCast", blendValue)
 		animStates.castLeft:
@@ -54,12 +60,5 @@ func execute_animation_state(animStateinput: animStates, blendValue: Vector2):
 			transition_to("isAttack", blendValue)
 		animStates.heavyAttack:
 			transition_to("isAttack", blendValue)
-		
-		animStates.sprint:
-			transition_to("isMoving",blendValue)
-		animStates.walk:
-			transition_to("isMoving",blendValue)
-		animStates.jump:
-			transition_to("isJump",blendValue)
 		_:
 			transition_to("isMoving",blendValue)

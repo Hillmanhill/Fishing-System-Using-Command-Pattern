@@ -31,7 +31,7 @@ func execute(_Target: String, _Player: Node3D, castPullController: inputHandlerC
 				#CASTOBJECT.apply_central_impulse(force * 30)
 				castPullController.ropeVisualizer.reel_in(.01)
 				castPullController.animation_state.execute_animation_state(castPullController.animation_state.animStates.castForwrd, Vector2(0,1))
-				print("fish reeled ")
+				#print("fish reeled ")
 			else:
 				var direction = (CASTORIGIN - CASTPOS).normalized()
 				var reelSpeed = 15
