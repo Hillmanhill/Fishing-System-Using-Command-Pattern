@@ -1,11 +1,11 @@
-[gd_scene load_steps=84 format=3 uid="uid://bpgjkra8k7buf"]
+[gd_scene load_steps=85 format=3 uid="uid://bpgjkra8k7buf"]
 
 [ext_resource type="Script" uid="uid://bncuc2imx11h1" path="res://_Player/_PlayerMovement.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://bbj1o80v4hhn2" path="res://_Fishing System/Line And Bobber/_FishingLine.gd" id="2_3i7y5"]
 [ext_resource type="Script" uid="uid://tpmiordqrnuc" path="res://_Player/_PlayerTargetLockOn.gd" id="2_jr7ij"]
 [ext_resource type="Script" uid="uid://b0hfrbkh8jgu0" path="res://_Fishing System/_GenericHealthHandler.gd" id="2_p6xc4"]
 [ext_resource type="Script" uid="uid://ddewqodfuca1e" path="res://_Player/_FishingCastAndPullInputController.gd" id="2_t8t7b"]
-[ext_resource type="Script" uid="uid://bldkomf1fir2v" path="res://_Fishing System/Command Action/Input Commands/CA_Left_Mouse.gd" id="3_lf471"]
+[ext_resource type="Script" uid="uid://bldkomf1fir2v" path="res://_Fishing System/Command Action/Input Commands/CA_CastBobber_Left_Mouse.gd" id="3_lf471"]
 [ext_resource type="Script" uid="uid://6qero8umtmg2" path="res://_Fishing System/Command Action/Input Commands/CA_Right_Mouse.gd" id="4_3i7y5"]
 [ext_resource type="Script" uid="uid://c3kae4gnl4pun" path="res://_Fishing System/Command Action/_CommandHandler.gd" id="5_lf471"]
 [ext_resource type="Script" uid="uid://c4wwxoonhk7er" path="res://_Fishing System/Command Action/Command Combos/CC_RightReelIn.gd" id="7_v07bw"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://cnxh5my7s14jw" path="res://_Fishing System/Command Action/Input Commands/CA_ReelIn.gd" id="8_rk5uq"]
 [ext_resource type="Script" uid="uid://b3jfvgeh2xctx" path="res://_Fishing System/Command Action/Command Combos/CC_UpReelIn.gd" id="9_5xi80"]
 [ext_resource type="Script" uid="uid://dxg5sgx5y7s8t" path="res://_Player/_PlayerAnimController.gd" id="11_dcv2n"]
+[ext_resource type="Script" uid="uid://ccxigdsijduws" path="res://_Fishing System/Command Action/Command Combos/CC_DownReelIn.gd" id="14_4p3ea"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_5xi80"]
 size = Vector3(0, 0, 0)
@@ -803,7 +804,10 @@ nextComboBranch = null
 [node name="UpReelCombo" type="Node" parent="Cast Reel Input Controller & Handler/Command Combos" node_paths=PackedStringArray("commandHandler")]
 script = ExtResource("9_5xi80")
 commandHandler = NodePath("../../Command Handler")
-nextComboBranch = null
+
+[node name="DownReelCombo" type="Node" parent="Cast Reel Input Controller & Handler/Command Combos" node_paths=PackedStringArray("commandHandler")]
+script = ExtResource("14_4p3ea")
+commandHandler = NodePath("../../Command Handler")
 
 [node name="temp ececute handler" type="Timer" parent="."]
 wait_time = 0.1

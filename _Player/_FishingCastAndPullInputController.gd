@@ -164,7 +164,7 @@ func _input(event: InputEvent) -> void:
 			if !inAir:
 				match event.button_index:
 					MOUSE_BUTTON_LEFT:
-						var LeftMouse = LeftMouseCastAction.new("LeftMouseCastAction", "$CurrentTarget")
+						var LeftMouse = LeftMouseAttackAction.new("LeftMouseAttackAction", "$CurrentTarget")
 						commandHandler.add_command(LeftMouse, "$CurrentTarget")
 						animation_state.execute_animation_state(animation_state.animStates.lightAttack, Vector2(0,-1))
 					MOUSE_BUTTON_RIGHT:
@@ -174,7 +174,7 @@ func _input(event: InputEvent) -> void:
 			else:
 				match event.button_index:
 					MOUSE_BUTTON_LEFT:
-						var LeftMouse = LeftMouseCastAction.new("LeftMouseCastAction", "$CurrentTarget")
+						var LeftMouse = LeftMouseAttackAction.new("LeftMouseAttackAction", "$CurrentTarget")
 						commandHandler.add_command(LeftMouse, "$CurrentTarget")
 						animation_state.execute_animation_state(animation_state.animStates.lightAttack, Vector2(0,-1))
 					MOUSE_BUTTON_RIGHT:
