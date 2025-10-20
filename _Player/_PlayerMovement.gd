@@ -24,11 +24,12 @@ var newAnimState
 var animInputVector: Vector2
 
 @onready var animation_player: AnimationPlayer = $animationStateController/AnimationPlayer
+var isAttacking: bool = false
 
 func _ready() -> void:
 	RELETIVESPEED = SPEED
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
+	#animation_player.play("COMBAT_PlayerSword/AIR_lightAttack")
 func _input(event: InputEvent):
 	if event is InputEventMouseMotion:
 		camera_mount_orbit.rotate_y(deg_to_rad(-event.relative.x * sense_Horizontal))
@@ -47,14 +48,14 @@ func _input(event: InputEvent):
 	
 func _physics_process(delta: float):
 	if is_on_floor():
-		if velocity.length() > 0.1:
+		if velocity.length() > 0.1 and isAttacking == false:
 			if isSprinting:
 				newAnimState = animation_state.animStates.sprint
 				animInputVector = Vector2(1,0)
 			elif !isSprinting: 
 				newAnimState = animation_state.animStates.walk
 				animInputVector = Vector2(-1,0)
-		if velocity.length() < 0.1: 
+		if velocity.length() < 0.1 and isAttacking == false: 
 			newAnimState = animation_state.animStates.idle
 			animInputVector = Vector2(0,0)
 	else:
@@ -92,3 +93,10 @@ func PlayerMover() -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, RELETIVESPEED)
 		velocity.z = move_toward(velocity.z, 0, RELETIVESPEED)
+
+func _delay_switch_timer(seconds: float, initalBool: bool) -> bool:
+	await get_tree().create_timer(seconds).timeout
+	if initalBool == false:
+		return true
+	else: 
+		return false

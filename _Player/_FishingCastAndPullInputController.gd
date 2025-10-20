@@ -166,21 +166,21 @@ func _input(event: InputEvent) -> void:
 					MOUSE_BUTTON_LEFT:
 						var LeftMouse = LeftMouseAttackAction.new("LeftMouseAttackAction", "$CurrentTarget")
 						commandHandler.add_command(LeftMouse, "$CurrentTarget")
-						animation_state.execute_animation_state(animation_state.animStates.lightAttack, Vector2(0,-1))
+						animation_state.execute_animation_state(animation_state.animStates.lightAttack, Vector2(-1,0))
 					MOUSE_BUTTON_RIGHT:
 						var RightMouse = RightMouseReelAction.new("RightMouseReelAction", "$CurrentTarget")
 						commandHandler.add_command(RightMouse, "$CurrentTarget")
-						animation_state.execute_animation_state(animation_state.animStates.heavyAttack,Vector2(0,1))
+						animation_state.execute_animation_state(animation_state.animStates.heavyAttack,Vector2(1,0))
 			else:
 				match event.button_index:
 					MOUSE_BUTTON_LEFT:
 						var LeftMouse = LeftMouseAttackAction.new("LeftMouseAttackAction", "$CurrentTarget")
 						commandHandler.add_command(LeftMouse, "$CurrentTarget")
-						animation_state.execute_animation_state(animation_state.animStates.lightAttack, Vector2(0,-1))
+						animation_state.execute_animation_state(animation_state.animStates.lightAttack, Vector2(-1,0))
 					MOUSE_BUTTON_RIGHT:
 						var RightMouse = RightMouseReelAction.new("RightMouseReelAction", "$CurrentTarget")
 						commandHandler.add_command(RightMouse, "$CurrentTarget")
-						animation_state.execute_animation_state(animation_state.animStates.heavyAttack, Vector2(0, 1))
+						animation_state.execute_animation_state(animation_state.animStates.heavyAttack,Vector2(1,0))
 		
 		elif event.is_pressed():
 				for action in ["PlayerForward", "PlayerBackward", "PlayerLeft", "PlayerRight"]:

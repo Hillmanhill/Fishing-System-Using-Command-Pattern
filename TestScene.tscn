@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://btjsp0rgdfor6"]
+[gd_scene load_steps=28 format=3 uid="uid://btjsp0rgdfor6"]
 
 [ext_resource type="PackedScene" uid="uid://bpgjkra8k7buf" path="res://_Player/player.tscn" id="1_mncer"]
 [ext_resource type="Script" uid="uid://5n5io3d7goai" path="res://_Fishing System/Line And Bobber/bobber.gd" id="1_wicfy"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bxyckbaly0dfy" path="res://_Fishing System/Line And Bobber/Bobber.blend" id="3_tq6uv"]
 [ext_resource type="Script" uid="uid://ifpb4i8flggh" path="res://Enviromental Hazzards/EH_Wall.gd" id="4_tq6uv"]
 [ext_resource type="Script" uid="uid://4n6oyuos2u1w" path="res://Enviromental Hazzards/_EH_Generic.gd" id="5_12c36"]
+[ext_resource type="Script" uid="uid://c5kyrdayctvp2" path="res://_TEST_platform.gd" id="6_12c36"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_go42g"]
 radius = 0.447502
@@ -144,10 +145,54 @@ albedo_color = Color(0.281187, 0.281187, 0.281187, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tq6uv"]
 albedo_color = Color(0.281187, 0.281187, 0.281187, 1)
 
+[sub_resource type="Animation" id="Animation_tq6uv"]
+resource_name = "MoveLeftRight"
+length = 7.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 6, 7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.654007, -0.422607, 5.49601), Vector3(0.654007, -0.422607, 5.49601), Vector3(0.654007, -0.422607, 85.5881), Vector3(0.654007, -0.422607, 85.5881)]
+}
+
+[sub_resource type="Animation" id="Animation_b3dy1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.654007, -0.422607, 5.49601)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rxm5d"]
+_data = {
+&"MoveLeftRight": SubResource("Animation_tq6uv"),
+&"RESET": SubResource("Animation_b3dy1")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5uqhi"]
+size = Vector3(0.715, 1.33168, 1)
+
 [node name="World" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("1_mncer")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.20772, 4.29222, 4.5242)
+
+[node name="AnimationTree" parent="Player/animationStateController" index="1"]
+parameters/COMBAT_PlayerSword_AIR_Attacks/blend_position = Vector2(0, 0)
 
 [node name="TargetLockOn" parent="Player" index="2" node_paths=PackedStringArray("enemyContainer")]
 enemyContainer = NodePath("../../Enemy Container")
@@ -453,6 +498,25 @@ collision_layer = 3
 collision_mask = 3
 size = Vector3(29.815, 5.13916, 6.15527)
 
+[node name="Platform" type="CSGBox3D" parent="Map"]
+transform = Transform3D(8.99529, 0, 0, 0, 1, 0, 0, 0, 5.06973, 0.654007, -0.422607, 5.49601)
+use_collision = true
+collision_layer = 3
+collision_mask = 3
+size = Vector3(0.743652, 0.154785, 1)
+script = ExtResource("6_12c36")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Map/Platform"]
+libraries = {
+&"": SubResource("AnimationLibrary_rxm5d")
+}
+
+[node name="Area3D" type="Area3D" parent="Map/Platform"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Platform/Area3D"]
+transform = Transform3D(1.11387, 0, 0, 0, 1.53892, 0, 0, 0, 1.11387, 0, 0.944017, 0)
+shape = SubResource("BoxShape3D_5uqhi")
+
 [node name="Enemy Container" type="Node" parent="."]
 
 [node name="Fish" parent="Enemy Container" instance=ExtResource("3_sreuk")]
@@ -488,5 +552,9 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.2034
 [connection signal="body_shape_entered" from="CastObject" to="CastObject" method="_on_body_shape_entered"]
 [connection signal="body_shape_entered" from="Map/_EnviromentalHassards/EHWall" to="Map/_EnviromentalHassards/EHWall" method="_on_body_shape_entered"]
 [connection signal="body_shape_entered" from="Map/_EnviromentalHassards/enviromentalHazzard" to="Map/_EnviromentalHassards/enviromentalHazzard" method="_on_body_shape_entered"]
+[connection signal="body_entered" from="Map/Platform/Area3D" to="Map/Platform" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Map/Platform/Area3D" to="Map/Platform" method="_on_area_3d_body_exited"]
+[connection signal="body_shape_entered" from="Map/Platform/Area3D" to="Map/Platform" method="_on_area_3d_body_shape_entered"]
+[connection signal="body_shape_exited" from="Map/Platform/Area3D" to="Map/Platform" method="_on_area_3d_body_shape_exited"]
 
 [editable path="Player"]

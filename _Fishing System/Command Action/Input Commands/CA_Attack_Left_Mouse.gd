@@ -14,6 +14,8 @@ func _init(cmd: String, target: String) -> void:
 func execute(Target: String, Player: PlayerController, castPullController: inputHandlerController)-> void:
 	if !castPullController.ropeVisualizer.currentlyCasting:
 		if castPullController.inCombat:
-			print("Left Mouse Attack")
+			castPullController.Player.isAttacking = true
+			print("Light Attack Grounded")
 			#castPullController.Player.velocity.y = 20
-			castPullController.animation_state.execute_animation_state(castPullController.animation_state.animStates.lightAttack, Vector2(0,-1))
+			castPullController.animation_state.execute_animation_state(castPullController.animation_state.animStates.lightAttack, Vector2(-1,0))
+			castPullController.Player.isAttacking = await castPullController.Player._delay_switch_timer(.6, true) 

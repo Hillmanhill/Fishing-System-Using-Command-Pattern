@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://bpgjkra8k7buf"]
+[gd_scene load_steps=91 format=3 uid="uid://bpgjkra8k7buf"]
 
 [ext_resource type="Script" uid="uid://bncuc2imx11h1" path="res://_Player/_PlayerMovement.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://bbj1o80v4hhn2" path="res://_Fishing System/Line And Bobber/_FishingLine.gd" id="2_3i7y5"]
@@ -14,9 +14,6 @@
 [ext_resource type="Script" uid="uid://b3jfvgeh2xctx" path="res://_Fishing System/Command Action/Command Combos/CC_UpReelIn.gd" id="9_5xi80"]
 [ext_resource type="Script" uid="uid://dxg5sgx5y7s8t" path="res://_Player/_PlayerAnimController.gd" id="11_dcv2n"]
 [ext_resource type="Script" uid="uid://ccxigdsijduws" path="res://_Fishing System/Command Action/Command Combos/CC_DownReelIn.gd" id="14_4p3ea"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_5xi80"]
-size = Vector3(0, 0, 0)
 
 [sub_resource type="Animation" id="Animation_5xi80"]
 length = 0.001
@@ -59,50 +56,38 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("MovementCollider/Player Mesh/MeshInstance3D:mesh")
+tracks/3/path = NodePath("MovementCollider/Player Mesh/MeshInstance3D:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [SubResource("BoxMesh_5xi80")]
+"update": 0,
+"values": [Vector3(-0.983038, 0.960681, 0)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("MovementCollider/Player Mesh/MeshInstance3D:mesh:size")
+tracks/4/path = NodePath("MovementCollider/Player Mesh/ReelToolPOS:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(0, -0.0917516, 0.568988)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("MovementCollider/Player Mesh/MeshInstance3D:position")
+tracks/5/path = NodePath("MovementCollider/Player Mesh/MeshInstance3D:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-0.983038, 0.960681, 0)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("MovementCollider/Player Mesh/ReelToolPOS:position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, -0.0917516, 0.568988)]
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jr7ij"]
@@ -113,52 +98,99 @@ _data = {
 [sub_resource type="Animation" id="Animation_mdxx1"]
 
 [sub_resource type="Animation" id="Animation_dapxt"]
-
-[sub_resource type="Animation" id="Animation_u0mky"]
-
-[sub_resource type="Animation" id="Animation_p6xc4"]
-resource_name = "AIR_heavyAttack"
-
-[sub_resource type="BoxMesh" id="BoxMesh_jr7ij"]
-size = Vector3(0, 0, 0)
-
-[sub_resource type="Animation" id="Animation_4p3ea"]
-length = 0.4
+length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("MovementCollider/Player Mesh/MeshInstance3D:mesh")
+tracks/0/path = NodePath("MovementCollider/Player Mesh/MeshInstance3D:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.01, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [SubResource("BoxMesh_jr7ij")]
+"values": [false, true, false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("MovementCollider/Player Mesh/MeshInstance3D:mesh:size")
+tracks/1/path = NodePath("MovementCollider/Player Mesh/MeshInstance3D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.0101641, 0.0666667, 0.10529, 0.162209, 0.221838),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(0.335, 0.405, 0.275)]
+"values": [Vector3(-1.13389, -0.590882, 0.0830185), Vector3(-0.786447, 0.00427192, 1.42601), Vector3(0.0401169, 0.456589, 1.55806), Vector3(0.992728, 0.953144, 1.01479), Vector3(1.33229, 1.47335, -0.0410832)]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("MovementCollider/Player Mesh/MeshInstance3D:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.1, 0.199912, 0.3, 0.4),
+
+[sub_resource type="Animation" id="Animation_u0mky"]
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MovementCollider/Player Mesh/MeshInstance3D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.01, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MovementCollider/Player Mesh/MeshInstance3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.01, 0.0501427, 0.100963, 0.151783),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(-0.983038, 0.960681, 0), Vector3(-0.604528, 0.548738, 0.840561), Vector3(0.128946, 0.0116866, 1.07031), Vector3(1.15054, -0.649422, 0.279863)]
+"values": [Vector3(-2.08965e-08, 1.81503, 0.198028), Vector3(-8.10482e-08, 1.51108, 1.12511), Vector3(-1.21136e-07, 0.193788, 1.82895), Vector3(-9.16044e-08, -0.695117, 1.51319)]
+}
+
+[sub_resource type="Animation" id="Animation_p6xc4"]
+resource_name = "AIR_heavyAttack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MovementCollider/Player Mesh/MeshInstance3D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.01),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_4p3ea"]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MovementCollider/Player Mesh/MeshInstance3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.233333, 0.333333, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.983038, 0.960681, 0), Vector3(-0.604528, 0.548738, 0.840561), Vector3(0.128946, 0.0116866, 1.07031), Vector3(1.15054, -0.649422, 0.279863), Vector3(1.15054, -0.649422, 0.279863)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MovementCollider/Player Mesh/MeshInstance3D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
 }
 
 [sub_resource type="Animation" id="Animation_wkedm"]
@@ -166,6 +198,31 @@ tracks/2/keys = {
 [sub_resource type="Animation" id="Animation_hhlvc"]
 
 [sub_resource type="Animation" id="Animation_buxd7"]
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MovementCollider/Player Mesh/MeshInstance3D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MovementCollider/Player Mesh/MeshInstance3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.166013, 0.166667, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1.08879e-08, -0.61112, 1.05046), Vector3(-2.39801e-08, 0.00987655, 1.55735), Vector3(-4.45925e-08, 0.829827, 1.49424), Vector3(2.66258e-08, 0.837947, 0.978483), Vector3(0, 1.69959, 0.978483)]
+}
 
 [sub_resource type="Animation" id="Animation_dcv2n"]
 
@@ -457,6 +514,28 @@ _data = {
 &"Grounded_Walk": SubResource("Animation_8x25t")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rmxa3"]
+animation = &"COMBAT_PlayerSword/AIR_lightAttack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0nvq2"]
+animation = &"COMBAT_PlayerSword/AIR_heavyAttack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wkedm"]
+animation = &"COMBAT_PlayerSword/AIR_UpwardAttack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mdxx1"]
+animation = &"COMBAT_PlayerSword/AIR_downwardAttack"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_4p3ea"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_rmxa3")
+blend_point_0/pos = Vector2(-1, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_0nvq2")
+blend_point_1/pos = Vector2(1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_wkedm")
+blend_point_2/pos = Vector2(0, 1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_mdxx1")
+blend_point_3/pos = Vector2(0, -1)
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dcv2n"]
 animation = &"COMBAT_PlayerSword/Grounded_DownwardAttack"
 
@@ -611,9 +690,21 @@ switch_mode = 1
 advance_mode = 2
 advance_condition = &"isMoving"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kjg7r"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"isAttack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4p3ea"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"isMoving"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_buxd7"]
+states/COMBAT_PlayerSword_AIR_Attacks/node = SubResource("AnimationNodeBlendSpace2D_4p3ea")
+states/COMBAT_PlayerSword_AIR_Attacks/position = Vector2(418.317, -384)
 states/COMBAT_PlayerSword_Grounded_Attacks/node = SubResource("AnimationNodeBlendSpace2D_buxd7")
-states/COMBAT_PlayerSword_Grounded_Attacks/position = Vector2(645.317, -346)
+states/COMBAT_PlayerSword_Grounded_Attacks/position = Vector2(732.317, -339)
 states/FISHING_PlayerRod_Grounded_Cast/node = SubResource("AnimationNodeAnimation_a7vl7")
 states/FISHING_PlayerRod_Grounded_Cast/position = Vector2(71.3165, -171)
 states/FISHING_Player_Grounded_reelSet/node = SubResource("AnimationNodeBlendSpace2D_rmxa3")
@@ -625,8 +716,8 @@ states/General_Player_Grounded_Jump/position = Vector2(379, 114)
 states/General_Player_Walk_Run/node = SubResource("AnimationNodeBlendSpace2D_qsyx4")
 states/General_Player_Walk_Run/position = Vector2(680.317, -95)
 states/Start/position = Vector2(973, -154)
-transitions = ["General_Player_Grounded_Jump", "General_Player_AIR_Falling", SubResource("AnimationNodeStateMachineTransition_qsyx4"), "General_Player_Grounded_Jump", "FISHING_PlayerRod_Grounded_Cast", SubResource("AnimationNodeStateMachineTransition_tf447"), "General_Player_AIR_Falling", "FISHING_PlayerRod_Grounded_Cast", SubResource("AnimationNodeStateMachineTransition_wy1wk"), "FISHING_PlayerRod_Grounded_Cast", "General_Player_Grounded_Jump", SubResource("AnimationNodeStateMachineTransition_bcscf"), "FISHING_PlayerRod_Grounded_Cast", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_lcc44"), "General_Player_AIR_Falling", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_rmxa3"), "COMBAT_PlayerSword_Grounded_Attacks", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_r120c"), "General_Player_Walk_Run", "FISHING_PlayerRod_Grounded_Cast", SubResource("AnimationNodeStateMachineTransition_vpk4e"), "General_Player_Walk_Run", "General_Player_Grounded_Jump", SubResource("AnimationNodeStateMachineTransition_6cbhi"), "Start", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_cvyes"), "FISHING_PlayerRod_Grounded_Cast", "FISHING_Player_Grounded_reelSet", SubResource("AnimationNodeStateMachineTransition_0nvq2"), "General_Player_AIR_Falling", "FISHING_Player_Grounded_reelSet", SubResource("AnimationNodeStateMachineTransition_wkedm"), "General_Player_Walk_Run", "FISHING_Player_Grounded_reelSet", SubResource("AnimationNodeStateMachineTransition_mdxx1"), "COMBAT_PlayerSword_Grounded_Attacks", "FISHING_Player_Grounded_reelSet", SubResource("AnimationNodeStateMachineTransition_o7r8c"), "FISHING_Player_Grounded_reelSet", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_dcv2n")]
-graph_offset = Vector2(-83.683, -300)
+transitions = ["General_Player_Grounded_Jump", "General_Player_AIR_Falling", SubResource("AnimationNodeStateMachineTransition_qsyx4"), "General_Player_Grounded_Jump", "FISHING_PlayerRod_Grounded_Cast", SubResource("AnimationNodeStateMachineTransition_tf447"), "General_Player_AIR_Falling", "FISHING_PlayerRod_Grounded_Cast", SubResource("AnimationNodeStateMachineTransition_wy1wk"), "FISHING_PlayerRod_Grounded_Cast", "General_Player_Grounded_Jump", SubResource("AnimationNodeStateMachineTransition_bcscf"), "FISHING_PlayerRod_Grounded_Cast", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_lcc44"), "General_Player_AIR_Falling", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_rmxa3"), "COMBAT_PlayerSword_Grounded_Attacks", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_r120c"), "General_Player_Walk_Run", "FISHING_PlayerRod_Grounded_Cast", SubResource("AnimationNodeStateMachineTransition_vpk4e"), "General_Player_Walk_Run", "General_Player_Grounded_Jump", SubResource("AnimationNodeStateMachineTransition_6cbhi"), "Start", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_cvyes"), "FISHING_PlayerRod_Grounded_Cast", "FISHING_Player_Grounded_reelSet", SubResource("AnimationNodeStateMachineTransition_0nvq2"), "General_Player_AIR_Falling", "FISHING_Player_Grounded_reelSet", SubResource("AnimationNodeStateMachineTransition_wkedm"), "General_Player_Walk_Run", "FISHING_Player_Grounded_reelSet", SubResource("AnimationNodeStateMachineTransition_mdxx1"), "COMBAT_PlayerSword_Grounded_Attacks", "FISHING_Player_Grounded_reelSet", SubResource("AnimationNodeStateMachineTransition_o7r8c"), "FISHING_Player_Grounded_reelSet", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_dcv2n"), "General_Player_Walk_Run", "COMBAT_PlayerSword_AIR_Attacks", SubResource("AnimationNodeStateMachineTransition_kjg7r"), "COMBAT_PlayerSword_AIR_Attacks", "General_Player_Walk_Run", SubResource("AnimationNodeStateMachineTransition_4p3ea")]
+graph_offset = Vector2(-90.683, -423)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lf471"]
 
@@ -655,6 +746,9 @@ size = Vector3(0.1, 0.1, 0.1)
 
 [sub_resource type="PrismMesh" id="PrismMesh_v07bw"]
 size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jr7ij"]
+size = Vector3(0.3, 0.3, 0.3)
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera_3d", "player_meshes", "castPullController")]
 script = ExtResource("1_4flbx")
@@ -688,9 +782,11 @@ root_node = NodePath("../..")
 tree_root = SubResource("AnimationNodeStateMachine_buxd7")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/IsReelingFish = false
+parameters/conditions/isAttack = false
 parameters/conditions/isCast = false
 parameters/conditions/isJump = false
 parameters/conditions/isMoving = false
+parameters/COMBAT_PlayerSword_AIR_Attacks/blend_position = 2.0
 parameters/COMBAT_PlayerSword_Grounded_Attacks/blend_position = Vector2(0, 0)
 parameters/FISHING_Player_Grounded_reelSet/blend_position = Vector2(0, 0)
 parameters/General_Player_Walk_Run/blend_position = Vector2(0, 0)
@@ -699,6 +795,7 @@ parameters/General_Player_Walk_Run/blend_position = Vector2(0, 0)
 script = ExtResource("2_jr7ij")
 player = NodePath("..")
 playerCamera = NodePath("../CameraMountOrbit/CameraMountPitch/Camera3D")
+maxLockDistance = null
 
 [node name="MovementCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -742,7 +839,8 @@ mesh = SubResource("PrismMesh_v07bw")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MovementCollider/Player Mesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.983038, 0.960681, 0)
-mesh = SubResource("BoxMesh_5xi80")
+visible = false
+mesh = SubResource("BoxMesh_jr7ij")
 
 [node name="CameraMountOrbit" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
@@ -777,6 +875,7 @@ ropeVisualizer = NodePath("../MovementCollider/Player Mesh/ReelToolPOS/Cast Obje
 
 [node name="CA_Left_Mouse" type="Node" parent="Cast Reel Input Controller & Handler/Inputs"]
 script = ExtResource("3_lf471")
+nextComboBranch = null
 
 [node name="CA_Right_Mouse" type="Node" parent="Cast Reel Input Controller & Handler/Inputs"]
 script = ExtResource("4_3i7y5")
@@ -794,12 +893,10 @@ castPullController = NodePath("..")
 [node name="RightReelCombo" type="Node" parent="Cast Reel Input Controller & Handler/Command Combos" node_paths=PackedStringArray("commandHandler")]
 script = ExtResource("7_v07bw")
 commandHandler = NodePath("../../Command Handler")
-nextComboBranch = null
 
 [node name="LeftReelCombo" type="Node" parent="Cast Reel Input Controller & Handler/Command Combos" node_paths=PackedStringArray("commandHandler")]
 script = ExtResource("8_0js2u")
 commandHandler = NodePath("../../Command Handler")
-nextComboBranch = null
 
 [node name="UpReelCombo" type="Node" parent="Cast Reel Input Controller & Handler/Command Combos" node_paths=PackedStringArray("commandHandler")]
 script = ExtResource("9_5xi80")
