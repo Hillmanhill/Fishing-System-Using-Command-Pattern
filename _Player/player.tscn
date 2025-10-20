@@ -875,7 +875,6 @@ ropeVisualizer = NodePath("../MovementCollider/Player Mesh/ReelToolPOS/Cast Obje
 
 [node name="CA_Left_Mouse" type="Node" parent="Cast Reel Input Controller & Handler/Inputs"]
 script = ExtResource("3_lf471")
-nextComboBranch = null
 
 [node name="CA_Right_Mouse" type="Node" parent="Cast Reel Input Controller & Handler/Inputs"]
 script = ExtResource("4_3i7y5")

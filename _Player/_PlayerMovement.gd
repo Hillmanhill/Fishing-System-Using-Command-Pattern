@@ -87,7 +87,11 @@ func PlayerMover() -> void:
 	
 	if move_dir != Vector3.ZERO:
 		move_dir.y = -0.1
-		player_meshes.look_at(global_position + -move_dir, Vector3.UP)
+		var targetRotation = atan2(-move_dir.x, -move_dir.z) 
+		var currentRotation = player_meshes.rotation.y
+		var smoothRotation = lerp_angle(currentRotation, targetRotation, get_process_delta_time() * 10)
+		player_meshes.rotation.y = smoothRotation
+		
 		velocity.x = move_dir.x * RELETIVESPEED
 		velocity.z = move_dir.z * RELETIVESPEED
 	else:
