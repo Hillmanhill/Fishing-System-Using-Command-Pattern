@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://daykp50kriqkf"]
+
+[node name="TerrainChunck01" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0188904, 0)
+size = Vector3(30, 0.112, 30)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.31966, 1.62028, -1.34931)
+size = Vector3(1.00928, 3.38365, 0.824219)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.891285, 0.739971, -0.769916)
+size = Vector3(1.00928, 1.62972, 0.824219)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.02571, 0.0285451, 0.649106)
+size = Vector3(1.00928, 0.206871, 0.824219)

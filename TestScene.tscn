@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://btjsp0rgdfor6"]
+[gd_scene load_steps=37 format=3 uid="uid://btjsp0rgdfor6"]
 
 [ext_resource type="PackedScene" uid="uid://bpgjkra8k7buf" path="res://_Player/player.tscn" id="1_mncer"]
 [ext_resource type="Script" uid="uid://5n5io3d7goai" path="res://_Fishing System/Line And Bobber/bobber.gd" id="1_wicfy"]
@@ -6,7 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://bxyckbaly0dfy" path="res://_Fishing System/Line And Bobber/Bobber.blend" id="3_tq6uv"]
 [ext_resource type="Script" uid="uid://ifpb4i8flggh" path="res://Enviromental Hazzards/EH_Wall.gd" id="4_tq6uv"]
 [ext_resource type="Script" uid="uid://4n6oyuos2u1w" path="res://Enviromental Hazzards/_EH_Generic.gd" id="5_12c36"]
-[ext_resource type="Script" uid="uid://c5kyrdayctvp2" path="res://_TEST_platform.gd" id="6_12c36"]
+[ext_resource type="Script" uid="uid://c5kyrdayctvp2" path="res://Enviromental Hazzards/_TEST_platform.gd" id="6_12c36"]
+[ext_resource type="Script" uid="uid://dpysiinc8o3db" path="res://Terrain/TerrainGenerator.gd" id="7_5uqhi"]
+[ext_resource type="PackedScene" uid="uid://c4smvq2ohrkfe" path="res://Terrain/Terrain Chunks/TerrainChunk_01.tscn" id="8_7tcvf"]
+[ext_resource type="PackedScene" uid="uid://d0emd2hjoodf7" path="res://Terrain/Terrain Chunks/TerrainChunk_02.tscn" id="9_exllb"]
+[ext_resource type="PackedScene" uid="uid://daykp50kriqkf" path="res://Terrain/Terrain Chunks/TerrainChunk_03.tscn" id="10_lc3a7"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_go42g"]
 radius = 0.447502
@@ -125,16 +129,15 @@ fog_light_color = Color(0.217525, 0.239357, 0.273677, 1)
 fog_sky_affect = 0.0
 volumetric_fog_density = 0.005
 
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_go42g"]
-dof_blur_far_enabled = true
-dof_blur_far_distance = 40.0
-dof_blur_far_transition = 70.0
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_12c36"]
 size = Vector3(4.285, 4.975, 0.655)
 
 [sub_resource type="BoxMesh" id="BoxMesh_5uqhi"]
 size = Vector3(4.41, 5, 0.55)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_7tcvf"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_lc3a7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_go42g"]
 albedo_color = Color(0.537131, 0.206065, 0.105952, 1)
@@ -144,6 +147,9 @@ albedo_color = Color(0.281187, 0.281187, 0.281187, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tq6uv"]
 albedo_color = Color(0.281187, 0.281187, 0.281187, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_exllb"]
+albedo_color = Color(0.489101, 0.770464, 0.526026, 1)
 
 [sub_resource type="Animation" id="Animation_tq6uv"]
 resource_name = "MoveLeftRight"
@@ -188,10 +194,21 @@ _data = {
 [sub_resource type="BoxShape3D" id="BoxShape3D_b3dy1"]
 size = Vector3(0.841553, 1, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7tcvf"]
+albedo_color = Color(0.991, 0.178434, 0.131399, 1)
+emission_enabled = true
+emission = Color(0.890783, 0.0607303, 0.0367555, 1)
+emission_energy_multiplier = 20.0
+grow = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_exllb"]
+material = SubResource("StandardMaterial3D_7tcvf")
+size = Vector3(1, 33.87, 1)
+
 [node name="World" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("1_mncer")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.20772, 4.29222, 4.5242)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.20772, 5.29096, -16.0481)
 
 [node name="AnimationTree" parent="Player/animationStateController" index="1"]
 parameters/COMBAT_PlayerSword_AIR_Attacks/blend_position = Vector2(0, 0)
@@ -201,9 +218,6 @@ enemyContainer = NodePath("../../Enemy Container")
 
 [node name="Cast Reel Input Controller & Handler" parent="Player" index="5" node_paths=PackedStringArray("CastObject")]
 CastObject = NodePath("../../CastObject")
-
-[node name="CA_Left_Mouse" parent="Player/Cast Reel Input Controller & Handler/Inputs" index="0"]
-nextComboBranch = {}
 
 [node name="CastObject" type="RigidBody3D" parent="." node_paths=PackedStringArray("castPullController")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0982084, 0.416584, 1.84151)
@@ -240,7 +254,6 @@ libraries = {
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_wicfy")
-camera_attributes = SubResource("CameraAttributesPractical_go42g")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
 transform = Transform3D(1, 0, 0, 0, 0.380732, 0.924686, 0, -0.924686, 0.380732, 0, 0, 0)
@@ -250,12 +263,13 @@ shadow_enabled = true
 
 [node name="_EnviromentalHassards" type="Node" parent="Map"]
 
-[node name="EHWall" type="Area3D" parent="Map/_EnviromentalHassards" node_paths=PackedStringArray("meshInstance", "meshCollisionShape")]
+[node name="EHWall" type="Area3D" parent="Map/_EnviromentalHassards" node_paths=PackedStringArray("currentMeshInstance", "meshInstance", "meshCollisionShape")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.41848, 1.157, -2.96737)
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("4_tq6uv")
-meshInstance = NodePath("MeshInstance3D")
+currentMeshInstance = NodePath("MeshInstance3D")
+meshInstance = [NodePath("MeshInstance3D"), NodePath("../MeshInstance3D"), NodePath("../MeshInstance3D2"), NodePath("../MeshInstance3D3")]
 meshCollisionShape = NodePath("StaticBody3D/CollisionShape3D")
 metadata/_custom_type_script = "uid://ifpb4i8flggh"
 
@@ -274,6 +288,14 @@ shape = SubResource("BoxShape3D_12c36")
 [node name="enviromentalHazzard" type="Area3D" parent="Map/_EnviromentalHassards"]
 script = ExtResource("5_12c36")
 metadata/_custom_type_script = "uid://4n6oyuos2u1w"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/_EnviromentalHassards"]
+mesh = SubResource("CapsuleMesh_7tcvf")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Map/_EnviromentalHassards"]
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Map/_EnviromentalHassards"]
+mesh = SubResource("TorusMesh_lc3a7")
 
 [node name="TERRAIN" type="Node" parent="Map"]
 
@@ -408,6 +430,7 @@ use_collision = true
 collision_layer = 3
 collision_mask = 3
 size = Vector3(2.31775, 0.0769653, 0.784516)
+material = SubResource("StandardMaterial3D_exllb")
 
 [node name="CSGBox3D8" type="CSGBox3D" parent="Map/TERRAIN"]
 transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, -16.3839, 7.94239, 73.1799)
@@ -524,10 +547,21 @@ mesh = SubResource("BoxMesh_12c36")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0169678, 0, 0)
 shape = SubResource("BoxShape3D_b3dy1")
 
+[node name="Node3D" type="Node3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -115.121)
+
+[node name="TerrainGenarator" type="Node3D" parent="Map/Node3D"]
+script = ExtResource("7_5uqhi")
+terrainChunksScene = Array[PackedScene]([ExtResource("8_7tcvf"), ExtResource("9_exllb"), ExtResource("10_lc3a7")])
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.4448, 0)
+mesh = SubResource("BoxMesh_exllb")
+
 [node name="Enemy Container" type="Node" parent="."]
 
 [node name="Fish" parent="Enemy Container" instance=ExtResource("3_sreuk")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 13.1665, 3.04906, 3.09037)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 11.8625, 3.04906, 2.14994)
 
 [node name="Fish2" parent="Enemy Container" instance=ExtResource("3_sreuk")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 16.1429, 6.57056, 18.4559)
