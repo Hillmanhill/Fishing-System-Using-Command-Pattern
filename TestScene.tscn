@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://btjsp0rgdfor6"]
+[gd_scene load_steps=41 format=3 uid="uid://btjsp0rgdfor6"]
 
 [ext_resource type="PackedScene" uid="uid://bpgjkra8k7buf" path="res://_Player/player.tscn" id="1_mncer"]
 [ext_resource type="Script" uid="uid://5n5io3d7goai" path="res://_Fishing System/Line And Bobber/bobber.gd" id="1_wicfy"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://c4smvq2ohrkfe" path="res://Terrain/Terrain Chunks/TerrainChunk_01.tscn" id="8_7tcvf"]
 [ext_resource type="PackedScene" uid="uid://d0emd2hjoodf7" path="res://Terrain/Terrain Chunks/TerrainChunk_02.tscn" id="9_exllb"]
 [ext_resource type="PackedScene" uid="uid://daykp50kriqkf" path="res://Terrain/Terrain Chunks/TerrainChunk_03.tscn" id="10_lc3a7"]
+[ext_resource type="PackedScene" uid="uid://bum6hejoc2p70" path="res://Enemy Structure/enemyFish_TEST.tscn" id="12_exllb"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_go42g"]
 radius = 0.447502
@@ -139,6 +140,21 @@ size = Vector3(4.41, 5, 0.55)
 
 [sub_resource type="TorusMesh" id="TorusMesh_lc3a7"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_7tcvf"]
+size = Vector3(29.4092, 8.50201, 28.9413)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7tcvf"]
+size = Vector3(29.67, 8.475, 28.955)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c8rvf"]
+transparency = 1
+albedo_color = Color(0.288, 0.791, 0.704, 0.076)
+clearcoat_enabled = true
+anisotropy = -0.6
+subsurf_scatter_enabled = true
+subsurf_scatter_strength = 1.0
+refraction_texture_channel = 2
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_go42g"]
 albedo_color = Color(0.537131, 0.206065, 0.105952, 1)
 
@@ -195,7 +211,7 @@ _data = {
 size = Vector3(0.841553, 1, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7tcvf"]
-albedo_color = Color(0.991, 0.178434, 0.131399, 1)
+albedo_color = Color(0.999003, 0.702359, 0.655047, 1)
 emission_enabled = true
 emission = Color(0.890783, 0.0607303, 0.0367555, 1)
 emission_energy_multiplier = 20.0
@@ -264,7 +280,7 @@ shadow_enabled = true
 [node name="_EnviromentalHassards" type="Node" parent="Map"]
 
 [node name="EHWall" type="Area3D" parent="Map/_EnviromentalHassards" node_paths=PackedStringArray("currentMeshInstance", "meshInstance", "meshCollisionShape")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.41848, 1.157, -2.96737)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.41848, 1.157, -6.25523)
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("4_tq6uv")
@@ -297,6 +313,27 @@ mesh = SubResource("CapsuleMesh_7tcvf")
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="Map/_EnviromentalHassards"]
 mesh = SubResource("TorusMesh_lc3a7")
 
+[node name="Area3D" type="Area3D" parent="Map/_EnviromentalHassards"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.13922, -5.72885, 23.3738)
+collision_layer = 3
+collision_mask = 3
+gravity_space_override = 1
+gravity_point_unit_distance = 10.0
+gravity_point_center = Vector3(0, 1, 0)
+gravity_direction = Vector3(0, 1, 0)
+gravity = 10.0
+linear_damp_space_override = 1
+linear_damp = 5.0
+wind_force_magnitude = 0.3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/_EnviromentalHassards/Area3D"]
+shape = SubResource("BoxShape3D_7tcvf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/_EnviromentalHassards/Area3D"]
+cast_shadow = 0
+mesh = SubResource("BoxMesh_7tcvf")
+surface_material_override/0 = SubResource("StandardMaterial3D_c8rvf")
+
 [node name="TERRAIN" type="Node" parent="Map"]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Map/TERRAIN"]
@@ -308,7 +345,7 @@ size = Vector3(1.98608, 0.280884, 0.949648)
 material = SubResource("StandardMaterial3D_go42g")
 
 [node name="CSGBox3D31" type="CSGBox3D" parent="Map/TERRAIN"]
-transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, 9.645, 0.895482, -6.4376)
+transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, 9.645, 0.895482, -9.62387)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
@@ -425,7 +462,7 @@ size = Vector3(3.20647, 0.433899, 0.535293)
 material = SubResource("StandardMaterial3D_tq6uv")
 
 [node name="CSGBox3D7" type="CSGBox3D" parent="Map/TERRAIN"]
-transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, -3.48823, 2.7211, -14.6766)
+transform = Transform3D(19.6781, 0, 0, 0, 19.6781, 0, 0, 0, 19.6781, -3.48823, 2.7211, -16.3174)
 use_collision = true
 collision_layer = 3
 collision_mask = 3
@@ -548,11 +585,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0169678, 0, 0)
 shape = SubResource("BoxShape3D_b3dy1")
 
 [node name="Node3D" type="Node3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -115.121)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -63.2537)
 
 [node name="TerrainGenarator" type="Node3D" parent="Map/Node3D"]
 script = ExtResource("7_5uqhi")
 terrainChunksScene = Array[PackedScene]([ExtResource("8_7tcvf"), ExtResource("9_exllb"), ExtResource("10_lc3a7")])
+spawnDistance = 50.0
+cullDistance = 55.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Map/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.4448, 0)
@@ -573,7 +612,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -21.19
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.60941, 6.21793, -13.407)
 
 [node name="Fish4" parent="Enemy Container" instance=ExtResource("3_sreuk")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3.64591, -1.1066, 37.025)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.117017, -3.66176, 33.2069)
 
 [node name="Fish5" parent="Enemy Container" instance=ExtResource("3_sreuk")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 11.4156, 1.48346, 45.2381)
@@ -589,6 +628,9 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 31.285
 
 [node name="Fish9" parent="Enemy Container" instance=ExtResource("3_sreuk")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.20346, 1.69523, 91.5691)
+
+[node name="Fish" parent="." instance=ExtResource("12_exllb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.0182, 0, 1.60504)
 
 [connection signal="body_shape_entered" from="CastObject" to="CastObject" method="_on_body_shape_entered"]
 [connection signal="body_shape_entered" from="Map/_EnviromentalHassards/EHWall" to="Map/_EnviromentalHassards/EHWall" method="_on_body_shape_entered"]
